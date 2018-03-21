@@ -184,6 +184,7 @@
     <Content Include="Login.aspx" />
     <Content Include="Marking.aspx" />
     <Content Include="Project.aspx" />
+    <Content Include="Result.aspx" />
     <Content Include="Rubric.aspx" />
     <Content Include="UserControl\QuestionControl.ascx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -353,6 +354,13 @@
     </Compile>
     <Compile Include="Models\ProjectDetail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Result.aspx.cs">
+      <DependentUpon>Result.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Result.aspx.designer.cs">
+      <DependentUpon>Result.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Rubric.aspx.cs">
       <DependentUpon>Rubric.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

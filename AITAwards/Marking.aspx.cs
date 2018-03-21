@@ -16,17 +16,12 @@ namespace AITAwards
                 UserProfile userProfile = new UserProfile();
                 JudgeCategory judgeCategory = new JudgeCategory();
 
-                if(AppSession.GetListAnswer() == null)
-                {
-                    AppSession.SetQuestionNo(0);
-                }
-                else
-                {
-                    
-                }
+                //if(AppSession.GetListAnswer() == null)
+                //{
+                //    AppSession.SetQuestionNo(0);
+                //}
 
                 userProfile = AppSession.GetUserProfile();
-                judgeCategory = AppSession.GetJudgeAndCategory();
 
                 //2 = Judge
                 if (userProfile.UserLevel != 2)
@@ -43,8 +38,10 @@ namespace AITAwards
         protected void InitializePage(int projectID)
         {
             ProjectDetail projectDetail = new ProjectDetail();
+
             QuestionControl questionControl = (QuestionControl)LoadControl("UserControl/QuestionControl.ascx");
             questionControl.ID = "questionControl";
+
             IJudgeDatabase judgeDatabase = new JudgeDB();
             projectDetail = judgeDatabase.GetProjectbyProjectID(projectID);
             imgProject.ImageUrl = projectDetail.PathFile;
@@ -55,49 +52,80 @@ namespace AITAwards
 
         }
 
-        protected void btnNext_Click(object sender, EventArgs e)
-        {
-            RadioButton radioButton = new RadioButton();
-            AnswerDetail lstAnswer = new AnswerDetail();
+        //protected void btnNext_Click(object sender, EventArgs e)
+        //{
+        //    RadioButton radioButton = new RadioButton();
+        //    AnswerDetail answerDetail = new AnswerDetail();
 
-            QuestionControl questionControl = (QuestionControl)phControl.FindControl("questionControl");
+        //    QuestionControl questionControl = (QuestionControl)phControl.FindControl("questionControl");
+        //    int s = questionControl.TempQuestionON;
+        //    for (int i = 0; i < questionControl.ListBtnRadioID.Count; i++)
+        //    {
+        //        radioButton = (RadioButton)questionControl.RubricControl.FindControl("btnRadio" + (10 * AppSession.GetQuestionNo() + questionControl.ListBtnRadioID[i]));
+        //        if (radioButton.Checked)
+        //        {
+        //            answerDetail.Answer = questionControl.ListBtnRadioID[i];
+        //            answerDetail.Description = questionControl.TextBoxDescription.Text;
 
-            for (int i = 0; i < questionControl.ListBtnRadioID.Count; i++)
-            {
-                radioButton = (RadioButton)questionControl.RubricControl.FindControl("btnRadio" + questionControl.ListBtnRadioID[i]);
-                if(radioButton.Checked)
-                {
+        //            List<AnswerDetail> lstAnswerDetail = new List<AnswerDetail>();
+        //            lstAnswerDetail = AppSession.GetListAnswer();
 
-                }
-            }
-            
+        //            if (lstAnswerDetail != null)
+        //            {
+        //                for (int j = 0; j < lstAnswerDetail.Count; j++)
+        //                {
+        //                    if (lstAnswerDetail[j].Question == AppSession.GetQuestionNo())
+        //                    {
+        //                        lstAnswerDetail[j].Answer = answerDetail.Answer;
+        //                        lstAnswerDetail[j].Description = answerDetail.Description;
+        //                        AppSession.SetListAnswer(lstAnswerDetail);
+        //                    }
+        //                }
+        //            }
+        //            else
+        //            {
+        //                List<AnswerDetail> lstAnswer = new List<AnswerDetail>();
+        //                lstAnswer.Add(answerDetail);
+        //                AppSession.SetListAnswer(lstAnswer);
+        //            }
+        //        }
+        //    }
 
-            AppSession.SetQuestionNo(AppSession.GetQuestionNo() + 1);
-            RubricDetail rubricDetail = new RubricDetail();
-            rubricDetail = AppSession.GetRubric();
+        //    questionControl.RubricControl.Controls.Clear();
 
-            if(AppSession.GetQuestionNo() > rubricDetail.ListCriteriaDetail.Count)
-            {
-                Response.Redirect("Result.aspx");
-            }
+        //    RubricDetail rubricDetail = new RubricDetail();
+        //    rubricDetail = AppSession.GetRubric();
 
-        }
+        //    if(AppSession.GetQuestionNo() > rubricDetail.ListCriteriaDetail.Count)
+        //    {
+        //        Response.Redirect("Result.aspx");
+        //    }
+        //    else
+        //    {
+        //        AppSession.SetQuestionNo(AppSession.GetQuestionNo() + 1);
+        //        ReloadRubricQuestion();
+        //    }
 
-        protected void btnBack_Click(object sender, EventArgs e)
-        {
-            if (AppSession.GetQuestionNo() == 0)
-            {
-                Response.Redirect("Rubric.aspx");
-            }
-            else
-            {
-                AppSession.SetQuestionNo(AppSession.GetQuestionNo() - 1);
-            }
-        }
+        //}
+
+        //protected void btnBack_Click(object sender, EventArgs e)
+        //{
+        //    if (AppSession.GetQuestionNo() == 0)
+        //    {
+        //        Response.Redirect("Rubric.aspx");
+        //    }
+        //    else
+        //    {
+        //        AppSession.SetQuestionNo(AppSession.GetQuestionNo() - 1);
+        //        ReloadRubricQuestion();
+        //    }
+        //}
 
         protected void ReloadRubricQuestion()
         {
-
+            phControl.Controls.Clear();
+            QuestionControl questionControl = (QuestionControl)LoadControl("UserControl/QuestionControl.ascx");
+            phControl.Controls.Add(questionControl);
         }
 
     }

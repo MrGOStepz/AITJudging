@@ -11,5 +11,19 @@
 
           </tbody>
         </table>
+    
  </div>
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+    <asp:TextBox ID="txtDescription" runat="server" TextMode="MultiLine"></asp:TextBox>
+        </div>
+
+        <div class="justify-content-between"">
+        <asp:Button ID="btnBack" runat="server" Text="Back" CssClass="btn btn-success" OnClick="btnBack_Click"/>
+        <asp:Button ID="btnNext" runat="server" Text="Next" CssClass="btn btn-success" OnClick="btnNext_Click"/>
+        </div>
+    </div>
+
+
 

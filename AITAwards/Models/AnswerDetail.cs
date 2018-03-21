@@ -10,6 +10,14 @@ namespace AITAwards
         private int question;
         private int projectID;
         private int answer;
+        private string description;
+
+        public string Description
+        {
+            get { return description; }
+            set { description = value; }
+        }
+
 
         public int Question
         {
