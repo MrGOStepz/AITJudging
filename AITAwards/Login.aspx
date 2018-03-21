@@ -1,5 +1,13 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="AITAwards.Login" %>
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+  <style type="text/css">
+body { background-image:url("../images/bg-index.jpg");
+       background-size: cover;
+    background-repeat: repeat;
+}
+
+
+</style>
 
     <div class="row">
     <div class="col justify-content-center">

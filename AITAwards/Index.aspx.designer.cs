@@ -11,7 +11,7 @@ namespace AITAwards
 {
 
 
-    public partial class Contact
+    public partial class Index
     {
     }
 }

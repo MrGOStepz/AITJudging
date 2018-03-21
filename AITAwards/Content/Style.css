@@ -1,4 +1,8 @@
 ﻿body {
+    margin-top: -50px;
+}
+
+.body-home {
     background-image: url("../Images/AITINK.jpg");
     /* Full height */
     height: 100%;
@@ -6,4 +10,13 @@
     /*background-position: center;*/
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.login-padding {
+    padding: 2rem 1rem;
+}
+
+.image-width {
+    height:200px;
+    width:200px;
 }
