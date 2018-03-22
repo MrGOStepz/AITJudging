@@ -96,6 +96,7 @@ namespace AITAwards
         private const string TABLE_PROJECT = "project_tb";
         private const string TABLE_CRITERIA = "criteria_tb";
         private const string TABLE_LEVEL_CRITERIA = "level_criteria_tb";
+        private const string TABLE_SCORE = "score_tb";
 
         public int CheckJudgeCanAccessCategory(int categoryID, int userID)
         {
@@ -164,6 +165,42 @@ namespace AITAwards
             catch (Exception ex)
             {
                 log.Error("GetListOfCategoriesByUserIDAndEventID Database", ex);
+                return null;
+            }
+        }
+
+        public List<int> GetListProjectDoneByJudgeIDAndCategoryID(int judgeID, int categoryID)
+        {
+            try
+            {
+                List<int> lstProjectID = new List<int>();
+                StringBuilder stringSQL = new StringBuilder();
+                DatabaseOpen();
+                stringSQL.Append("SELECT DISTINCT SC.project_id FROM ");
+                stringSQL.Append(TABLE_SCORE + " AS SC");
+                stringSQL.Append(" INNER JOIN ");
+                stringSQL.Append(TABLE_CRITERIA + " AS CR");
+                stringSQL.Append(" ON SC.criteria_id = CR.criteria_id");
+                stringSQL.Append(" WHERE SC.user_id = @judgeID AND CR.category_id = @categoryID;");
+
+                MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
+                cmd.Parameters.AddWithValue("@judgeID", judgeID);
+                cmd.Parameters.AddWithValue("@categoryID", categoryID);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    if (!reader.IsDBNull(reader.GetOrdinal("project_id")))
+                        lstProjectID.Add((int)reader["project_id"]);
+                }
+
+                cmd.Dispose();
+                DatabaseClose();
+
+                return lstProjectID;
+            }
+            catch (Exception ex)
+            {
                 return null;
             }
         }
@@ -335,6 +372,39 @@ namespace AITAwards
             {
                 log.Error("GetListOfProjectByCategory Database", ex);
                 return null;
+            }
+        }
+
+        public int InsertProjectScore(List<ScoreModel> lstScoreModel)
+        {
+            try
+            {
+                StringBuilder stringSQL = new StringBuilder();
+
+                DatabaseOpen();
+                for (int i = 0; i < lstScoreModel.Count; i++)
+                {
+                    stringSQL = new StringBuilder();
+                    stringSQL.Append("INSERT INTO ");
+                    stringSQL.Append(TABLE_SCORE);
+                    stringSQL.Append(" (project_id, score, criteria_id, user_id, comment)");
+                    stringSQL.Append(" VALUES (@projectID, @score, @criteriaID, @userID, @comment);");
+
+                    MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
+                    cmd.Parameters.AddWithValue("@projectID", lstScoreModel[i].ProjectID);
+                    cmd.Parameters.AddWithValue("@score", lstScoreModel[i].Score);
+                    cmd.Parameters.AddWithValue("@criteriaID", lstScoreModel[i].CriteriaID);
+                    cmd.Parameters.AddWithValue("@userID", lstScoreModel[i].UserID);
+                    cmd.Parameters.AddWithValue("@comment", lstScoreModel[i].Comment);
+                    cmd.ExecuteNonQuery();
+                }
+
+                DatabaseClose();
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
             }
         }
     }

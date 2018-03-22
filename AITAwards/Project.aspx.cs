@@ -35,11 +35,12 @@ namespace AITAwards
         protected void InitializePage(UserProfile userProfile, JudgeCategory judgeCategory)
         {
             List<ProjectDetail> lstProject = new List<ProjectDetail>();
+            List<int> lstProjecDone = new List<int>();
         
             //TODO Setting EventID
             IJudgeDatabase judgeDatabase = new JudgeDB();
             lstProject = judgeDatabase.GetListOfProjectByCategory(judgeCategory.CategoryID);
-        
+            lstProjecDone = judgeDatabase.GetListProjectDoneByJudgeIDAndCategoryID(userProfile.UserID, judgeCategory.CategoryID);
             contentControl.Controls.Clear();
         
             contentControl.Controls.Add(new LiteralControl("<div class='row'>"));
@@ -50,6 +51,15 @@ namespace AITAwards
                 imageButton = new ImageButton();
                 imageButton.ID = "project" + lstProject[i -1].ProjectID;
                 imageButton.CssClass = "rounded image-width";
+
+                for (int j = 0; j < lstProjecDone.Count; j++)
+                {
+                    if(lstProject[i - 1].ProjectID == lstProjecDone[j])
+                    {
+                        imageButton.Enabled = false;
+                        break;
+                    }
+                }
 
                 //TODO Change Image
                 imageButton.ImageUrl = "Images/Temp/ProjectImage.png";

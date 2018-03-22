@@ -1,9 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="AITAwards.Login" %>
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
   <style type="text/css">
-body { background-image:url("../images/bg-index.jpg");
+body { background-image:url("Images/AITINK.jpg");
        background-size: cover;
     background-repeat: repeat;
+    padding-top:50px;
 }
 
 
@@ -16,7 +17,7 @@ body { background-image:url("../images/bg-index.jpg");
             <div class="modal-body">
                 <div class="row"> 
                     <div class="col-xl-12">
-                        <p style="text-align: center;" class="h4">Create an Account</p>
+                        <p style="text-align: center;" class="h4">Login</p>
                         <div class="jumbotron login-padding">
                             <div class="form-group">
                                 <label for="username" class="control-label">Username</label>

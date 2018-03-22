@@ -52,6 +52,7 @@ namespace AITAwards
 
             if (AppSession.GetQuestionNo() > _rubricDetail.ListCriteriaDetail.Count -1)
             {
+                AppSession.SetQuestionNo(AppSession.GetQuestionNo() - 1);
                 //TODO Clear Session
                 Response.Redirect("Result.aspx");
             }

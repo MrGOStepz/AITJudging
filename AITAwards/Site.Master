@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="AITAwards.SiteMaster" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="~/Site.master.cs" Inherits="AITAwards.SiteMaster" %>
 
 <!DOCTYPE html>
 
@@ -15,10 +15,10 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <nav class="navbar navbar-expand-lg navbar-light bg-color-lightblue">
+        <nav class="navbar navbar-expand-lg navbar-light bg-nav-color">
            <%-- TODO Change Logo Here --%>
             <a class="navbar-brand" href="#">
-                AIT Judging
+                <img src="Images/Logo/Logo.png" width="100" height="40" alt="">
             </a>
 
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

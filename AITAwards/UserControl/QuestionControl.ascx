@@ -16,7 +16,7 @@
 
 <div class="row">
     <div class="col-md-6 offset-md-3">
-    <asp:TextBox ID="txtDescription" runat="server" TextMode="MultiLine"></asp:TextBox>
+    <asp:TextBox ID="txtDescription" runat="server" TextMode="MultiLine" class="form-control"></asp:TextBox>
         </div>
 
         <div class="justify-content-between"">

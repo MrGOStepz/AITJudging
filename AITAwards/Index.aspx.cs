@@ -13,5 +13,10 @@ namespace AITAwards
         {
 
         }
+
+        protected void btnJudging_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Login.asx");
+        }
     }
 }

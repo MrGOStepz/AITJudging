@@ -20,6 +20,9 @@ namespace AITAwards
         List<LevelCriteria> GetListOfLevelCriteriaByCriteriaID(int criteriaID);
         List<CriteriaDetail> GetCriteriaByCategoryID(int categoryID);
 
+        List<int> GetListProjectDoneByJudgeIDAndCategoryID(int judgeID, int categoryID);
+
         int CheckJudgeCanAccessCategory(int categoryID, int userID);
+        int InsertProjectScore(List<ScoreModel> scoreModel);
     }
 }

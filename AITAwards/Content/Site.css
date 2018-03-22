@@ -12,11 +12,11 @@ body {
 }
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
-input,
+/*input,
 select,
 textarea {
     max-width: 280px;
-}
+}*/
 
 
 /* Responsive: Portrait tablets and up */
@@ -28,4 +28,19 @@ textarea {
     .body-content {
         padding: 0;
     }
+}
+
+.bg-nav-color {
+    background: linear-gradient(to right, #ee3481, #dc742a);
+}
+
+.wrapper-button {
+    text-align: center;
+}
+
+.button-center {
+    position: absolute;
+    width:200px;
+    height:100px;
+    top: 70%;
 }

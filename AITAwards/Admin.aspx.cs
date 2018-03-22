@@ -13,5 +13,40 @@ namespace AITAwards
         {
 
         }
+
+        protected void lbtnAddEvent_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void lbtnUpdateEvent_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void lbtnAddCategory_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void lbtnUpdateCategory_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void lbtnAddCriteria_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void lbtnUpdateCriteria_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnLogout_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
