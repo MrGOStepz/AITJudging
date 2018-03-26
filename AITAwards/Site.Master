@@ -18,7 +18,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-nav-color">
            <%-- TODO Change Logo Here --%>
             <a class="navbar-brand" href="#">
-                <img src="Images/Logo/Logo.png" width="100" height="40" alt="">
+                <img src="Images/Logo/Se.png" height="40" width="100" alt="">
             </a>
 
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,6 +37,7 @@
         </nav>
 
         <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
+
     </form>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

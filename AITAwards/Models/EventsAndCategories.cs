@@ -113,6 +113,14 @@ namespace AITAwards
         private int userID;
         private int categoryID;
         private int isMark;
+        private string pathImage;
+
+        public string PathImage
+        {
+            get { return pathImage; }
+            set { pathImage = value; }
+        }
+
 
         public int IsMark
         {

@@ -151,6 +151,8 @@
     <Content Include="Images\logo.png" />
     <Content Include="Images\logo2.png" />
     <Content Include="Images\Logo\Logo.png" />
+    <Content Include="Images\Logo\Logo2.png" />
+    <Content Include="Images\Logo\Se.png" />
     <Content Include="Images\Temp\ProjectImageP.png" />
     <Content Include="UserControl\AddCategoryControl.ascx" />
     <Content Include="UserControl\AddEventControl.ascx" />
@@ -885,6 +887,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Images\Categories\" />
     <Folder Include="Images\Event\" />
     <Folder Include="Images\Projects\" />
   </ItemGroup>

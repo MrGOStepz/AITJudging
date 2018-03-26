@@ -35,6 +35,10 @@ namespace AITAwards
                     AppSession.SetMenuState("lbtnUpdateEvent");
                     LoadMenuControl(AppSession.GetMenuState());
                     break;
+                case "lbtnInviteJudge":
+                    AppSession.SetMenuState("lbtnInviteJudge");
+                    LoadMenuControl(AppSession.GetMenuState());
+                    break;
 
                 default:
                     break;
@@ -56,6 +60,11 @@ namespace AITAwards
                     UpdateEventControl updateEventControl = (UpdateEventControl)LoadControl("UserControl/UpdateEventControl.ascx");
                     updateEventControl.ID = "updateEventControl";
                     phControl.Controls.Add(updateEventControl);
+                    break;
+                case "lbtnInviteJudge":
+                    InviteJudgeControl inviteJudgeControl = (InviteJudgeControl)LoadControl("UserControl/InviteJudgeControl.ascx");
+                    inviteJudgeControl.ID = "updateEventControl";
+                    phControl.Controls.Add(inviteJudgeControl);
                     break;
                 default:
                     break;

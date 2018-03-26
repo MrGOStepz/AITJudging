@@ -672,7 +672,7 @@ namespace AITAwards
                 StringBuilder stringSQL = new StringBuilder();
 
                 DatabaseOpen();
-                stringSQL.Append("SELECT JUDGECAT.judge_cat_id, JUDGECAT.user_id, JUDGECAT.category_id, JUDGECAT.is_mark FROM ");
+                stringSQL.Append("SELECT JUDGECAT.judge_cat_id, JUDGECAT.user_id, JUDGECAT.category_id, JUDGECAT.is_mark, CATEGORY.path_image FROM ");
                 stringSQL.Append(TABLE_JUDGE_CAT + " AS JUDGECAT");
                 stringSQL.Append(" INNER JOIN category_tb AS CATEGORY ON CATEGORY.category_id = JUDGECAT.category_id");
                 stringSQL.Append(" WHERE CATEGORY.event_id = @eventID AND JUDGECAT.user_id = @userID;");
@@ -689,6 +689,7 @@ namespace AITAwards
                     judgeCategory.UserID = (int)reader["user_id"];
                     judgeCategory.CategoryID = (int)reader["category_id"];
                     judgeCategory.IsMark = (int)reader["is_mark"];
+                    judgeCategory.PathImage = reader["path_image"].ToString();
                     lstCategories.Add(judgeCategory);
 
                 }

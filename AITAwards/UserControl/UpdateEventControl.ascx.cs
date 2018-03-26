@@ -41,7 +41,8 @@ namespace AITAwards
 
         private void Image_Click(object sender, ImageClickEventArgs e)
         {
-            
+            ImageButton imageButton = sender as ImageButton;
+
         }
 
     }
