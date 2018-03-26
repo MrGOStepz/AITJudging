@@ -15,6 +15,12 @@ namespace AITAwards
         private int isActive;
         private string pathFile;
 
+        public AITEvent()
+        {
+            startAt = DateTime.Now;
+            endAt = DateTime.Now;
+        }
+
         public string PathFile
         {
             get { return pathFile; }

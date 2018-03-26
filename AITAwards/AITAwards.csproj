@@ -146,7 +146,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\admin.jpg" />
+    <Content Include="Images\done.png" />
+    <Content Include="Images\logo.png" />
+    <Content Include="Images\logo2.png" />
     <Content Include="Images\Logo\Logo.png" />
+    <Content Include="Images\Temp\ProjectImageP.png" />
     <Content Include="UserControl\AddCategoryControl.ascx" />
     <Content Include="UserControl\AddEventControl.ascx" />
     <Content Include="UserControl\AddRubricControl.ascx" />
@@ -879,7 +884,10 @@
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Images\Event\" />
+    <Folder Include="Images\Projects\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />

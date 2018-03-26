@@ -24,7 +24,7 @@ namespace AITAwards
         private int _questionNo;
         private int _radioButtonCheck = -1;
         private string _textBoxDescition = "";
-        
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -40,7 +40,7 @@ namespace AITAwards
 
 
             ListBtnRadioID = new List<int>();
-            
+
             InitializeControl();
         }
 
@@ -50,15 +50,30 @@ namespace AITAwards
             _textBoxDescition = "";
             _questionNo = AppSession.GetQuestionNo();
 
-            if (AppSession.GetQuestionNo() > _rubricDetail.ListCriteriaDetail.Count -1)
-            {
-                AppSession.SetQuestionNo(AppSession.GetQuestionNo() - 1);
-                //TODO Clear Session
-                Response.Redirect("Result.aspx");
-            }
-
             List<AnswerDetail> lstAnswerDetail = new List<AnswerDetail>();
             lstAnswerDetail = AppSession.GetListAnswer();
+
+            if (AppSession.GetQuestionNo() > _rubricDetail.ListCriteriaDetail.Count - 1)
+            {
+                if (lstAnswerDetail == null || lstAnswerDetail.Count < _rubricDetail.ListCriteriaDetail.Count)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Please fill up all answer!')", true);
+                    AppSession.SetQuestionNo(AppSession.GetQuestionNo() - 1);
+                    _questionNo = AppSession.GetQuestionNo();
+                }
+                else
+                {
+                    AppSession.SetQuestionNo(AppSession.GetQuestionNo() - 1);
+                    //TODO Clear Session
+                    Response.Redirect("Result.aspx");
+                }
+
+            }
+
+            if (AppSession.GetQuestionNo() == _rubricDetail.ListCriteriaDetail.Count - 1)
+                btnNext.Text = "Done";
+            else
+                btnNext.Text = "Next";
 
             if (lstAnswerDetail != null)
             {
@@ -131,6 +146,32 @@ namespace AITAwards
 
         protected void btnNext_Click(object sender, EventArgs e)
         {
+            SaveAnswerToSession();
+
+            _questionNo++;
+            AppSession.SetQuestionNo(AppSession.GetQuestionNo() + 1);
+
+            InitializeControl();
+
+        }
+
+        protected void btnBack_Click(object sender, EventArgs e)
+        {
+            if (AppSession.GetQuestionNo() == 0)
+            {
+                Response.Redirect("Rubric.aspx");
+            }
+            else
+            {
+                SaveAnswerToSession();
+                _questionNo--;
+                AppSession.SetQuestionNo(AppSession.GetQuestionNo() - 1);
+                InitializeControl();
+            }
+        }
+
+        protected void SaveAnswerToSession()
+        {
             AnswerDetail answerDetail = new AnswerDetail();
             bool checkNewAnswer = false;
 
@@ -138,9 +179,9 @@ namespace AITAwards
             {
                 RadioButton radioButton = (RadioButton)rubricTB.FindControl("btnRadio" + i);
 
-                if(radioButton != null)
+                if (radioButton != null)
                 {
-                    if(radioButton.Checked == true)
+                    if (radioButton.Checked == true)
                     {
                         answerDetail.Answer = i;
                         answerDetail.Description = txtDescription.Text;
@@ -168,7 +209,7 @@ namespace AITAwards
                                 }
                             }
 
-                            if(checkNewAnswer)
+                            if (checkNewAnswer)
                             {
                                 lstAnswerDetail.Add(answerDetail);
                                 AppSession.SetListAnswer(lstAnswerDetail);
@@ -184,27 +225,8 @@ namespace AITAwards
                 }
             }
 
-            _questionNo++;
-            AppSession.SetQuestionNo(AppSession.GetQuestionNo() + 1);
-            
-
-            InitializeControl();
-
         }
 
-        protected void btnBack_Click(object sender, EventArgs e)
-        {
-            if (AppSession.GetQuestionNo() == 0)
-            {
-                Response.Redirect("Rubric.aspx");
-            }
-            else
-            {
-                _questionNo--;
-                AppSession.SetQuestionNo(AppSession.GetQuestionNo() - 1);
-                InitializeControl();
-            }
-        }
 
     }
 }

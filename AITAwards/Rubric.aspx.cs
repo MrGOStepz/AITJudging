@@ -39,13 +39,28 @@ namespace AITAwards
 
             List<CriteriaDetail> lstCriteriaDetail = new List<CriteriaDetail>();
             List<LevelCriteria> lstLevelCriteria = new List<LevelCriteria>();
-            
-            
-            
+
             IJudgeDatabase judgeDatabase = new JudgeDB();
             projectDetail = judgeDatabase.GetProjectbyProjectID(projectID);
-            imgProject.ImageUrl = projectDetail.PathFile;
-            imgProject.Attributes.Add("style", "width: auto; height: 50vh;");
+            imgProject.ImageUrl = "Images/Temp/" + projectDetail.PathFile;
+            System.Drawing.Image image = System.Drawing.Image.FromFile(Server.MapPath(imgProject.ImageUrl));
+
+            if (image.Height > image.Width)
+            {
+                imgProject.Attributes.Add("style", "width: 50vh; height: auto;");
+                lbSetCol.Text = "<div class='col-md-6 text-center'>";
+                lbCDiv.Text = "";
+                lbCDiv2.Text = "</div>";
+            }
+            else
+            {
+                imgProject.Attributes.Add("style", "width: auto; height: 50vh;");
+                lbSetCol.Text = "</div> <div class='row padding-10'>";
+                lbCDiv.Text = "</div>";
+                lbCDiv2.Text = "";
+            }
+            
+                
 
             lstCriteriaDetail = judgeDatabase.GetCriteriaByCategoryID(projectDetail.CategoryID);
 
@@ -98,5 +113,13 @@ namespace AITAwards
         {
             Response.Redirect("Marking.aspx");
         }
+
+        protected void btnProject_Click(object sender, EventArgs e)
+        {
+            AppSession.SetListAnswer(null);
+            Response.Redirect("Project.aspx");
+        }
+
+
     }
 }

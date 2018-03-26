@@ -4,8 +4,7 @@
 body { 
     background-image:url("Images/AITINK.jpg");
     background-size: cover;
-    background-repeat: repeat;
-    padding-top:50px;
+    background-repeat: no-repeat;
 }
 </style>
     

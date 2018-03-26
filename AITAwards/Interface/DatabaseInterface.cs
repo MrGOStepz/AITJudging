@@ -8,7 +8,23 @@ namespace AITAwards
 {
     interface IAdminDatabase
     {
-        int LoginbyUserAndPassword(string userName, string password);
+        int AddEvent(AITEvent aitEvent);
+        int UpdateEvent(AITEvent aitEvent);
+        AITEvent GetEventDetailByEventID(int eventID);
+        List<AITEvent> GetListEvent();
+
+        int AddCategory(AITCategories aitCategories);
+        int UpdateCategory(AITCategories aitCategories);
+        List<AITCategories> GetListCategoryByEventID(int eventID);
+
+        int AddCriteria(CriteriaDetail criteriaDetail);
+        int AddLevelCriteria(List<LevelCriteria> lstLevelCriteria);
+
+        int UpdateCriteria(CriteriaDetail criteriaDetail);
+        int UpdateLevelCriteria(List<LevelCriteria> lstLevelCriteria);
+
+        List<CriteriaDetail> GetCriteriaDetailByCategoryID(int categoryID);
+        List<LevelCriteria> GetLevelCriteriaByCriteriaDetail(int criteriaID);
     }
 
     interface IJudgeDatabase

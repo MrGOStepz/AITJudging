@@ -7,6 +7,23 @@ namespace AITAwards
 {
     public static class AppSession
     {
+        public static void SetMenuState(string menuState)
+        {
+            HttpContext.Current.Session["MenuState"] = menuState;
+        }
+
+        public static string GetMenuState()
+        {
+            if (HttpContext.Current.Session["MenuState"] == null)
+            {
+                return null;
+            }
+            else
+            {
+                return HttpContext.Current.Session["MenuState"].ToString();
+            }
+        }
+
         public static void SetListAnswer(List<AnswerDetail> lstAnswerDetail)
         {
             HttpContext.Current.Session["ListAnsweDetail"] = lstAnswerDetail;

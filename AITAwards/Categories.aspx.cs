@@ -39,7 +39,7 @@ namespace AITAwards
 
             contentControl.Controls.Clear();
 
-            contentControl.Controls.Add(new LiteralControl("<div class='row'>"));
+            contentControl.Controls.Add(new LiteralControl("<div class='row padding-10'>"));
             ImageButton imageButton;
 
             for (int i = 1; i < lstJudgeCategories.Count + 1; i++)

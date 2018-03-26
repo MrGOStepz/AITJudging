@@ -17,6 +17,8 @@ namespace AITAwards
                 JudgeCategory judgeCategory = new JudgeCategory();
                 List<AnswerDetail> lstAnswer = new List<AnswerDetail>();
                 lstAnswer = AppSession.GetListAnswer();
+                lstAnswer = lstAnswer.OrderBy(o => o.Question).ToList();
+
                 userProfile = AppSession.GetUserProfile();
                 judgeCategory = AppSession.GetJudgeAndCategory();
 

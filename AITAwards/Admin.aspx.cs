@@ -11,42 +11,56 @@ namespace AITAwards
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if(AppSession.GetMenuState() != null)
+            {
+                LoadMenuControl(AppSession.GetMenuState());
+            }
+            else
+            {
+                AppSession.SetMenuState("dashboard");
+                LoadMenuControl(AppSession.GetMenuState());
+            }
         }
 
-        protected void lbtnAddEvent_Click(object sender, EventArgs e)
+        protected void Menu_Click(object sender, EventArgs e)
         {
+            LinkButton linkButton = sender as LinkButton;
+            switch (linkButton.ID)
+            {
+                case "lbtnAddEvent":
+                    AppSession.SetMenuState("lbtnAddEvent");
+                    LoadMenuControl(AppSession.GetMenuState());
+                    break;
+                case "lbtnUpdateEvent":
+                    AppSession.SetMenuState("lbtnUpdateEvent");
+                    LoadMenuControl(AppSession.GetMenuState());
+                    break;
 
+                default:
+                    break;
+            }
         }
 
-        protected void lbtnUpdateEvent_Click(object sender, EventArgs e)
+        private void LoadMenuControl(string controlID)
         {
+            phControl.Controls.Clear();
 
+            switch (controlID)
+            {
+                case "lbtnAddEvent":   
+                    AddEventControl addEventControl = (AddEventControl)LoadControl("UserControl/AddEventControl.ascx");
+                    addEventControl.ID = "addEventControl";
+                    phControl.Controls.Add(addEventControl);
+                    break;
+                case "lbtnUpdateEvent":
+                    UpdateEventControl updateEventControl = (UpdateEventControl)LoadControl("UserControl/UpdateEventControl.ascx");
+                    updateEventControl.ID = "updateEventControl";
+                    phControl.Controls.Add(updateEventControl);
+                    break;
+                default:
+                    break;
+            }
         }
 
-        protected void lbtnAddCategory_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void lbtnUpdateCategory_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void lbtnAddCriteria_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void lbtnUpdateCriteria_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void btnLogout_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

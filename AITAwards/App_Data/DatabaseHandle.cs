@@ -13,8 +13,18 @@ namespace AITAwards
     {
         protected static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private const string VIEW_USER = "user_v";
-        private const string TABLE_USER = "user_tb";
+        protected const string VIEW_USER = "user_v";
+        protected const string TABLE_USER = "user_tb";
+        protected const string TABLE_JUDGE_CAT = "judge_cat_tb";
+        protected const string TABLE_PROJECT = "project_tb";
+        protected const string TABLE_CRITERIA = "criteria_tb";
+        protected const string TABLE_LEVEL_CRITERIA = "level_criteria_tb";
+        protected const string TABLE_SCORE = "score_tb";
+        protected const string TABLE_EVENT = "event_tb";
+        protected const string TABLE_INVITATION = "inviation_tb";
+        protected const string TABLE_CATEGORY = "category_tb";
+
+
         private string DATABASE_CONNECTION = ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
         protected MySqlConnection _conn;
 
@@ -38,7 +48,7 @@ namespace AITAwards
             {
                 UserProfile userProfile = new UserProfile();
                 StringBuilder stringSQL = new StringBuilder();
-                
+
                 DatabaseOpen();
                 stringSQL.Append("SELECT * FROM ");
                 stringSQL.Append(TABLE_USER);
@@ -71,33 +81,481 @@ namespace AITAwards
             }
         }
 
-
-    }
-
-    public class AdminDB : DatabaseHandle, IAdminDatabase
-    {
-        public int LoginbyUserAndPassword(string userName, string password)
+        public int AddNewUser(string userName, string password, string email)
         {
             try
             {
+                StringBuilder stringSQL = new StringBuilder();
+
+                DatabaseOpen();
+                stringSQL = new StringBuilder();
+                stringSQL.Append("INSERT INTO ");
+                stringSQL.Append(TABLE_USER);
+                stringSQL.Append(" (username, password, email)");
+                stringSQL.Append(" VALUES (@username, @password, @email);");
+
+                MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
+                cmd.Parameters.AddWithValue("@username", userName);
+                cmd.Parameters.AddWithValue("@password", password);
+                cmd.Parameters.AddWithValue("@email", email);
+
+                cmd.ExecuteNonQuery();
+
+                DatabaseClose();
                 return 1;
             }
             catch (Exception ex)
             {
-                log.Error("Login Database",ex);
-                return -1;
+                return 0;
+            }
+
+        }
+    }
+
+    public class AdminDB : DatabaseHandle, IAdminDatabase
+    {
+
+        public int AddCriteria(CriteriaDetail criteriaDetail)
+        {
+            try
+            {
+                StringBuilder stringSQL = new StringBuilder();
+
+                DatabaseOpen();
+
+                stringSQL = new StringBuilder();
+                stringSQL.Append("INSERT INTO ");
+                stringSQL.Append(TABLE_CRITERIA);
+                stringSQL.Append(" (name, category_id)");
+                stringSQL.Append(" VALUES (@name, @categoryID);");
+
+                MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
+                cmd.Parameters.AddWithValue("@name", criteriaDetail.Name);
+                cmd.Parameters.AddWithValue("@categoryID", criteriaDetail.CategoryID);
+                cmd.ExecuteNonQuery();
+
+                DatabaseClose();
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
+        public int AddEvent(AITEvent aitEvent)
+        {
+            try
+            {
+                StringBuilder stringSQL = new StringBuilder();
+                DatabaseOpen();
+
+                stringSQL = new StringBuilder();
+                stringSQL.Append("INSERT INTO ");
+                stringSQL.Append(TABLE_EVENT);
+                stringSQL.Append(" (name, start_at, end_at, address, is_active, path_image)");
+                stringSQL.Append(" VALUES (@name, @startAt, @endAt, @address, @isActive, @path_image);");
+
+                MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
+                cmd.Parameters.AddWithValue("@name", aitEvent.Name);
+                cmd.Parameters.AddWithValue("@startAt", aitEvent.StartAt);
+                cmd.Parameters.AddWithValue("@endAt", aitEvent.EndAt);
+                cmd.Parameters.AddWithValue("@address", aitEvent.Address);
+                cmd.Parameters.AddWithValue("@isActive", aitEvent.IsActive);
+                cmd.Parameters.AddWithValue("@path_image", aitEvent.PathFile);
+                cmd.ExecuteNonQuery();
+
+                DatabaseClose();
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
+        public int AddCategory(AITCategories aitCategories)
+        {
+            try
+            {
+                StringBuilder stringSQL = new StringBuilder();
+                DatabaseOpen();
+
+                stringSQL = new StringBuilder();
+                stringSQL.Append("INSERT INTO ");
+                stringSQL.Append(TABLE_CATEGORY);
+                stringSQL.Append(" (name, event_id, path_image)");
+                stringSQL.Append(" VALUES (@name, @eventID, @pathImage);");
+
+                MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
+                cmd.Parameters.AddWithValue("@name", aitCategories.Name);
+                cmd.Parameters.AddWithValue("@eventID", aitCategories.EventID);
+                cmd.Parameters.AddWithValue("@pathImage", aitCategories.PathFile);
+
+                cmd.ExecuteNonQuery();
+
+                DatabaseClose();
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
+        public int AddLevelCriteria(List<LevelCriteria> lstLevelCriteria)
+        {
+            try
+            {
+                StringBuilder stringSQL = new StringBuilder();
+                DatabaseOpen();
+
+                for (int i = 0; i < lstLevelCriteria.Count; i++)
+                {
+                    stringSQL = new StringBuilder();
+                    stringSQL.Append("INSERT INTO ");
+                    stringSQL.Append(TABLE_LEVEL_CRITERIA);
+                    stringSQL.Append(" (criteria_id, description, value)");
+                    stringSQL.Append(" VALUES (@criteriaID, @description, @value);");
+
+                    MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
+                    cmd.Parameters.AddWithValue("@criteriaID", lstLevelCriteria[i].CriteriaID);
+                    cmd.Parameters.AddWithValue("@description", lstLevelCriteria[i].Description);
+                    cmd.Parameters.AddWithValue("@value", lstLevelCriteria[i].ValueScore);
+
+                    cmd.ExecuteNonQuery();
+                }
+
+                DatabaseClose();
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
+        public List<CriteriaDetail> GetCriteriaDetailByCategoryID(int categoryID)
+        {
+            try
+            {
+                StringBuilder stringSQL = new StringBuilder();
+                List<CriteriaDetail> lstCriteriaDetail = new List<CriteriaDetail>();
+                CriteriaDetail criteriaDetail = new CriteriaDetail();
+
+                DatabaseOpen();
+                stringSQL.Append("SELECT * FROM ");
+                stringSQL.Append(TABLE_CRITERIA);
+                stringSQL.Append(" WHERE category_id = @categoryID;");
+
+                MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
+                cmd.Parameters.AddWithValue("@categoryID", categoryID);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    criteriaDetail = new CriteriaDetail();
+                    criteriaDetail.CategoryID = (int)reader["category_id"];
+                    criteriaDetail.Name = reader["name"].ToString();
+                    criteriaDetail.CriteriaID = (int)reader["ceiteria_id"];
+                    lstCriteriaDetail.Add(criteriaDetail);
+
+                }
+                cmd.Dispose();
+                DatabaseClose();
+
+                return lstCriteriaDetail;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public AITEvent GetEventDetailByEventID(int eventID)
+        {
+            try
+            {
+                StringBuilder stringSQL = new StringBuilder();
+                AITEvent aitEvent = new AITEvent();
+
+                DatabaseOpen();
+                stringSQL.Append("SELECT * FROM ");
+                stringSQL.Append(TABLE_EVENT);
+                stringSQL.Append(" WHERE event_id = @event_id;");
+
+                MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
+                cmd.Parameters.AddWithValue("@event_id", eventID);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    aitEvent.EventID = (int)reader["event_id"];
+                    aitEvent.Name = reader["name"].ToString();
+                    aitEvent.StartAt = (DateTime)reader["start_at"];
+                    aitEvent.EndAt = (DateTime)reader["end_at"];
+                    aitEvent.Address = reader["address"].ToString();
+                    aitEvent.IsActive = (int)reader["is_active"];
+                    aitEvent.PathFile = reader["path_image"].ToString();
+                }
+                cmd.Dispose();
+                DatabaseClose();
+
+                return aitEvent;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public List<LevelCriteria> GetLevelCriteriaByCriteriaDetail(int criteriaID)
+        {
+            try
+            {
+                StringBuilder stringSQL = new StringBuilder();
+                List<LevelCriteria> lstLevelCriteria = new List<LevelCriteria>();
+                LevelCriteria levelCriteria;
+
+                DatabaseOpen();
+                stringSQL.Append("SELECT * FROM ");
+                stringSQL.Append(TABLE_LEVEL_CRITERIA);
+                stringSQL.Append(" WHERE criteria_id = @criteriaID;");
+
+                MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
+                cmd.Parameters.AddWithValue("@criteriaID", criteriaID);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    levelCriteria = new LevelCriteria();
+
+                    levelCriteria.LevelCriteriaID = (int)reader["level_criteria_id"];
+                    levelCriteria.CriteriaID = (int)reader["criteria_id"];
+                    levelCriteria.Description = reader["description"].ToString();
+                    levelCriteria.ValueScore = (float)reader["value"];
+
+                    lstLevelCriteria.Add(levelCriteria);
+                }
+                cmd.Dispose();
+                DatabaseClose();
+
+                return lstLevelCriteria;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public List<AITCategories> GetListCategoryByEventID(int eventID)
+        {
+            try
+            {
+                StringBuilder stringSQL = new StringBuilder();
+                List<AITCategories> lstaitCateories = new List<AITCategories>();
+                AITCategories aitCategories;
+
+                DatabaseOpen();
+                stringSQL.Append("SELECT * FROM ");
+                stringSQL.Append(TABLE_CATEGORY);
+                stringSQL.Append(" WHERE event_id = @eventID;");
+
+                MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
+                cmd.Parameters.AddWithValue("@eventID", eventID);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    aitCategories = new AITCategories();
+                    aitCategories.CategoryID = (int)reader["category_id"];
+                    aitCategories.Name = reader["name"].ToString();
+                    aitCategories.EventID = (int)reader["event_id"];
+                    aitCategories.PathFile = reader["path_image"].ToString();
+
+                    lstaitCateories.Add(aitCategories);
+
+                }
+                cmd.Dispose();
+                DatabaseClose();
+
+                return lstaitCateories;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public List<AITEvent> GetListEvent()
+        {
+            try
+            {
+                StringBuilder stringSQL = new StringBuilder();
+                List<AITEvent> lstAITEvent = new List<AITEvent>();
+                AITEvent aitEvent = new AITEvent();
+
+                DatabaseOpen();
+                stringSQL.Append("SELECT * FROM ");
+                stringSQL.Append(TABLE_EVENT);
+
+                MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    aitEvent = new AITEvent();
+                    aitEvent.EventID = (int)reader["event_id"];
+                    aitEvent.Name = reader["name"].ToString();
+                    aitEvent.StartAt = (DateTime)reader["start_at"];
+                    aitEvent.EndAt = (DateTime)reader["end_at"];
+                    aitEvent.Address = reader["address"].ToString();
+                    aitEvent.IsActive = (int)reader["is_active"];
+                    aitEvent.PathFile = reader["path_image"].ToString();
+
+                    lstAITEvent.Add(aitEvent);
+
+                }
+                cmd.Dispose();
+                DatabaseClose();
+
+                return lstAITEvent;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public int UpdateEvent(AITEvent aitEvent)
+        {
+            try
+            {
+                StringBuilder stringSQL = new StringBuilder();
+
+                DatabaseOpen();
+                stringSQL.Append("UPDATE ");
+                stringSQL.Append(TABLE_EVENT);
+                stringSQL.Append(" SET name = @name, start_at = @startAt, end_at = @endAt, address = @address, is_active = @isActive" +
+                    ", path_image = @pathImage");
+                stringSQL.Append("WHERE event_id = @eventID;");
+
+                MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
+                cmd.Parameters.AddWithValue("@name", aitEvent.Name);
+                cmd.Parameters.AddWithValue("@startAt", aitEvent.StartAt);
+                cmd.Parameters.AddWithValue("@endAt", aitEvent.EndAt);
+                cmd.Parameters.AddWithValue("@address", aitEvent.Address);
+                cmd.Parameters.AddWithValue("@isActive", aitEvent.IsActive);
+                cmd.Parameters.AddWithValue("@pathImage", aitEvent.PathFile);
+                cmd.Parameters.AddWithValue("@eventID", aitEvent.EventID);
+                cmd.ExecuteNonQuery();
+
+                DatabaseClose();
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
+        public int UpdateCriteria(CriteriaDetail criteriaDetail)
+        {
+            try
+            {
+                StringBuilder stringSQL = new StringBuilder();
+
+                DatabaseOpen();
+                stringSQL.Append("UPDATE ");
+                stringSQL.Append(TABLE_CRITERIA);
+                stringSQL.Append(" SET name = @name, category_id = @categoryID");
+                stringSQL.Append("WHERE criteria_id = @criteriaID;");
+
+                MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
+                cmd.Parameters.AddWithValue("@criteriaID", criteriaDetail.CriteriaID);
+                cmd.Parameters.AddWithValue("@name", criteriaDetail.Name);
+                cmd.Parameters.AddWithValue("@categoryID", criteriaDetail.CategoryID);
+
+                cmd.ExecuteNonQuery();
+
+                DatabaseClose();
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
+        public int UpdateCategory(AITCategories aitCategories)
+        {
+            try
+            {
+                StringBuilder stringSQL = new StringBuilder();
+
+                DatabaseOpen();
+                stringSQL.Append("UPDATE ");
+                stringSQL.Append(TABLE_CATEGORY);
+                stringSQL.Append(" SET name = @name, event_id = @eventID, path_image = @pathImage");
+                stringSQL.Append("WHERE category_id = @categoryID;");
+
+                MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
+                cmd.Parameters.AddWithValue("@categoryID", aitCategories.CategoryID);
+                cmd.Parameters.AddWithValue("@name", aitCategories.Name);
+                cmd.Parameters.AddWithValue("@path_image", aitCategories.EventID);
+                cmd.Parameters.AddWithValue("@pathImage", aitCategories.PathFile);
+
+                cmd.ExecuteNonQuery();
+                DatabaseClose();
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
+        public int UpdateLevelCriteria(List<LevelCriteria> lstLevelCriteria)
+        {
+            try
+            {
+                StringBuilder stringSQL = new StringBuilder();
+
+                DatabaseOpen();
+                for (int i = 0; i < lstLevelCriteria.Count; i++)
+                {
+                    stringSQL = new StringBuilder();
+                    stringSQL.Append("UPDATE ");
+                    stringSQL.Append(TABLE_LEVEL_CRITERIA);
+                    stringSQL.Append(" SET description = @description, criteria_id = @criteriaID, value = @value");
+                    stringSQL.Append("WHERE level_criteria_id = @levelCriteriaID;");
+
+                    MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
+                    cmd.Parameters.AddWithValue("@description", lstLevelCriteria[i].Description);
+                    cmd.Parameters.AddWithValue("@criteriaID", lstLevelCriteria[i].CriteriaID);
+                    cmd.Parameters.AddWithValue("@value", lstLevelCriteria[i].ValueScore);
+                    cmd.Parameters.AddWithValue("@levelCriteriaID", lstLevelCriteria[i].LevelCriteriaID);
+
+                    cmd.ExecuteNonQuery();
+                }
+
+                DatabaseClose();
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
             }
         }
     }
 
     public class JudgeDB : DatabaseHandle, IJudgeDatabase
     {
-        private const string TABLE_JUDGE_CAT = "judge_cat_tb";
-        private const string TABLE_PROJECT = "project_tb";
-        private const string TABLE_CRITERIA = "criteria_tb";
-        private const string TABLE_LEVEL_CRITERIA = "level_criteria_tb";
-        private const string TABLE_SCORE = "score_tb";
-
         public int CheckJudgeCanAccessCategory(int categoryID, int userID)
         {
             try
@@ -314,7 +772,7 @@ namespace AITAwards
                     //projectDetail.UserID = (int)reader["user_id"];
                     projectDetail.UploadAt = (DateTime)reader["upload_at"];
                     //projectDetail.ScoreID = (int)reader["score_id"];
-                    //projectDetail.PathFile = reader["path_file"].ToString();
+                    projectDetail.PathFile = reader["path_file"].ToString();
                     //projectDetail.TypeFileID = (int)reader["type_file_id"];
                     lstProject.Add(projectDetail);
 
@@ -357,9 +815,8 @@ namespace AITAwards
                     //projectDetail.UserID = (int)reader["user_id"];
                     projectDetail.UploadAt = (DateTime)reader["upload_at"];
                     //projectDetail.ScoreID = (int)reader["score_id"];
-                    //projectDetail.PathFile = reader["path_file"].ToString();
+                    projectDetail.PathFile = reader["path_file"].ToString();
                     //projectDetail.TypeFileID = (int)reader["type_file_id"];
-                    projectDetail.PathFile = "Images/Temp/ProjectImage.png";
 
                 }
 

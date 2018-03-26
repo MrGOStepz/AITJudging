@@ -17,6 +17,29 @@
 }
 
 .image-width {
-    height:200px;
-    width:200px;
+    height: 200px;
+    width: 200px;
+}
+
+.image-wa {
+    height: 200px;
+    width: auto;
+}
+.image-ha {
+    height: auto;
+    width: 200px;
+}
+
+.image-background {
+    background-size: cover;
+    max-height:200px;
+    width:auto;
+}
+
+.padding-10 {
+    padding-top:10px;
+}
+
+.dis-none{
+    display:none;
 }

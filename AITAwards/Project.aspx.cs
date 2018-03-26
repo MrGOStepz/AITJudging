@@ -43,26 +43,41 @@ namespace AITAwards
             lstProjecDone = judgeDatabase.GetListProjectDoneByJudgeIDAndCategoryID(userProfile.UserID, judgeCategory.CategoryID);
             contentControl.Controls.Clear();
         
-            contentControl.Controls.Add(new LiteralControl("<div class='row'>"));
+            contentControl.Controls.Add(new LiteralControl("<div class='row padding-10'>"));
             ImageButton imageButton;
-        
+            
+
             for (int i = 1; i < lstProject.Count + 1; i++)
-            {
+            { 
                 imageButton = new ImageButton();
                 imageButton.ID = "project" + lstProject[i -1].ProjectID;
-                imageButton.CssClass = "rounded image-width";
+                
 
                 for (int j = 0; j < lstProjecDone.Count; j++)
                 {
                     if(lstProject[i - 1].ProjectID == lstProjecDone[j])
                     {
                         imageButton.Enabled = false;
+                        imageButton.BorderColor = System.Drawing.Color.Red;
+                        imageButton.BorderWidth = 5;
                         break;
                     }
                 }
 
                 //TODO Change Image
-                imageButton.ImageUrl = "Images/Temp/ProjectImage.png";
+                imageButton.ImageUrl = "Images/Temp/"+ lstProject[i-1].PathFile;
+
+                System.Drawing.Image image = System.Drawing.Image.FromFile(Server.MapPath(imageButton.ImageUrl));
+
+                if (image.Height > image.Width)
+                {
+                    imageButton.CssClass = "rounded image-wa";
+                }
+                else
+                {
+                    imageButton.CssClass = "rounded image-ha";
+                }
+
                 imageButton.Click += ImageButton_Click;
 
                 contentControl.Controls.Add(new LiteralControl("<div class='col text-center'>"));
