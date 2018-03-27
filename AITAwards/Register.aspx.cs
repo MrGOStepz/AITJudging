@@ -11,7 +11,24 @@ namespace AITAwards
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            alertControl.Visible = false;
+            if (Request.QueryString["key"] != null)
+            {
+                string GUID = Request.QueryString["key"];
+                DatabaseHandle dbHandle = new DatabaseHandle();
+  
+                if(dbHandle.CheckUserKey(GUID) < 0)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Key is incorrect!')", true);
+                    Response.Redirect("Index.aspx");
+                }
 
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Key is incorrect!')", true);
+                Response.Redirect("Index.aspx");
+            }
         }
 
         protected void btnRegister_Click(object sender, EventArgs e)
@@ -19,48 +36,52 @@ namespace AITAwards
 
             if (txtUserName.Text == "")
             {
-                lbAlerts.Visible = true;
-                lbAlerts.Text = "Please fill up username";
+                ShowAlert("Please fill up username", true);
+            }
+            else if (txtEmail.Text == "")
+            {
+                ShowAlert("Please fill up Email", true);
             }
             else if (txtPassword.Text == "")
             {
-                lbAlerts.Visible = true;
-                lbAlerts.Text = "Please fill up password";
+                ShowAlert("Please fill up password", true);
             }
-            else if (txtCMPassword.Text == "")
+            else if (txtConfirmPassword.Text == "")
             {
-                lbAlerts.Visible = true;
-                lbAlerts.Text = "Please fill up Confirm password";
+                ShowAlert("Please fill up Confirm password", true);
             }
-            else if (txtPassword.Text != txtCMPassword.Text)
+            else if (txtPassword.Text != txtConfirmPassword.Text)
             {
-                lbAlerts.Visible = true;
-                lbAlerts.Text = "Password doesn't match";
+                ShowAlert("Password doesn't match", true);
             }
             else
             {
-                //if (wb.RegisterUser(txtUserName.Text, txtPassword.Text, txtEmail.Text) > 0)
-                //{
-
-                //    UserLoginProfile userLoginProfile = new UserLoginProfile();
-                //    int userID = wb.GetUserIDbyUserName(txtUserName.Text);
-                //    userLoginProfile.UserID = userID;
-                //    userLoginProfile.UserName = txtUserName.Text;
-
-                //    txtUserName.Text = "";
-                //    lbAlerts.Visible = false;
-
-                //    Response.Redirect("Catagories.aspx");
-
-                //}
-                //else
-                //{
-                //    lbAlerts.Visible = true;
-                //    lbAlerts.Text = "There is something wrong.";
-                //}
-
+                DatabaseHandle dbHandle = new DatabaseHandle();
+                if (dbHandle.AddNewUser(txtUserName.Text, txtPassword.Text, txtEmail.Text) > 0)
+                    ShowAlert("Register complete!",false);
+                else
+                    ShowAlert("Something wrong!", true);
 
             }
         }
+
+        private void ShowAlert(string text, bool error)
+        {
+            if (error)
+            {
+                lbAlert.Text = text;
+                alertControl.Visible = true;
+                alertControl.Attributes.Remove("class");
+                alertControl.Attributes.Add("class", "alert alert-danger");
+            }
+            else
+            {
+                lbAlert.Text = text;
+                alertControl.Visible = true;
+                alertControl.Attributes.Remove("class");
+                alertControl.Attributes.Add("class", "alert alert-success");
+            }
+        }
+
     }
 }

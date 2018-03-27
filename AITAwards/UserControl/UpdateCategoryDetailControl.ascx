@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="UpdateCategoryControl.ascx.cs" Inherits="AITAwards.UpdateCategoryControl" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="UpdateCategoryDetailControl.ascx.cs" Inherits="AITAwards.UpdateCategoryDetailControl" %>
 
 <div class="breadcrumbs">
             <div class="col-sm-4">
@@ -74,4 +74,3 @@
         </div><!-- .content -->
 <div id="divControl" runat="server">
     </div>
-

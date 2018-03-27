@@ -147,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="UpdateCategory.aspx" />
+    <Content Include="UserControl\UpdateCategoryDetailControl.ascx" />
     <Content Include="UserControl\BreadCrumbControl.ascx" />
     <Content Include="Images\admin.jpg" />
     <Content Include="Images\done.png" />
@@ -731,6 +732,13 @@
     </Compile>
     <Compile Include="UpdateCategory.aspx.designer.cs">
       <DependentUpon>UpdateCategory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\UpdateCategoryDetailControl.ascx.cs">
+      <DependentUpon>UpdateCategoryDetailControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\UpdateCategoryDetailControl.ascx.designer.cs">
+      <DependentUpon>UpdateCategoryDetailControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControl\BreadCrumbControl.ascx.cs">
       <DependentUpon>BreadCrumbControl.ascx</DependentUpon>

@@ -21,7 +21,7 @@ namespace AITAwards
         protected const string TABLE_LEVEL_CRITERIA = "level_criteria_tb";
         protected const string TABLE_SCORE = "score_tb";
         protected const string TABLE_EVENT = "event_tb";
-        protected const string TABLE_INVITATION = "inviation_tb";
+        protected const string TABLE_INVITATION = "invitation_tb";
         protected const string TABLE_CATEGORY = "category_tb";
 
 
@@ -108,8 +108,70 @@ namespace AITAwards
             {
                 return 0;
             }
-
         }
+
+        public int CheckUserKey(string guid)
+        {
+            try
+            {
+                int hasRow = -1;
+                StringBuilder stringSQL = new StringBuilder();
+
+                DatabaseOpen();
+                stringSQL.Append("SELECT guid FROM ");
+                stringSQL.Append(TABLE_INVITATION);
+                stringSQL.Append(" WHERE guid LIKE @guid;");
+
+                MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
+                cmd.Parameters.AddWithValue("@guid", guid);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                    hasRow = 1;
+
+                cmd.Dispose();
+                DatabaseClose();
+
+                return hasRow;
+            }
+            catch (Exception ex)
+            {
+                return -1;
+            }
+        }
+
+        public int AddNewUserKey(string email, string guid)
+        {
+            try
+            {
+                StringBuilder stringSQL = new StringBuilder();
+
+                DatabaseOpen();
+                stringSQL = new StringBuilder();
+                stringSQL.Append("INSERT INTO ");
+                stringSQL.Append(TABLE_INVITATION);
+                stringSQL.Append(" (email, guid, is_gone, expire_at)");
+                stringSQL.Append(" VALUES (@email, @guid, @is_gone, @expire_at);");
+
+                MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
+                cmd.Parameters.AddWithValue("@email", email);
+                cmd.Parameters.AddWithValue("@guid", guid);
+                cmd.Parameters.AddWithValue("@is_gone", 0);
+                cmd.Parameters.AddWithValue("@expire_at", DateTime.Now);
+
+                cmd.ExecuteNonQuery();
+
+                DatabaseClose();
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
+        
+
     }
 
     public class AdminDB : DatabaseHandle, IAdminDatabase
