@@ -146,6 +146,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="UpdateCategory.aspx" />
+    <Content Include="UserControl\BreadCrumbControl.ascx" />
     <Content Include="Images\admin.jpg" />
     <Content Include="Images\done.png" />
     <Content Include="Images\logo.png" />
@@ -154,10 +156,13 @@
     <Content Include="Images\Logo\Logo2.png" />
     <Content Include="Images\Logo\Se.png" />
     <Content Include="Images\Temp\ProjectImageP.png" />
+    <Content Include="UserControl\UpdateEventDetailControl.ascx" />
+    <Content Include="UserControl\ListCategoriesControl.ascx" />
+    <Content Include="UserControl\ListEventControl.ascx" />
     <Content Include="UserControl\AddCategoryControl.ascx" />
     <Content Include="UserControl\AddEventControl.ascx" />
     <Content Include="UserControl\AddRubricControl.ascx" />
-    <Content Include="Admin.aspx" />
+    <Content Include="AdminJudge.aspx" />
     <Content Include="assets\css\animate.css" />
     <Content Include="assets\css\bootstrap-select.css" />
     <Content Include="assets\css\bootstrap.css" />
@@ -626,6 +631,10 @@
     <Content Include="assets\scss\_switches.scss" />
     <Content Include="assets\scss\_widgets.scss" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -706,6 +715,51 @@
     <Content Include="Scripts\popper-utils.js.map" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateCategory.aspx.cs">
+      <DependentUpon>UpdateCategory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UpdateCategory.aspx.designer.cs">
+      <DependentUpon>UpdateCategory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\BreadCrumbControl.ascx.cs">
+      <DependentUpon>BreadCrumbControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\BreadCrumbControl.ascx.designer.cs">
+      <DependentUpon>BreadCrumbControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\UpdateEventDetailControl.ascx.cs">
+      <DependentUpon>UpdateEventDetailControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\UpdateEventDetailControl.ascx.designer.cs">
+      <DependentUpon>UpdateEventDetailControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\ListCategoriesControl.ascx.cs">
+      <DependentUpon>ListCategoriesControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\ListCategoriesControl.ascx.designer.cs">
+      <DependentUpon>ListCategoriesControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\ListEventControl.ascx.cs">
+      <DependentUpon>ListEventControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\ListEventControl.ascx.designer.cs">
+      <DependentUpon>ListEventControl.ascx</DependentUpon>
+    </Compile>
     <Compile Include="UserControl\AddCategoryControl.ascx.cs">
       <DependentUpon>AddCategoryControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -727,12 +781,12 @@
     <Compile Include="UserControl\AddRubricControl.ascx.designer.cs">
       <DependentUpon>AddRubricControl.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Admin.aspx.cs">
-      <DependentUpon>Admin.aspx</DependentUpon>
+    <Compile Include="AdminJudge.aspx.cs">
+      <DependentUpon>AdminJudge.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Admin.aspx.designer.cs">
-      <DependentUpon>Admin.aspx</DependentUpon>
+    <Compile Include="AdminJudge.aspx.designer.cs">
+      <DependentUpon>AdminJudge.aspx</DependentUpon>
     </Compile>
     <Compile Include="UserControl\DashboardControl.ascx.cs">
       <DependentUpon>DashboardControl.ascx</DependentUpon>
@@ -940,6 +994,12 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

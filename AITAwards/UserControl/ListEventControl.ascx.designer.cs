@@ -10,16 +10,7 @@
 namespace AITAwards {
     
     
-    public partial class UpdateEventControl {
-        
-        /// <summary>
-        /// phCreadCrumb control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder phCreadCrumb;
+    public partial class ListEventControl {
         
         /// <summary>
         /// divControl control.

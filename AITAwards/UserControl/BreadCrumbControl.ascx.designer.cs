@@ -10,24 +10,24 @@
 namespace AITAwards {
     
     
-    public partial class UpdateEventControl {
+    public partial class BreadCrumbControl {
         
         /// <summary>
-        /// phCreadCrumb control.
+        /// lbBCTitile control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder phCreadCrumb;
+        protected global::System.Web.UI.WebControls.Label lbBCTitile;
         
         /// <summary>
-        /// divControl control.
+        /// breadcrumbControl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divControl;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl breadcrumbControl;
     }
 }

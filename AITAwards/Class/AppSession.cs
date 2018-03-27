@@ -7,6 +7,91 @@ namespace AITAwards
 {
     public static class AppSession
     {
+        public static void SetDDEvent(int eventID)
+        {
+            HttpContext.Current.Session["DDEvent"] = eventID;
+        }
+
+        public static int GetDDEvent()
+        {
+            if (HttpContext.Current.Session["DDEvent"] == null)
+            {
+                return -1;
+            }
+            else
+            {
+                return (int)HttpContext.Current.Session["DDEvent"];
+            }
+        }
+
+        public static void SetCategoryID(int categoryID)
+        {
+            HttpContext.Current.Session["CategoryID"] = categoryID;
+        }
+
+        public static int GetCategoryID()
+        {
+            if (HttpContext.Current.Session["CategoryID"] == null)
+            {
+                return -1;
+            }
+            else
+            {
+                return (int)HttpContext.Current.Session["CategoryID"];
+            }
+        }
+
+        public static void SetBreadCrumbState(string breadCrumbState)
+        {
+            HttpContext.Current.Session["BreadCrumbState"] = breadCrumbState;
+        }
+
+        public static string GetBreadCrumbState()
+        {
+            if (HttpContext.Current.Session["BreadCrumbState"] == null)
+            {
+                return null;
+            }
+            else
+            {
+                return HttpContext.Current.Session["BreadCrumbState"].ToString();
+            }
+        }
+
+        public static void SetUpdateEventState(string eventState)
+        {
+            HttpContext.Current.Session["UpdateEventState"] = eventState;
+        }
+
+        public static string GetUpdateEventState()
+        {
+            if (HttpContext.Current.Session["UpdateEventState"] == null)
+            {
+                return null;
+            }
+            else
+            {
+                return HttpContext.Current.Session["UpdateEventState"].ToString();
+            }
+        }
+
+        public static void SetUpdateEventID(int eventID)
+        {
+            HttpContext.Current.Session["UpdateEventID"] = eventID;
+        }
+
+        public static int GetUpdateEventID()
+        {
+            if (HttpContext.Current.Session["UpdateEventID"] == null)
+            {
+                return -1;
+            }
+            else
+            {
+                return (int)HttpContext.Current.Session["UpdateEventID"];
+            }
+        }
+
         public static void SetMenuState(string menuState)
         {
             HttpContext.Current.Session["MenuState"] = menuState;

@@ -11,7 +11,31 @@ namespace AITAwards
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            InitializePage();
+
+            if(AppSession.GetUpdateEventState() == "EditEvent")
+            {
+                divControl.Controls.Clear();
+
+                PlaceHolder phControl = new PlaceHolder();
+                UpdateEventDetailControl eventDetailControl = (UpdateEventDetailControl)LoadControl("UpdateEventDetailControl.ascx");
+                eventDetailControl.ID = "eventDetailControl";
+                eventDetailControl.EventID = AppSession.GetUpdateEventID();
+                phControl.Controls.Add(eventDetailControl);
+                divControl.Controls.Add(phControl);
+                return;
+            }
+
+            InitializeBreadCrumb();
+            InitializePage();         
+        }
+
+        private void InitializeBreadCrumb()
+        {
+            phCreadCrumb.Controls.Clear();
+            BreadCrumbControl breadCrumbControl = (BreadCrumbControl)LoadControl("BreadCrumbControl.ascx");
+            breadCrumbControl.ID = "breadCrumbControl";
+            breadCrumbControl.State = AppSession.GetBreadCrumbState();
+            phCreadCrumb.Controls.Add(breadCrumbControl);
         }
 
         private void InitializePage()
@@ -41,7 +65,31 @@ namespace AITAwards
 
         private void Image_Click(object sender, ImageClickEventArgs e)
         {
+            int eventID;
             ImageButton imageButton = sender as ImageButton;
+            try
+            {
+                eventID = int.Parse(imageButton.ID.Substring(3));
+            }
+            catch(Exception)
+            {
+                eventID = -1;
+            }
+            
+
+            divControl.Controls.Clear();
+
+            PlaceHolder phControl = new PlaceHolder();
+            UpdateEventDetailControl eventDetailControl = (UpdateEventDetailControl)LoadControl("UpdateEventDetailControl.ascx");
+            eventDetailControl.ID = "eventDetailControl";
+            eventDetailControl.EventID = eventID;
+            AppSession.SetUpdateEventID(eventID);
+            AppSession.SetUpdateEventState("EditEvent");
+
+            phControl.Controls.Add(eventDetailControl);
+            divControl.Controls.Add(phControl);
+
+            AppSession.SetBreadCrumbState("UpdateEventDetailControl");
 
         }
 

@@ -10,7 +10,7 @@
 namespace AITAwards {
     
     
-    public partial class Admin {
+    public partial class AdminJudge {
         
         /// <summary>
         /// form1 control.

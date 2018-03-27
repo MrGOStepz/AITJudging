@@ -442,7 +442,7 @@ namespace AITAwards
                 stringSQL.Append("UPDATE ");
                 stringSQL.Append(TABLE_EVENT);
                 stringSQL.Append(" SET name = @name, start_at = @startAt, end_at = @endAt, address = @address, is_active = @isActive" +
-                    ", path_image = @pathImage");
+                    ", path_image = @pathImage ");
                 stringSQL.Append("WHERE event_id = @eventID;");
 
                 MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
@@ -502,12 +502,12 @@ namespace AITAwards
                 stringSQL.Append("UPDATE ");
                 stringSQL.Append(TABLE_CATEGORY);
                 stringSQL.Append(" SET name = @name, event_id = @eventID, path_image = @pathImage");
-                stringSQL.Append("WHERE category_id = @categoryID;");
+                stringSQL.Append(" WHERE category_id = @categoryID;");
 
                 MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
                 cmd.Parameters.AddWithValue("@categoryID", aitCategories.CategoryID);
                 cmd.Parameters.AddWithValue("@name", aitCategories.Name);
-                cmd.Parameters.AddWithValue("@path_image", aitCategories.EventID);
+                cmd.Parameters.AddWithValue("@eventID", aitCategories.EventID);
                 cmd.Parameters.AddWithValue("@pathImage", aitCategories.PathFile);
 
                 cmd.ExecuteNonQuery();
@@ -550,6 +550,41 @@ namespace AITAwards
             catch (Exception ex)
             {
                 return 0;
+            }
+        }
+
+        public AITCategories GetCategoryByCategoryID(int categoryID)
+        {
+            try
+            {
+                StringBuilder stringSQL = new StringBuilder();
+                AITCategories aITCategories = new AITCategories();
+
+                DatabaseOpen();
+                stringSQL.Append("SELECT * FROM ");
+                stringSQL.Append(TABLE_CATEGORY);
+                stringSQL.Append(" WHERE category_id = @category_id;");
+
+                MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
+                cmd.Parameters.AddWithValue("@category_id", categoryID);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    aITCategories.EventID = (int)reader["event_id"];
+                    aITCategories.Name = reader["name"].ToString();
+                    aITCategories.CategoryID = (int)reader["category_id"];
+                    aITCategories.PathFile = reader["path_image"].ToString();
+                }
+                cmd.Dispose();
+                DatabaseClose();
+
+                return aITCategories;
+            }
+            catch (Exception ex)
+            {
+                return null;
             }
         }
     }

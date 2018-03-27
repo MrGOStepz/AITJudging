@@ -15,6 +15,7 @@ namespace AITAwards
 
         int AddCategory(AITCategories aitCategories);
         int UpdateCategory(AITCategories aitCategories);
+        AITCategories GetCategoryByCategoryID(int categoryID);
         List<AITCategories> GetListCategoryByEventID(int eventID);
 
         int AddCriteria(CriteriaDetail criteriaDetail);
