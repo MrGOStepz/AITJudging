@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace AITAwards
 {
-    public partial class AdminJudge : System.Web.UI.Page
+    public partial class Admin : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -43,6 +43,8 @@ namespace AITAwards
                     LoadMenuControl(AppSession.GetMenuState());
                     break;
                 case "lbtnUpdateCategory":
+                    AppSession.SetUpdateCategoryState(null);
+                    AppSession.SetUpdateEventID(-1);
                     AppSession.SetMenuState("lbtnUpdateCategory");
                     LoadMenuControl(AppSession.GetMenuState());
                     break;

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using MySql.Data.MySqlClient;
-
+using Newtonsoft.Json;
 
 namespace AITAwards
 {
@@ -81,23 +81,101 @@ namespace AITAwards
             }
         }
 
-        public int AddNewUser(string userName, string password, string email)
+        public string GetListJudge(int categoryID)
+        {
+            try
+            {
+                List<UserProfile> lstUserProfile = new List<UserProfile>();
+                UserProfile userProfile = new UserProfile();
+                StringBuilder stringSQL = new StringBuilder();
+
+                DatabaseOpen();
+                stringSQL.Append("SELECT distinct user_tb.user_ID, user_tb.username, user_tb.email FROM ");
+                stringSQL.Append(TABLE_USER);
+                stringSQL.Append(" LEFT JOIN ");
+                stringSQL.Append(TABLE_JUDGE_CAT);
+                stringSQL.Append(" ON user_tb.user_ID = judge_cat_tb.user_id");
+                stringSQL.Append(" WHERE user_tb.user_level_id = @userLevelID AND user_tb.user_ID NOT IN(SELECT user_id FROM judge_cat_tb WHERE category_id = @categoryID);");
+
+                MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
+                cmd.Parameters.AddWithValue("@userLevelID", 2);
+                cmd.Parameters.AddWithValue("@categoryID", categoryID);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    userProfile = new UserProfile();
+                    userProfile.UserID = (int)reader["user_ID"];
+                    userProfile.UserName = reader["username"].ToString();
+                    userProfile.Email = reader["email"].ToString();
+                    lstUserProfile.Add(userProfile);
+                }
+
+                string json = JsonConvert.SerializeObject(lstUserProfile);
+                cmd.Dispose();
+                DatabaseClose();
+
+                return json;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public List<int> GetListJudgeID(int categoryID)
+        {
+            try
+            {
+                List<int> lstJudgeID = new List<int>();
+                StringBuilder stringSQL = new StringBuilder();
+
+                DatabaseOpen();
+                stringSQL.Append("SELECT user_tb.user_ID FROM ");
+                stringSQL.Append(TABLE_USER);
+                stringSQL.Append(" LEFT JOIN ");
+                stringSQL.Append(TABLE_JUDGE_CAT);
+                stringSQL.Append(" ON user_tb.user_ID = judge_cat_tb.user_id");
+                stringSQL.Append(" WHERE judge_cat_tb.user_id IS NULL AND user_level_id = @userLevelID;");
+
+                MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
+                cmd.Parameters.AddWithValue("@userLevelID", 2);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    lstJudgeID.Add((int)reader["user_ID"]);
+                }
+                cmd.Dispose();
+                DatabaseClose();
+
+                return lstJudgeID;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+
+        public int UpdateNewUser(string userName, string password, string email, int userID)
         {
             try
             {
                 StringBuilder stringSQL = new StringBuilder();
 
                 DatabaseOpen();
-                stringSQL = new StringBuilder();
-                stringSQL.Append("INSERT INTO ");
+                stringSQL.Append("UPDATE ");
                 stringSQL.Append(TABLE_USER);
-                stringSQL.Append(" (username, password, email)");
-                stringSQL.Append(" VALUES (@username, @password, @email);");
+                stringSQL.Append(" SET username = @userName, password = @password, email = @email, is_active = @isActive ");
+                stringSQL.Append("WHERE user_ID = @userID;");
 
                 MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
-                cmd.Parameters.AddWithValue("@username", userName);
+                cmd.Parameters.AddWithValue("@userID", userID);
+                cmd.Parameters.AddWithValue("@userName", userName);
                 cmd.Parameters.AddWithValue("@password", password);
                 cmd.Parameters.AddWithValue("@email", email);
+                cmd.Parameters.AddWithValue("@isActive", 1);
 
                 cmd.ExecuteNonQuery();
 
@@ -110,29 +188,66 @@ namespace AITAwards
             }
         }
 
+        public int AddNewUser(string userName, string password, string email, string guid)
+        {
+            try
+            {
+                StringBuilder stringSQL = new StringBuilder();
+
+                DatabaseOpen();
+                stringSQL = new StringBuilder();
+                stringSQL.Append("INSERT INTO ");
+                stringSQL.Append(TABLE_USER);
+                stringSQL.Append(" (username, password, email,guid)");
+                stringSQL.Append(" VALUES (@username, @password, @email, @guid);");
+
+                MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
+                cmd.Parameters.AddWithValue("@username", userName);
+                cmd.Parameters.AddWithValue("@password", password);
+                cmd.Parameters.AddWithValue("@email", email);
+                cmd.Parameters.AddWithValue("@guid", guid);
+
+                cmd.ExecuteNonQuery();
+
+                DatabaseClose();
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
+
         public int CheckUserKey(string guid)
         {
             try
             {
-                int hasRow = -1;
+                int userID = -1;
+                int isActive = -1;
                 StringBuilder stringSQL = new StringBuilder();
 
                 DatabaseOpen();
-                stringSQL.Append("SELECT guid FROM ");
-                stringSQL.Append(TABLE_INVITATION);
+                stringSQL.Append("SELECT user_ID, is_active FROM ");
+                stringSQL.Append(TABLE_USER);
                 stringSQL.Append(" WHERE guid LIKE @guid;");
 
                 MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
                 cmd.Parameters.AddWithValue("@guid", guid);
 
                 MySqlDataReader reader = cmd.ExecuteReader();
-                if (reader.HasRows)
-                    hasRow = 1;
+                while (reader.Read())
+                {
+                    userID = (int)reader["user_ID"];
+                    isActive = (int)reader["is_active"];
+                }
 
+                if (isActive > 0)
+                    userID = -1;
                 cmd.Dispose();
                 DatabaseClose();
 
-                return hasRow;
+                return userID;
             }
             catch (Exception ex)
             {
@@ -951,6 +1066,37 @@ namespace AITAwards
                     cmd.Parameters.AddWithValue("@criteriaID", lstScoreModel[i].CriteriaID);
                     cmd.Parameters.AddWithValue("@userID", lstScoreModel[i].UserID);
                     cmd.Parameters.AddWithValue("@comment", lstScoreModel[i].Comment);
+                    cmd.ExecuteNonQuery();
+                }
+
+                DatabaseClose();
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
+        public int AddJudgeByCategory(List<JudgeCategory> lstJudgeCat)
+        {
+            try
+            {
+                StringBuilder stringSQL = new StringBuilder();
+
+                DatabaseOpen();
+                for (int i = 0; i < lstJudgeCat.Count; i++)
+                {
+                    stringSQL = new StringBuilder();
+                    stringSQL.Append("INSERT INTO ");
+                    stringSQL.Append(TABLE_JUDGE_CAT);
+                    stringSQL.Append(" (user_id, category_id)");
+                    stringSQL.Append(" VALUES (@userID, @categoryID);");
+
+                    MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
+                    cmd.Parameters.AddWithValue("@userID", lstJudgeCat[i].UserID);
+                    cmd.Parameters.AddWithValue("@categoryID", lstJudgeCat[i].CategoryID);
+
                     cmd.ExecuteNonQuery();
                 }
 

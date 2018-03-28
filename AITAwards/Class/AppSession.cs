@@ -7,20 +7,20 @@ namespace AITAwards
 {
     public static class AppSession
     {
-        public static void SetDDEvent(int eventID)
+        public static void SetUpdateCategoryState(string categoryState)
         {
-            HttpContext.Current.Session["DDEvent"] = eventID;
+            HttpContext.Current.Session["UpdateCategoryState("] = categoryState;
         }
 
-        public static int GetDDEvent()
+        public static string GetUpdateCategoryState()
         {
-            if (HttpContext.Current.Session["DDEvent"] == null)
+            if (HttpContext.Current.Session["UpdateCategoryState("] == null)
             {
-                return -1;
+                return null;
             }
             else
             {
-                return (int)HttpContext.Current.Session["DDEvent"];
+                return HttpContext.Current.Session["UpdateCategoryState("].ToString();
             }
         }
 

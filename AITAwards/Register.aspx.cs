@@ -57,8 +57,18 @@ namespace AITAwards
             else
             {
                 DatabaseHandle dbHandle = new DatabaseHandle();
-                if (dbHandle.AddNewUser(txtUserName.Text, txtPassword.Text, txtEmail.Text) > 0)
-                    ShowAlert("Register complete!",false);
+                int userID = dbHandle.CheckUserKey(Request.QueryString["key"]);
+                if (userID > 0)
+                {
+                    MD5 md5 = new MD5();
+
+                    string password = md5.EncodePassword(txtPassword.Text);
+
+                    if (dbHandle.UpdateNewUser(txtUserName.Text, password, txtEmail.Text, userID) > 0)
+                        ShowAlert("Register complete!", false);
+                    else
+                        ShowAlert("Something wrong!", true);
+                }
                 else
                     ShowAlert("Something wrong!", true);
 

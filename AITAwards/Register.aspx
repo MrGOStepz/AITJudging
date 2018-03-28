@@ -1,22 +1,49 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Register.aspx.cs" Inherits="AITAwards.Register" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+﻿<%@ Page Title="" Language="C#" AutoEventWireup="true" CodeBehind="Register.aspx.cs" Inherits="AITAwards.Register" %>
 
+
+<!doctype html>
+<head runat="server">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Sufee Admin - HTML5 Admin Template</title>
+    <meta name="description" content="Sufee Admin - HTML5 Admin Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="apple-icon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <link rel="stylesheet" href="assets/css/normalize.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/themify-icons.css">
+    <link rel="stylesheet" href="assets/css/flag-icon.min.css">
+    <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
+    <!-- <link rel="stylesheet" href="assets/css/bootstrap-select.less"> -->
+    <link rel="stylesheet" href="assets/scss/style.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
+
+</head>
+<body class="bg-dark">
+
+    <form id="form1" runat="server">
     <div class="sufee-login d-flex align-content-center flex-wrap">
         <div class="container">
             <div class="login-content">
                 <div class="login-logo">
                     <a href="index.html">
-                        <img class="align-content" src="images/logo.png" alt="">
+                        <img class="align-content" src="images/logo/logo2.png" width="200" height="100" alt="">
                     </a>
                 </div>
                 <div class="login-form">
-
-                        <div class="form-group">
+                                           <div class="form-group">
                             <label>User Name</label>
-                            <asp:TextBox ID="txtUserName" runat="server" CssClass="form-control"></asp:TextBox>
+                            <asp:TextBox ID="txtUserName" runat="server" CssClass="form-control" placeholder="Username"></asp:TextBox>
                         </div>
                                             <div class="form-group">
-                            <label>Password</label>
+                            <label>Email</label>
                             <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" placeholder="Email" TextMode="Email"></asp:TextBox>
                         </div>
                         <div class="form-group">
@@ -27,13 +54,21 @@
                             <label>Confirm Password</label>
                             <asp:TextBox ID="txtConfirmPassword" runat="server" CssClass="form-control" placeholder="Confirm Password" TextMode="Password"></asp:TextBox>
                         </div>
-                    <asp:Button ID="btnRegister" runat="server" Text="Register" CssClass="btn btn-primary btn-flat m-b-30 m-t-30" OnClick="btnRegister_Click"/>
+                    <asp:Button ID="btnRegister" runat="server" Text="Register" CssClass="btn btn-secondary btn-flat m-b-30 m-t-30" OnClick="btnRegister_Click"/>
                                 <div class="alert alert-success" role="alert" runat="server" id="alertControl" visible="false">
           <asp:Label ID="lbAlert" runat="server" Text=""></asp:Label>
         </div>
-                 </div>
+                </div>
             </div>
         </div>
     </div>
 
-</asp:Content>
+
+    <script src="assets/js/vendor/jquery-2.1.4.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/plugins.js"></script>
+    <script src="assets/js/main.js"></script>
+
+        </form>
+</body>
+</html>

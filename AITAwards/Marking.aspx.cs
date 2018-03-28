@@ -39,7 +39,7 @@ namespace AITAwards
 
             IJudgeDatabase judgeDatabase = new JudgeDB();
             projectDetail = judgeDatabase.GetProjectbyProjectID(projectID);
-            imgProject.ImageUrl = projectDetail.PathFile;
+            imgProject.ImageUrl = "Images/Projects/" + projectDetail.PathFile;
             imgProject.Attributes.Add("style", "width: auto; height: 50vh;");
 
             phControl.Controls.Clear();

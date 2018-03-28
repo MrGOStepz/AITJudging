@@ -24,21 +24,6 @@
         <div class="content mt-3">
             <div class="animated fadeIn">
 
-                <div class="row">
-
-                  <div class="col-lg-12">
-                      <div class="card">
-  <div class="card-header"><strong>Choose Category</strong></div>
-  <div class="card-body card-block">
-<div class="form-group"><label for="event" class=" form-control-label">Event &nbsp&nbsp</label><asp:DropDownList ID="ddlEvent" runat="server" CssClass="btn btn-secondary dropdown-toggle"  AutoPostBack="True"></asp:DropDownList></div>
-<div class="form-group"><label for="category" class=" form-control-label">Category &nbsp&nbsp</label><asp:DropDownList ID="ddlCategories" runat="server" CssClass="btn btn-secondary dropdown-toggle" AutoPostBack="True"></asp:DropDownList></div>
-
-
-  </div>
-</div>
-                  </div>
-
-                </div>
 
                                 <div class="row">
 
@@ -46,7 +31,11 @@
                       <div class="card">
   <div class="card-header"><strong>Update Category</strong></div>
   <div class="card-body card-block">
-      <div class="form-group"><label for="name" class=" form-control-label">Old Name</label><asp:TextBox ID="txtCategoryOld" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></div>
+    <div class="form-group">
+        <label for="category" class=" form-control-label">Category &nbsp&nbsp</label>
+        <asp:DropDownList ID="ddlCategories" runat="server" CssClass="btn btn-secondary dropdown-toggle"></asp:DropDownList>
+        <asp:Button ID="btnEdit" runat="server" Text="Edit" CssClass="btn btn-primary" OnClick="btnEdit_Click"/>
+    </div>
     <div class="form-group"><label for="name" class=" form-control-label">Name</label><asp:TextBox ID="txtCategory" runat="server" CssClass="form-control" placeholder="Category name"></asp:TextBox></div>
     
    

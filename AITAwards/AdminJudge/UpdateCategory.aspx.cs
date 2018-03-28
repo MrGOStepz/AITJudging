@@ -7,9 +7,8 @@ using System.Web.UI.WebControls;
 
 namespace AITAwards
 {
-    public partial class UpdateCategoryControl : System.Web.UI.UserControl
+    public partial class UpdateCategory : System.Web.UI.Page
     {
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (AppSession.GetUpdateCategoryState() == "EditCategory")
@@ -25,17 +24,33 @@ namespace AITAwards
                 return;
             }
 
-            InitializeBreadCrumb();
             InitializePage();
         }
 
-        private void InitializeBreadCrumb()
+
+        protected void Menu_Click(object sender, EventArgs e)
         {
-            phCreadCrumb.Controls.Clear();
-            BreadCrumbControl breadCrumbControl = (BreadCrumbControl)LoadControl("BreadCrumbControl.ascx");
-            breadCrumbControl.ID = "breadCrumbControl";
-            breadCrumbControl.State = AppSession.GetBreadCrumbState();
-            phCreadCrumb.Controls.Add(breadCrumbControl);
+            LinkButton linkButton = sender as LinkButton;
+            switch (linkButton.ID)
+            {
+                case "lbtnAddEvent":
+                    Response.Redirect("AddEvent.aspx");
+                    break;
+                case "lbtnUpdateEvent":
+                    Response.Redirect("UpdateEvent.aspx");
+                    break;
+                case "lbtnAddCategory":
+                    Response.Redirect("AddCategory.aspx");
+                    break;
+                case "lbtnUpdateCategory":
+                    Response.Redirect("UpdateCategory.aspx");
+                    break;
+                case "lbtnInviteJudge":
+                    Response.Redirect("InvitationJudge.aspx");
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void InitializePage()
@@ -77,21 +92,8 @@ namespace AITAwards
             }
 
 
-            divControl.Controls.Clear();
-
-            PlaceHolder phControl = new PlaceHolder();
-            UpdateCategoryDetailControl categoryDetailControl = (UpdateCategoryDetailControl)LoadControl("UpdateCategoryDetailControl.ascx");
-            categoryDetailControl.ID = "categoryDetailControl";
-            categoryDetailControl.EventID = eventID;
-            AppSession.SetUpdateEventID(eventID);
-            AppSession.SetUpdateCategoryState("EditCategory");
-
-            phControl.Controls.Add(categoryDetailControl);
-            divControl.Controls.Add(phControl);
-
-            AppSession.SetBreadCrumbState("UpdateEventDetailControl");
+            Response.Redirect("UpdateCategoryDetail.aspx?eventID=" + eventID);
 
         }
-
     }
 }
