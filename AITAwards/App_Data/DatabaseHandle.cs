@@ -23,6 +23,7 @@ namespace AITAwards
         protected const string TABLE_EVENT = "event_tb";
         protected const string TABLE_INVITATION = "invitation_tb";
         protected const string TABLE_CATEGORY = "category_tb";
+        protected const string TABLE_SCOREDONE = "scoredone_tb";
 
 
         private string DATABASE_CONNECTION = ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
@@ -1029,6 +1030,7 @@ namespace AITAwards
                     projectDetail.UploadAt = (DateTime)reader["upload_at"];
                     //projectDetail.ScoreID = (int)reader["score_id"];
                     projectDetail.PathFile = reader["path_file"].ToString();
+                    projectDetail.Description = reader["description"].ToString();
                     //projectDetail.TypeFileID = (int)reader["type_file_id"];
 
                 }
@@ -1099,6 +1101,147 @@ namespace AITAwards
 
                     cmd.ExecuteNonQuery();
                 }
+
+                DatabaseClose();
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
+        public float GetTotalScoreByCategoryID(List<int> lstCriteria)
+        {
+            try
+            {
+                float TotalScore = 0.0f;
+                List<int> lstCriteriaID = new List<int>();
+                StringBuilder stringSQL = new StringBuilder();
+
+                DatabaseOpen();
+                for (int i = 0; i < lstCriteria.Count; i++)
+                {
+                    stringSQL = new StringBuilder();
+                    stringSQL.Append("SELECT MAX(value) FROM ");
+                    stringSQL.Append(TABLE_LEVEL_CRITERIA);
+                    stringSQL.AppendFormat(" WHERE criteria_id = {0} ", lstCriteria[i]);
+
+                    MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
+
+                    TotalScore += (float)cmd.ExecuteScalar();
+
+                }
+
+                DatabaseClose();
+
+                return TotalScore;
+            }
+            catch (Exception ex)
+            {
+                return -1;
+            }
+        }
+    
+
+        public double GetTotalScoreByProjectID(int ProjectID)
+        {
+            try
+            {
+                float TotalScore = 0.0f;
+                double tt = 0;
+                StringBuilder stringSQL = new StringBuilder();
+
+                DatabaseOpen();
+                stringSQL.Append("SELECT AVG(score) FROM ");
+                stringSQL.Append(TABLE_SCOREDONE);
+                stringSQL.Append(" WHERE project_id = @ProjectID;");
+
+                MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
+                cmd.Parameters.AddWithValue("@ProjectID", ProjectID);
+
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    if (!reader.IsDBNull(reader.GetOrdinal("AVG(score)")))
+                    {
+                        var t = reader["AVG(score)"];
+                        tt = Convert.ToDouble(t);
+                    }
+                    else
+                        tt = 0;
+
+                }
+
+                cmd.Dispose();
+                DatabaseClose();
+
+                return tt;
+            }
+            catch (Exception ex)
+            {
+                return -1;
+            }
+        }
+
+        public int CountJudgeScore(int projectID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<int> GetCriteriaIDByCategory(int categoryID)
+        {
+            try
+            {
+                List<int> lstCriteriaID = new List<int>();
+                StringBuilder stringSQL = new StringBuilder();
+
+                DatabaseOpen();
+                stringSQL.Append("SELECT criteria_id FROM ");
+                stringSQL.Append(TABLE_CRITERIA);
+                stringSQL.Append(" WHERE category_id = @categoryID;");
+
+                MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
+                cmd.Parameters.AddWithValue("@categoryID", categoryID);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    lstCriteriaID.Add((int)reader["criteria_id"]);
+
+                }
+
+                cmd.Dispose();
+                DatabaseClose();
+
+                return lstCriteriaID;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public int AddTotalScoreProjectByJudge(int projectID, int judgeID, float score)
+        {
+            try
+            {
+                StringBuilder stringSQL = new StringBuilder();
+
+                DatabaseOpen();
+                stringSQL = new StringBuilder();
+                stringSQL.Append("INSERT INTO ");
+                stringSQL.Append(TABLE_SCOREDONE);
+                stringSQL.Append(" (project_id, judge_id, score)");
+                stringSQL.Append(" VALUES (@projectID, @judgeID ,@score);");
+
+                MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
+                cmd.Parameters.AddWithValue("@projectID", projectID);
+                cmd.Parameters.AddWithValue("@judgeID", judgeID);
+                cmd.Parameters.AddWithValue("@score", score);
+
+                cmd.ExecuteNonQuery();
 
                 DatabaseClose();
                 return 1;

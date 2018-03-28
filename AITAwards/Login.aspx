@@ -1,10 +1,15 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="AITAwards.Login" %>
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-  <style type="text/css">
-body { background-image:url("Images/AITINK.jpg");
-       background-size: cover;
-    background-repeat: repeat;
-    padding-top:50px;
+<style type="text/css">
+body {  
+    background-image:url("Images/AITINKT.png");
+    /* Full height */
+    height: 100%;
+        background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
 }
 
 
@@ -28,8 +33,10 @@ body { background-image:url("Images/AITINK.jpg");
                                 <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" title="Please enter your password" TextMode="Password"></asp:TextBox>
                             </div>
 
-                            <asp:Button ID="btnLogin" runat="server" Text="Login" class="btn btn-info btn-block" OnClick="btnLogin_Click"/> <br />
-                            <asp:Label ID="lbAlerts" runat="server" CssClass="alert alert-danger" Visible="False"></asp:Label>
+                            <asp:Button ID="btnLogin" runat="server" Text="Login" class="btn btn-secondary btn-block" OnClick="btnLogin_Click"/> <br />
+                             <div class="alert alert-success" role="alert" runat="server" id="alertControl" visible="false">
+                                  <asp:Label ID="lbAlert" runat="server" Text=""></asp:Label>
+                                </div>
                        </div>
                    </div>
                </div>

@@ -39,8 +39,14 @@ namespace AITAwards
 
         List<int> GetListProjectDoneByJudgeIDAndCategoryID(int judgeID, int categoryID);
 
+        float GetTotalScoreByCategoryID(List<int> lstCriteria);
+        double GetTotalScoreByProjectID(int Project);
+        int CountJudgeScore(int projectID);
+        List<int> GetCriteriaIDByCategory(int categoryID);
         int CheckJudgeCanAccessCategory(int categoryID, int userID);
         int InsertProjectScore(List<ScoreModel> scoreModel);
         int AddJudgeByCategory(List<JudgeCategory> lstJudgeCat);
+
+        int AddTotalScoreProjectByJudge(int projectID, int judgeID, float score);
     }
 }

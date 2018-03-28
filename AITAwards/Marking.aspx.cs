@@ -34,14 +34,14 @@ namespace AITAwards
         {
             ProjectDetail projectDetail = new ProjectDetail();
 
-            QuestionControl questionControl = (QuestionControl)LoadControl("UserControl/QuestionControl.ascx");
+            QuestionControl questionControl = (QuestionControl)LoadControl("QuestionControl.ascx");
             questionControl.ID = "questionControl";
-
-            IJudgeDatabase judgeDatabase = new JudgeDB();
-            projectDetail = judgeDatabase.GetProjectbyProjectID(projectID);
-            imgProject.ImageUrl = "Images/Projects/" + projectDetail.PathFile;
-            imgProject.Attributes.Add("style", "width: auto; height: 50vh;");
-
+            questionControl.projectID = projectID;
+            //IJudgeDatabase judgeDatabase = new JudgeDB();
+            //projectDetail = judgeDatabase.GetProjectbyProjectID(projectID);
+            //imgProject.ImageUrl = "Images/Projects/" + projectDetail.PathFile;
+            //imgProject.Attributes.Add("style", "width: auto; height: 50vh;");
+            
             phControl.Controls.Clear();
             phControl.Controls.Add(questionControl);
 

@@ -7,6 +7,23 @@ namespace AITAwards
 {
     public static class AppSession
     {
+        public static void SetTotalScore(float totalScore)
+        {
+            HttpContext.Current.Session["TotalScore"] = totalScore;
+        }
+
+        public static float GetTotalScore()
+        {
+            if (HttpContext.Current.Session["TotalScore"] == null)
+            {
+                return -1;
+            }
+            else
+            {
+                return (float)HttpContext.Current.Session["TotalScore"];
+            }
+        }
+
         public static void SetUpdateCategoryState(string categoryState)
         {
             HttpContext.Current.Session["UpdateCategoryState("] = categoryState;

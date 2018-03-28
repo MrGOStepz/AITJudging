@@ -13,6 +13,24 @@ namespace AITAwards {
     public partial class QuestionControl {
         
         /// <summary>
+        /// imgProject control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgProject;
+        
+        /// <summary>
+        /// lbSetCol control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbSetCol;
+        
+        /// <summary>
         /// lbHeader control.
         /// </summary>
         /// <remarks>
@@ -29,6 +47,15 @@ namespace AITAwards {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl rubricTB;
+        
+        /// <summary>
+        /// lbCDiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbCDiv;
         
         /// <summary>
         /// txtDescription control.
@@ -56,5 +83,14 @@ namespace AITAwards {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnNext;
+        
+        /// <summary>
+        /// lbCDiv2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbCDiv2;
     }
 }

@@ -11,6 +11,8 @@ namespace AITAwards
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            alertControl.Visible = false;
+
             if(!IsPostBack)
             {
                 if (AppSession.GetUserProfile() != null)
@@ -49,17 +51,33 @@ namespace AITAwards
                 }
                 else
                 {
-                    lbAlerts.Text = "User or Password is incorrect!";
-                    lbAlerts.Visible = true;
+                    ShowAlert("User or Password is incorrect!", true);
                 }
 
             }
             else
             {
-                lbAlerts.Text = "Something wrong!";
-                lbAlerts.Visible = true;
+                ShowAlert("Something wrong!", true);
             }
         }
-        
+
+        private void ShowAlert(string text, bool error)
+        {
+            if (error)
+            {
+                lbAlert.Text = text;
+                alertControl.Visible = true;
+                alertControl.Attributes.Remove("class");
+                alertControl.Attributes.Add("class", "alert alert-danger");
+            }
+            else
+            {
+                lbAlert.Text = text;
+                alertControl.Visible = true;
+                alertControl.Attributes.Remove("class");
+                alertControl.Attributes.Add("class", "alert alert-success");
+            }
+        }
+
     }
 }

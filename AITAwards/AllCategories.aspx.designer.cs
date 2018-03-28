@@ -10,7 +10,7 @@
 namespace AITAwards {
     
     
-    public partial class Project {
+    public partial class AllCategories {
         
         /// <summary>
         /// contentControl control.

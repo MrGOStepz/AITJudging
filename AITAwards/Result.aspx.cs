@@ -46,8 +46,10 @@ namespace AITAwards
 
             IJudgeDatabase judgeDatabase = new JudgeDB();
             projectDetail = judgeDatabase.GetProjectbyProjectID(projectID);
-            imgProject.ImageUrl = projectDetail.PathFile;
+            imgProject.ImageUrl = "Images/Projects/" + projectDetail.PathFile;
             imgProject.Attributes.Add("style", "width: auto; height: 50vh;");
+            txtDescription.Text = projectDetail.Description;
+            txtName.Text = projectDetail.Name;
 
             lstCriteriaDetail = judgeDatabase.GetCriteriaByCategoryID(projectDetail.CategoryID);
 
@@ -67,6 +69,7 @@ namespace AITAwards
             float criterScore = 0.0f;
             float score = 0.0f;
             string comment = "";
+            float totalscore = 0.0f;
 
             for (int i = 0; i < rubricDetail.ListCriteriaDetail.Count; i++)
             {
@@ -114,10 +117,12 @@ namespace AITAwards
                 rubricTB.Controls.Add(new LiteralControl(score.ToString("0.0") + " out of " + criterScore.ToString("0.0")));
                 rubricTB.Controls.Add(new LiteralControl("</td> </tr>"));
 
+                totalscore += score;
+
             }
 
             rubricTB.Controls.Add(new LiteralControl("</tr>"));
-
+            AppSession.SetTotalScore(totalscore);
             AppSession.SetRubric(rubricDetail);
         }
 
@@ -130,6 +135,8 @@ namespace AITAwards
             lstAnswerDetail = AppSession.GetListAnswer();
             rubricDetail = AppSession.GetRubric();
 
+            
+
             for (int i = 0; i < lstAnswerDetail.Count; i++)
             {
                 scoreModel = new ScoreModel();
@@ -138,15 +145,20 @@ namespace AITAwards
                 scoreModel.Score = rubricDetail.ListCriteriaDetail[lstAnswerDetail[i].Question].LevelCritieria[lstAnswerDetail[i].Answer].ValueScore;
                 scoreModel.Comment = lstAnswerDetail[i].Description;
                 scoreModel.UserID = AppSession.GetUserID();
-                
                 lstScoreModel.Add(scoreModel);
             }
 
+            float totalScore = AppSession.GetTotalScore();
             Console.WriteLine();
             IJudgeDatabase judgeDatabase = new JudgeDB();
             if (judgeDatabase.InsertProjectScore(lstScoreModel) > 0)
             {
-                Response.Redirect("Project.aspx");
+                if (judgeDatabase.AddTotalScoreProjectByJudge(AppSession.GetProjectID(), AppSession.GetUserID(), totalScore) > 0)
+                {
+                    AppSession.SetListAnswer(null);
+                    AppSession.SetQuestionNo(0);
+                    Response.Redirect("StudentWork.aspx");
+                }
             }
             else
             {

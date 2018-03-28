@@ -30,6 +30,11 @@
     width: 200px;
 }
 
+.image-aa {
+    height: auto;
+    width: 100%;
+}
+
 .image-background {
     background-size: cover;
     max-height:200px;

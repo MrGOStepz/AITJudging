@@ -19,6 +19,7 @@ namespace AITAwards
         }
 
         public int TempQuestionON;
+        public int projectID;
 
         private RubricDetail _rubricDetail;
         private int _questionNo;
@@ -42,10 +43,39 @@ namespace AITAwards
             ListBtnRadioID = new List<int>();
 
             InitializeControl();
+
+
         }
 
         protected void InitializeControl()
         {
+            ProjectDetail projectDetail = new ProjectDetail();
+            RubricDetail rubricDetail = new RubricDetail();
+
+            List<CriteriaDetail> lstCriteriaDetail = new List<CriteriaDetail>();
+            List<LevelCriteria> lstLevelCriteria = new List<LevelCriteria>();
+
+            IJudgeDatabase judgeDatabase = new JudgeDB();
+            projectDetail = judgeDatabase.GetProjectbyProjectID(projectID);
+
+            imgProject.ImageUrl = "Images/Projects/" + projectDetail.PathFile;
+            System.Drawing.Image image = System.Drawing.Image.FromFile(Server.MapPath(imgProject.ImageUrl));
+
+            if (image.Height > image.Width)
+            {
+                imgProject.Attributes.Add("style", "width: 50vh; height: auto; max-height:90vh;");
+                lbSetCol.Text = "<div class='col text-center'>";
+                lbCDiv.Text = "";
+                lbCDiv2.Text = "</div>";
+            }
+            else
+            {
+                imgProject.Attributes.Add("style", "width: auto; height: 50vh;");
+                lbSetCol.Text = "</div> <div class='row padding-10'>";
+                lbCDiv.Text = "</div>";
+                lbCDiv2.Text = "";
+            }
+
             _radioButtonCheck = -1;
             _textBoxDescition = "";
             _questionNo = AppSession.GetQuestionNo();

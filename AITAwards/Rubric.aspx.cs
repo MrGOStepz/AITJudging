@@ -42,13 +42,15 @@ namespace AITAwards
 
             IJudgeDatabase judgeDatabase = new JudgeDB();
             projectDetail = judgeDatabase.GetProjectbyProjectID(projectID);
-            imgProject.ImageUrl = "Images/Temp/" + projectDetail.PathFile;
+            txtName.Text = projectDetail.Name;
+            txtDescription.Text = projectDetail.Description;
+            imgProject.ImageUrl = "Images/Projects/" + projectDetail.PathFile;
             System.Drawing.Image image = System.Drawing.Image.FromFile(Server.MapPath(imgProject.ImageUrl));
 
             if (image.Height > image.Width)
             {
-                imgProject.Attributes.Add("style", "width: 50vh; height: auto;");
-                lbSetCol.Text = "<div class='col-md-6 text-center'>";
+                imgProject.Attributes.Add("style", "width: 50vh; height: auto; max-height:90vh;");
+                lbSetCol.Text = "<div class='col text-center'>";
                 lbCDiv.Text = "";
                 lbCDiv2.Text = "</div>";
             }
@@ -117,7 +119,7 @@ namespace AITAwards
         protected void btnProject_Click(object sender, EventArgs e)
         {
             AppSession.SetListAnswer(null);
-            Response.Redirect("Project.aspx");
+            Response.Redirect("StudentWork.aspx");
         }
 
 

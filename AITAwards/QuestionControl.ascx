@@ -1,5 +1,12 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="QuestionControl.ascx.cs" Inherits="AITAwards.QuestionControl" %>
-<div class="row padding-10">
+
+            <div class="col text-center">
+            
+        <asp:Image ID="imgProject" runat="server" class="rounded"/>
+    </div>
+
+<asp:Label ID="lbSetCol" runat="server" Text=""></asp:Label>
+
             <table class="table table-bordered">
           <thead class="thead-light">
               <tr>
@@ -11,11 +18,11 @@
 
           </tbody>
         </table>
-    
- </div>
+    <asp:Label ID="lbCDiv" runat="server" Text=""></asp:Label>
+
 
 <div class="row padding-10">
-    <div class="col-md-6 offset-md-3">
+    <div class="col">
         Comment
     <asp:TextBox ID="txtDescription" runat="server" TextMode="MultiLine" class="form-control"></asp:TextBox>
         </div>
@@ -28,5 +35,6 @@
             <asp:Button ID="btnNext" runat="server" Text="Next" CssClass="btn btn-success" OnClick="btnNext_Click" style="flex:1;"/>
             </div>
     </div>
+<asp:Label ID="lbCDiv2" runat="server" Text=""></asp:Label>
 
 

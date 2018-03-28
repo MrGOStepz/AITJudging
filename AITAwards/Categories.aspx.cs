@@ -19,7 +19,7 @@ namespace AITAwards
 
                 //2 = Judge
                 if (userProfile.UserLevel != 2)
-                    Response.Redirect("Index.aspx");
+                    Response.Redirect("Login.aspx");
 
                 InitializePage(userProfile);
             }
@@ -78,7 +78,7 @@ namespace AITAwards
             judgeCategory.UserID = AppSession.GetUserID();
 
             AppSession.SetJudgeAndCategory(judgeCategory);
-            Response.Redirect("Project.aspx");
+            Response.Redirect("StudentWork.aspx");
         }
     }
 }

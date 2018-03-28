@@ -10,15 +10,15 @@
 namespace AITAwards {
     
     
-    public partial class Marking {
+    public partial class ScoreStudentWork {
         
         /// <summary>
-        /// phControl control.
+        /// contentControl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder phControl;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl contentControl;
     }
 }

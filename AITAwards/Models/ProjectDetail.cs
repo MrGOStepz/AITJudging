@@ -15,6 +15,14 @@ namespace AITAwards
         private int scoreID;
         private string pathFile;
         private int typeFileID;
+        private string description;
+
+        public string Description
+        {
+            get { return description; }
+            set { description = value; }
+        }
+
 
         public int TypeFileID
         {
