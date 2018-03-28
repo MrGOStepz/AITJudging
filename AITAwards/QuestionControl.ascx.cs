@@ -149,7 +149,7 @@ namespace AITAwards
 
             rubricTB.Controls.Add(new LiteralControl("</tr> <tr>"));
             rubricTB.Controls.Add(new LiteralControl("<th scope='row'>"));
-            rubricTB.Controls.Add(new LiteralControl("Trick"));
+            rubricTB.Controls.Add(new LiteralControl(""));
             rubricTB.Controls.Add(new LiteralControl("</th>"));
 
             for (int i = 0; i < _rubricDetail.ListCriteriaDetail[_questionNo].LevelCritieria.Count; i++)

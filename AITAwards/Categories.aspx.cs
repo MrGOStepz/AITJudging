@@ -25,7 +25,7 @@ namespace AITAwards
             }
             else
             {
-                Response.Redirect("Index.aspx");
+                Response.Redirect("Login.aspx");
             }
         }
 

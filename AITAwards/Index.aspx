@@ -15,7 +15,7 @@ body {
     
         <div class="row" >
     <div class="col justify-content-center">
-          <div id="login-overlay" class="modal-dialog" style="top: 300%;">
+          <div id="login-overlay" class="modal-dialog" style="margin-top:50vh;">
         <div class="modal-content">
             <div class="modal-body">
                 <div class="row"> 

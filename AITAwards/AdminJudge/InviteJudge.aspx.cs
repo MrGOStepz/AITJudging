@@ -17,6 +17,11 @@ namespace AITAwards
 
         protected void btnSendEmail_Click(object sender, EventArgs e)
         {
+            if(txtEmail.Text == "")
+            {
+                ShowAlert("Fill up email!", false);
+                return;
+            }
             try
             {
                 SmtpClient smtpClient = new SmtpClient("mail.wealthyworld.com.au", 25);

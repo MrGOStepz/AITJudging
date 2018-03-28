@@ -65,7 +65,7 @@ namespace AITAwards
                 }
 
                 //TODO Change Image
-                imageButton.ImageUrl = "Images/Temp/"+ lstProject[i-1].PathFile;
+                imageButton.ImageUrl = "Images/Projects/"+ lstProject[i-1].PathFile;
 
                 System.Drawing.Image image = System.Drawing.Image.FromFile(Server.MapPath(imageButton.ImageUrl));
 
