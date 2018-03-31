@@ -65,7 +65,10 @@ namespace AITAwards
                     string password = md5.EncodePassword(txtPassword.Text);
 
                     if (dbHandle.UpdateNewUser(txtUserName.Text, password, txtEmail.Text, userID) > 0)
+                    {
                         ShowAlert("Register complete!", false);
+                        Response.Redirect("Index.aspx");
+                    }
                     else
                         ShowAlert("Something wrong!", true);
                 }

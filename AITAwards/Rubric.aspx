@@ -17,7 +17,7 @@
                        <div class="row padding-10" style="width:80%;">
                 <div class="col text-center">
 
-                        <div class="form-horizontal">
+<%--                        <div class="form-horizontal">
                           <div class="row form-group">
                             <div class="col col-md-3"><label for="hf-name" class=" form-control-label">Name</label></div>
                             <div class="col-12 col-md-9">
@@ -28,7 +28,7 @@
                             <div class="col-12 col-md-9">
                                 <asp:TextBox ID="txtDescription" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></div>
                           </div>
-                        </div>
+                        </div>--%>
 
                 </div>
                 </div>

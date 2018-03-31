@@ -62,6 +62,9 @@
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Magick.NET-Q16-AnyCPU, Version=7.4.3.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=MSIL">
+      <HintPath>..\packages\Magick.NET-Q16-AnyCPU.7.4.3\lib\net40\Magick.NET-Q16-AnyCPU.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
     </Reference>
@@ -146,18 +149,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AdminJudge\AddCategory.aspx" />
-    <Content Include="AdminJudge\AddEvent.aspx" />
-    <Content Include="AdminJudge\UpdateCategory.aspx" />
-    <Content Include="AdminJudge\UpdateEvent.aspx" />
-    <Content Include="AdminJudge\UpdateEventDetail.aspx" />
-    <Content Include="AdminJudge\UpdateCategoryDetail.aspx" />
-    <Content Include="AdminJudge\InviteJudge.aspx" />
-    <Content Include="AdminJudge\ManageJudge.aspx" />
-    <Content Include="AdminJudge\ManageJudgeDetail.aspx" />
+    <Content Include="AddProject.aspx" />
+    <Content Include="AddCategory.aspx" />
+    <Content Include="AddEvent.aspx" />
+    <Content Include="UpdateCategory.aspx" />
+    <Content Include="UpdateEvent.aspx" />
+    <Content Include="UpdateEventDetail.aspx" />
+    <Content Include="UpdateCategoryDetail.aspx" />
+    <Content Include="InviteJudge.aspx" />
+    <Content Include="ManageJudge.aspx" />
+    <Content Include="ManageJudgeDetail.aspx" />
     <Content Include="AllCategories.aspx" />
     <Content Include="Images\AITINKT.png" />
+    <Content Include="Images\Categories\CategoryImage.png" />
+    <Content Include="Images\Event\EventImage.png" />
+    <Content Include="Images\Projects\ProjectImage.png" />
+    <Content Include="Images\Projects\ProjectImageP.png" />
     <Content Include="ScoreStudentWork.aspx" />
+    <Content Include="StudentWorkDetail.aspx" />
     <Content Include="UserControl\UpdateCategoryDetailControl.ascx" />
     <Content Include="UserControl\BreadCrumbControl.ascx" />
     <Content Include="Images\admin.jpg" />
@@ -727,39 +736,46 @@
     <Content Include="Scripts\popper-utils.js.map" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdminJudge\AddCategory.aspx.cs">
+    <Compile Include="AddProject.aspx.cs">
+      <DependentUpon>AddProject.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddProject.aspx.designer.cs">
+      <DependentUpon>AddProject.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AddCategory.aspx.cs">
       <DependentUpon>AddCategory.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdminJudge\AddCategory.aspx.designer.cs">
+    <Compile Include="AddCategory.aspx.designer.cs">
       <DependentUpon>AddCategory.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdminJudge\AddEvent.aspx.cs">
+    <Compile Include="AddEvent.aspx.cs">
       <DependentUpon>AddEvent.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdminJudge\AddEvent.aspx.designer.cs">
+    <Compile Include="AddEvent.aspx.designer.cs">
       <DependentUpon>AddEvent.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdminJudge\InviteJudge.aspx.cs">
+    <Compile Include="InviteJudge.aspx.cs">
       <DependentUpon>InviteJudge.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdminJudge\InviteJudge.aspx.designer.cs">
+    <Compile Include="InviteJudge.aspx.designer.cs">
       <DependentUpon>InviteJudge.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdminJudge\ManageJudge.aspx.cs">
+    <Compile Include="ManageJudge.aspx.cs">
       <DependentUpon>ManageJudge.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdminJudge\ManageJudge.aspx.designer.cs">
+    <Compile Include="ManageJudge.aspx.designer.cs">
       <DependentUpon>ManageJudge.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdminJudge\ManageJudgeDetail.aspx.cs">
+    <Compile Include="ManageJudgeDetail.aspx.cs">
       <DependentUpon>ManageJudgeDetail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdminJudge\ManageJudgeDetail.aspx.designer.cs">
+    <Compile Include="ManageJudgeDetail.aspx.designer.cs">
       <DependentUpon>ManageJudgeDetail.aspx</DependentUpon>
     </Compile>
     <Compile Include="AllCategories.aspx.cs">
@@ -779,32 +795,32 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="AdminJudge\UpdateCategory.aspx.cs">
+    <Compile Include="UpdateCategory.aspx.cs">
       <DependentUpon>UpdateCategory.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdminJudge\UpdateCategory.aspx.designer.cs">
+    <Compile Include="UpdateCategory.aspx.designer.cs">
       <DependentUpon>UpdateCategory.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdminJudge\UpdateEvent.aspx.cs">
+    <Compile Include="UpdateEvent.aspx.cs">
       <DependentUpon>UpdateEvent.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdminJudge\UpdateEvent.aspx.designer.cs">
+    <Compile Include="UpdateEvent.aspx.designer.cs">
       <DependentUpon>UpdateEvent.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdminJudge\UpdateEventDetail.aspx.cs">
+    <Compile Include="UpdateEventDetail.aspx.cs">
       <DependentUpon>UpdateEventDetail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdminJudge\UpdateEventDetail.aspx.designer.cs">
+    <Compile Include="UpdateEventDetail.aspx.designer.cs">
       <DependentUpon>UpdateEventDetail.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdminJudge\UpdateCategoryDetail.aspx.cs">
+    <Compile Include="UpdateCategoryDetail.aspx.cs">
       <DependentUpon>UpdateCategoryDetail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdminJudge\UpdateCategoryDetail.aspx.designer.cs">
+    <Compile Include="UpdateCategoryDetail.aspx.designer.cs">
       <DependentUpon>UpdateCategoryDetail.aspx</DependentUpon>
     </Compile>
     <Compile Include="ScoreStudentWork.aspx.cs">
@@ -813,6 +829,13 @@
     </Compile>
     <Compile Include="ScoreStudentWork.aspx.designer.cs">
       <DependentUpon>ScoreStudentWork.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StudentWorkDetail.aspx.cs">
+      <DependentUpon>StudentWorkDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StudentWorkDetail.aspx.designer.cs">
+      <DependentUpon>StudentWorkDetail.aspx</DependentUpon>
     </Compile>
     <Compile Include="UserControl\UpdateCategoryDetailControl.ascx.cs">
       <DependentUpon>UpdateCategoryDetailControl.ascx</DependentUpon>
@@ -1030,9 +1053,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Images\Categories\" />
-    <Folder Include="Images\Event\" />
-    <Folder Include="Images\Projects\" />
+    <Folder Include="AdminJudge\" />
     <Folder Include="Images\StudentWork\" />
   </ItemGroup>
   <ItemGroup>

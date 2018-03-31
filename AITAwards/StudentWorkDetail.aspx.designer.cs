@@ -10,69 +10,78 @@
 namespace AITAwards {
     
     
-    public partial class ManageJudgeDetail {
+    public partial class StudentWorkDetail {
         
         /// <summary>
-        /// form1 control.
+        /// imgProject control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.Image imgProject;
         
         /// <summary>
-        /// ddlCategories control.
+        /// lbSetCol control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCategories;
+        protected global::System.Web.UI.WebControls.Label lbSetCol;
         
         /// <summary>
-        /// btnFilter control.
+        /// txtName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnFilter;
+        protected global::System.Web.UI.WebControls.TextBox txtName;
         
         /// <summary>
-        /// alertControl control.
+        /// txtDescription control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl alertControl;
+        protected global::System.Web.UI.WebControls.TextBox txtDescription;
         
         /// <summary>
-        /// lbAlert control.
+        /// txtScore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbAlert;
+        protected global::System.Web.UI.WebControls.TextBox txtScore;
         
         /// <summary>
-        /// btnApproveJudge control.
+        /// rubricTB control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnApproveJudge;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl rubricTB;
         
         /// <summary>
-        /// tbodyControl control.
+        /// lbCDiv control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tbodyControl;
+        protected global::System.Web.UI.WebControls.Label lbCDiv;
+        
+        /// <summary>
+        /// lbCDiv2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbCDiv2;
     }
 }

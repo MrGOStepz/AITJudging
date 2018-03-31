@@ -58,7 +58,7 @@ namespace AITAwards
             IJudgeDatabase judgeDatabase = new JudgeDB();
             projectDetail = judgeDatabase.GetProjectbyProjectID(projectID);
 
-            imgProject.ImageUrl = "Images/Projects/" + projectDetail.PathFile;
+            imgProject.ImageUrl = "Images/Projects/" + projectDetail.CategoryID + "/" + projectDetail.PathFile;
             System.Drawing.Image image = System.Drawing.Image.FromFile(Server.MapPath(imgProject.ImageUrl));
 
             if (image.Height > image.Width)

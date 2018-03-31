@@ -590,6 +590,7 @@ namespace AITAwards
                     aitEvent = new AITEvent();
                     aitEvent.EventID = (int)reader["event_id"];
                     aitEvent.Name = reader["name"].ToString();
+
                     aitEvent.StartAt = (DateTime)reader["start_at"];
                     aitEvent.EndAt = (DateTime)reader["end_at"];
                     aitEvent.Address = reader["address"].ToString();
@@ -984,10 +985,10 @@ namespace AITAwards
                     projectDetail.Name = reader["name"].ToString();
                     projectDetail.CategoryID = (int)reader["category_id"];
                     //projectDetail.UserID = (int)reader["user_id"];
-                    projectDetail.UploadAt = (DateTime)reader["upload_at"];
+                    //projectDetail.UploadAt = (DateTime)reader["upload_at"];
                     //projectDetail.ScoreID = (int)reader["score_id"];
                     projectDetail.PathFile = reader["path_file"].ToString();
-                    //projectDetail.TypeFileID = (int)reader["type_file_id"];
+                    projectDetail.TypeFileID = (int)reader["type_file_id"];
                     lstProject.Add(projectDetail);
 
                 }
@@ -1027,7 +1028,7 @@ namespace AITAwards
                     projectDetail.Name = reader["name"].ToString();
                     projectDetail.CategoryID = (int)reader["category_id"];
                     //projectDetail.UserID = (int)reader["user_id"];
-                    projectDetail.UploadAt = (DateTime)reader["upload_at"];
+                    //projectDetail.UploadAt = (DateTime)reader["upload_at"];
                     //projectDetail.ScoreID = (int)reader["score_id"];
                     projectDetail.PathFile = reader["path_file"].ToString();
                     projectDetail.Description = reader["description"].ToString();

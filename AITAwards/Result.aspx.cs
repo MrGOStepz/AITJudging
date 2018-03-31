@@ -46,10 +46,10 @@ namespace AITAwards
 
             IJudgeDatabase judgeDatabase = new JudgeDB();
             projectDetail = judgeDatabase.GetProjectbyProjectID(projectID);
-            imgProject.ImageUrl = "Images/Projects/" + projectDetail.PathFile;
+            imgProject.ImageUrl = "Images/Projects/" + projectDetail.CategoryID + "/" + projectDetail.PathFile;
             imgProject.Attributes.Add("style", "width: auto; height: 50vh;");
-            txtDescription.Text = projectDetail.Description;
-            txtName.Text = projectDetail.Name;
+            //txtDescription.Text = projectDetail.Description;
+            //txtName.Text = projectDetail.Name;
 
             lstCriteriaDetail = judgeDatabase.GetCriteriaByCategoryID(projectDetail.CategoryID);
 
@@ -70,6 +70,7 @@ namespace AITAwards
             float score = 0.0f;
             string comment = "";
             float totalscore = 0.0f;
+            float fullscore = 0.0f;
 
             for (int i = 0; i < rubricDetail.ListCriteriaDetail.Count; i++)
             {
@@ -118,9 +119,10 @@ namespace AITAwards
                 rubricTB.Controls.Add(new LiteralControl("</td> </tr>"));
 
                 totalscore += score;
+                fullscore += criterScore;
 
             }
-
+            txtTotal.Text = totalscore.ToString("0.0") + " out of " + fullscore;
             rubricTB.Controls.Add(new LiteralControl("</tr>"));
             AppSession.SetTotalScore(totalscore);
             AppSession.SetRubric(rubricDetail);

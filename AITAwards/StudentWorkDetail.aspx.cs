@@ -7,47 +7,32 @@ using System.Web.UI.WebControls;
 
 namespace AITAwards
 {
-    public partial class Rubric : System.Web.UI.Page
+    public partial class StudentWorkDetail : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (AppSession.GetUserProfile() != null && AppSession.GetJudgeAndCategory() != null)
+            if (!IsPostBack)
             {
-                //if (Request.QueryString["projectid"] != null)
-                //{
-                //    int projectid = 0;
-                //    try
-                //    {
-                //        projectid = int.Parse(Request.QueryString["projectid"]);
+                if (Request.QueryString["projectid"] != null)
+                {
+                    int projectid = 0;
+                    try
+                    {
+                        projectid = int.Parse(Request.QueryString["projectid"]);
+                    }
+                    catch (Exception)
+                    {
+                        Response.Redirect("ScoreStudentWork.aspx");
+                    }
 
-                //        UserProfile userProfile = new UserProfile();
-                //        JudgeCategory judgeCategory = new JudgeCategory();
-
-                //        userProfile = AppSession.GetUserProfile();
-                //        judgeCategory = AppSession.GetJudgeAndCategory();
-
-                //        //2 = Judge
-                //        if (userProfile.UserLevel != 2)
-                //            Response.Redirect("Index.aspx");
-                //    }
-                //    catch (Exception)
-                //    {
-                //        Response.Redirect("Categories.aspx");
-                //    }
-
-                //    InitializePage(projectid);
-                //}
-                //else
-                //{
-                //    Response.Redirect("StudentWork.aspx");
-                //}
-
-                InitializePage(AppSession.GetProjectID());
+                    InitializePage(projectid);
+                }
+                else
+                {
+                    Response.Redirect("ScoreStudentWork.aspx");
+                }
             }
-            else
-            {
-                Response.Redirect("Index.aspx");
-            }
+
         }
 
 
@@ -61,10 +46,10 @@ namespace AITAwards
 
             IJudgeDatabase judgeDatabase = new JudgeDB();
             projectDetail = judgeDatabase.GetProjectbyProjectID(projectID);
-            if (projectDetail.CategoryID == 0)
-                Response.Redirect("Index.aspx");
-            //txtName.Text = projectDetail.Name;
-            //txtDescription.Text = projectDetail.Description;
+            double avgScore = judgeDatabase.GetTotalScoreByProjectID(projectID);
+            txtName.Text = projectDetail.Name;
+            txtDescription.Text = projectDetail.Description;
+            txtScore.Text = avgScore.ToString("0.0");
             imgProject.ImageUrl = "Images/Projects/" + projectDetail.CategoryID + "/" + projectDetail.PathFile;
             System.Drawing.Image image = System.Drawing.Image.FromFile(Server.MapPath(imgProject.ImageUrl));
 
@@ -82,8 +67,8 @@ namespace AITAwards
                 lbCDiv.Text = "</div>";
                 lbCDiv2.Text = "";
             }
-            
-                
+
+
 
             lstCriteriaDetail = judgeDatabase.GetCriteriaByCategoryID(projectDetail.CategoryID);
 
@@ -93,7 +78,7 @@ namespace AITAwards
             }
 
             rubricDetail.CategoryID = projectDetail.CategoryID;
-            rubricDetail.ListCriteriaDetail = lstCriteriaDetail;         
+            rubricDetail.ListCriteriaDetail = lstCriteriaDetail;
 
             rubricTB.Controls.Clear();
 
@@ -115,34 +100,18 @@ namespace AITAwards
                     rubricTB.Controls.Add(new LiteralControl(rubricDetail.ListCriteriaDetail[i].LevelCritieria[j].Description));
                     rubricTB.Controls.Add(new LiteralControl("</td>"));
 
-                    if(criterScore < rubricDetail.ListCriteriaDetail[i].LevelCritieria[j].ValueScore)
+                    if (criterScore < rubricDetail.ListCriteriaDetail[i].LevelCritieria[j].ValueScore)
                         criterScore = rubricDetail.ListCriteriaDetail[i].LevelCritieria[j].ValueScore;
                 }
 
                 rubricTB.Controls.Add(new LiteralControl("</tr> </table> </td> <td>"));
                 rubricTB.Controls.Add(new LiteralControl(criterScore.ToString("0.0")));
                 rubricTB.Controls.Add(new LiteralControl("</td> </tr>"));
-                
+
             }
-                
+
             rubricTB.Controls.Add(new LiteralControl("</tr>"));
 
-            AppSession.SetRubric(rubricDetail);
-
         }
-
-
-        protected void btnMark_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Marking.aspx");
-        }
-
-        protected void btnProject_Click(object sender, EventArgs e)
-        {
-            AppSession.SetListAnswer(null);
-            Response.Redirect("StudentWork.aspx");
-        }
-
-
     }
 }

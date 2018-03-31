@@ -12,7 +12,7 @@ namespace AITAwards
         protected void Page_Load(object sender, EventArgs e)
         {
             if (AppSession.GetUserProfile() != null && AppSession.GetJudgeAndCategory() != null)
-            {
+            {           
                 UserProfile userProfile = new UserProfile();
                 JudgeCategory judgeCategory = new JudgeCategory();
 
@@ -65,7 +65,7 @@ namespace AITAwards
                 }
 
                 //TODO Change Image
-                imageButton.ImageUrl = "Images/Projects/"+ lstProject[i-1].PathFile;
+                imageButton.ImageUrl = "Images/Projects/" + lstProject[i - 1].CategoryID + "/" + lstProject[i - 1].PathFile;
 
                 System.Drawing.Image image = System.Drawing.Image.FromFile(Server.MapPath(imageButton.ImageUrl));
 
@@ -96,8 +96,6 @@ namespace AITAwards
         
         private void ImageButton_Click(object sender, ImageClickEventArgs e)
         {
-            ProjectDetail projectDetail = new ProjectDetail();
-        
             string imageID;
             ImageButton imageButton = sender as ImageButton;
             imageID = imageButton.ID;

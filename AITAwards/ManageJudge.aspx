@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AddCategory.aspx.cs" Inherits="AITAwards.AddCategory" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageJudge.aspx.cs" Inherits="AITAwards.ManageJudge" %>
 
 <!DOCTYPE html>
 
@@ -9,18 +9,18 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
   
-    <link rel="apple-touch-icon" href="../Images/Logo/Logo.png"/>
+    <link rel="apple-touch-icon" href="Images/Logo/Logo.png"/>
     <link rel="shortcut icon" href="favicon.ico"/>
 
-    <link rel="stylesheet" href="../assets/css/normalize.css" />
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="../assets/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="../assets/css/themify-icons.css"/>
-    <link rel="stylesheet" href="../assets/css/flag-icon.min.css"/>
-    <link rel="stylesheet" href="../assets/css/cs-skin-elastic.css"/>
-    <link rel="stylesheet" href="../assets/scss/style.css"/>
-    <link rel="stylesheet" href="../Content/Site.css" type="text/css" />
-    <link rel="stylesheet" href="../Content/Style.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/normalize.css" />
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="assets/css/themify-icons.css"/>
+    <link rel="stylesheet" href="assets/css/flag-icon.min.css"/>
+    <link rel="stylesheet" href="assets/css/cs-skin-elastic.css"/>
+    <link rel="stylesheet" href="assets/scss/style.css"/>
+    <link rel="stylesheet" href="Content/Site.css" type="text/css" />
+    <link rel="stylesheet" href="Content/Style.css" type="text/css" />
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'/>
 
@@ -40,7 +40,7 @@
                     <i class="fa fa-bars"></i>
                 </button>
                 <a class="navbar-brand" href="./"><img src="images/logo.png" alt="Logo"/></a>
-                <a class="navbar-brand hidden" href="./"><img src="../images/logo2.png" alt="Logo"/></a>
+                <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"/></a>
             </div>
 
             <div id="main-menu" class="main-menu collapse navbar-collapse">
@@ -98,7 +98,7 @@
                 <div class="col-sm-5">
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="../images/admin.jpg" alt="User Avatar">
+                            <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar">
                         </a>
 
                         <div class="user-menu dropdown-menu">
@@ -134,6 +134,7 @@
         </header><!-- /header -->
         <!-- Header-->
 
+        <!-- MAINNNNNNNNNNNNNNNNNNNNN --> 
                 <div class="breadcrumbs">
             <div class="col-sm-4">
                 <div class="page-header float-left">
@@ -161,44 +162,25 @@
                 <div class="row">
 
                   <div class="col-lg-12">
-                      <div class="card">
-                      <div class="card-header"><strong>Create Category</strong></div>
-                      <div class="card-body card-block">
-                        <div class="form-group"><label for="name" class=" form-control-label">Name</label><asp:TextBox ID="txtCategoryName" runat="server" CssClass="form-control" placeholder="Category name"></asp:TextBox></div>
-                         <div class="form-group"><label for="name" class=" form-control-label">Event &nbsp&nbsp</label><asp:DropDownList ID="ddlEvent" runat="server" CssClass="btn btn-secondary dropdown-toggle"></asp:DropDownList></div>
-                          <div class="form-group">
-                              <label for="fileUpload" class=" form-control-label">File Upload</label>
-                                  <asp:FileUpload ID="fileUpload" runat="server" accept=".png,.jpg,.jpeg,.gif,.tif"/>
-                          </div>
+                    <div id="divControl" runat="server"></div>
 
-                        <asp:Button ID="btnAddCategory" runat="server" Text="Add Category" CssClass="btn btn-primary btn-lg btn-block" OnClick="btnAddCategory_Click"/>
-                                <div class="alert alert-success" role="alert" runat="server" id="alertControl" visible="false">
-                              <asp:Label ID="lbAlert" runat="server" Text=""></asp:Label>
-                            </div>
-
-                      </div>
-                    </div>
                   </div>
-
                 </div>
-            </div>
-
             </div><!-- .animated -->
         </div><!-- .content -->
 
-
-    </div><!-- /#right-panel -->
-
+        <!-- END MAINNNNNNNNNNNNNNNNNNNNN --> 
     <!-- Right Panel -->
 
 
-    <script src="../assets/js/vendor/jquery-2.1.4.min.js"></script>
-    <script src="../assets/js/popper.min.js"></script>
-    <script src="../assets/js/plugins.js"></script>
-    <script src="../assets/js/main.js"></script>
+    <script src="assets/js/vendor/jquery-2.1.4.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/plugins.js"></script>
+    <script src="assets/js/main.js"></script>
     
         </form>
 
 
 </body>
 </html>
+
