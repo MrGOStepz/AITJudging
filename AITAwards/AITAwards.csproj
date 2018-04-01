@@ -50,6 +50,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=3.0.20820.16598, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\AjaxControlToolkit.dll</HintPath>
+    </Reference>
     <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
@@ -152,6 +156,7 @@
     <Content Include="AddProject.aspx" />
     <Content Include="AddCategory.aspx" />
     <Content Include="AddEvent.aspx" />
+    <Content Include="SessionGone.aspx" />
     <Content Include="UpdateCategory.aspx" />
     <Content Include="UpdateEvent.aspx" />
     <Content Include="UpdateEventDetail.aspx" />
@@ -302,17 +307,6 @@
     <Content Include="Content\Style.css" />
     <Content Include="UserControl\DashboardControl.ascx" />
     <Content Include="Default.aspx" />
-    <Content Include="docs\MySqlCommand.xml" />
-    <Content Include="docs\MySqlCommandBuilder.xml" />
-    <Content Include="docs\MySqlConnection.xml" />
-    <Content Include="docs\MySqlConnectionStringBuilder.xml" />
-    <Content Include="docs\MySqlDataAdapter.xml" />
-    <Content Include="docs\MySqlDataReader.xml" />
-    <Content Include="docs\MySqlException.xml" />
-    <Content Include="docs\MySqlHelper.xml" />
-    <Content Include="docs\MySqlParameter.xml" />
-    <Content Include="docs\MySqlParameterCollection.xml" />
-    <Content Include="docs\MySqlTransaction.xml" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="ApplicationInsights.config">
@@ -757,6 +751,7 @@
     <Compile Include="AddEvent.aspx.designer.cs">
       <DependentUpon>AddEvent.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Class\YouTubeScriptGenerator.cs" />
     <Compile Include="InviteJudge.aspx.cs">
       <DependentUpon>InviteJudge.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -794,6 +789,13 @@
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="SessionGone.aspx.cs">
+      <DependentUpon>SessionGone.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SessionGone.aspx.designer.cs">
+      <DependentUpon>SessionGone.aspx</DependentUpon>
     </Compile>
     <Compile Include="UpdateCategory.aspx.cs">
       <DependentUpon>UpdateCategory.aspx</DependentUpon>
@@ -1053,7 +1055,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="AdminJudge\" />
     <Folder Include="Images\StudentWork\" />
   </ItemGroup>
   <ItemGroup>

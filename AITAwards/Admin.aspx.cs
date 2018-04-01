@@ -11,15 +11,7 @@ namespace AITAwards
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(AppSession.GetMenuState() != null)
-            {
-                LoadMenuControl(AppSession.GetMenuState());
-            }
-            else
-            {
-                AppSession.SetMenuState("dashboard");
-                LoadMenuControl(AppSession.GetMenuState());
-            }
+
         }
 
         protected void Menu_Click(object sender, EventArgs e)
@@ -28,66 +20,22 @@ namespace AITAwards
             switch (linkButton.ID)
             {
                 case "lbtnAddEvent":
-                    AppSession.SetMenuState("lbtnAddEvent");
-                    LoadMenuControl(AppSession.GetMenuState());
+                    Response.Redirect("AddEvent.aspx");
+                    break;
+                case "lbtnManageJudge":
+                    Response.Redirect("ManageJudge.aspx");
                     break;
                 case "lbtnUpdateEvent":
-                    AppSession.SetMenuState("lbtnUpdateEvent");
-                    AppSession.SetUpdateEventState(null);
-                    AppSession.SetUpdateEventID(-1);
-                    AppSession.SetBreadCrumbState("UpdateEventControl");
-                    LoadMenuControl(AppSession.GetMenuState());
+                    Response.Redirect("UpdateEvent.aspx");
                     break;
                 case "lbtnAddCategory":
-                    AppSession.SetMenuState("lbtnAddCategory");
-                    LoadMenuControl(AppSession.GetMenuState());
+                    Response.Redirect("AddCategory.aspx");
                     break;
                 case "lbtnUpdateCategory":
-                    AppSession.SetUpdateCategoryState(null);
-                    AppSession.SetUpdateEventID(-1);
-                    AppSession.SetMenuState("lbtnUpdateCategory");
-                    LoadMenuControl(AppSession.GetMenuState());
+                    Response.Redirect("UpdateCategory.aspx");
                     break;
                 case "lbtnInviteJudge":
-                    AppSession.SetMenuState("lbtnInviteJudge");
-                    LoadMenuControl(AppSession.GetMenuState());
-                    break;
-
-                default:
-                    break;
-            }
-        }
-
-        private void LoadMenuControl(string controlID)
-        {
-            phControl.Controls.Clear();
-
-            switch (controlID)
-            {
-                case "lbtnAddEvent":   
-                    AddEventControl addEventControl = (AddEventControl)LoadControl("UserControl/AddEventControl.ascx");
-                    addEventControl.ID = "addEventControl";
-                    phControl.Controls.Add(addEventControl);
-                    break;
-                case "lbtnUpdateEvent":
-                    UpdateEventControl updateEventControl = (UpdateEventControl)LoadControl("UserControl/UpdateEventControl.ascx");
-                    updateEventControl.ID = "updateEventControl";
-                    phControl.Controls.Add(updateEventControl);
-                    break;
-                case "lbtnAddCategory":
-                    AddCategoryControl addCategoryControl = (AddCategoryControl)LoadControl("UserControl/AddCategoryControl.ascx");
-                    addCategoryControl.ID = "addCategoryControl";
-                    phControl.Controls.Add(addCategoryControl);
-                    break;
-                case "lbtnUpdateCategory":
-                    UpdateCategoryControl updateCategoryControl = (UpdateCategoryControl)LoadControl("UserControl/UpdateCategoryControl.ascx");
-                    updateCategoryControl.ID = "updateCategoryControl";
-                    phControl.Controls.Add(updateCategoryControl);
-                    break;
-                case "lbtnInviteJudge":
-                    InviteJudgeControl inviteJudgeControl = (InviteJudgeControl)LoadControl("UserControl/InviteJudgeControl.ascx");
-                    inviteJudgeControl.ID = "updateEventControl";
-                    phControl.Controls.Add(inviteJudgeControl);
+                    Response.Redirect("InviteJudge.aspx");
                     break;
                 default:
                     break;

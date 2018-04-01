@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -58,23 +59,38 @@ namespace AITAwards
             IJudgeDatabase judgeDatabase = new JudgeDB();
             projectDetail = judgeDatabase.GetProjectbyProjectID(projectID);
 
-            imgProject.ImageUrl = "Images/Projects/" + projectDetail.CategoryID + "/" + projectDetail.PathFile;
-            System.Drawing.Image image = System.Drawing.Image.FromFile(Server.MapPath(imgProject.ImageUrl));
-
-            if (image.Height > image.Width)
+            if (projectDetail.TypeFileID == 1)
             {
-                imgProject.Attributes.Add("style", "width: 50vh; height: auto; max-height:90vh;");
-                lbSetCol.Text = "<div class='col text-center'>";
-                lbCDiv.Text = "";
-                lbCDiv2.Text = "</div>";
+                imgProject.ImageUrl = "Images/Projects/" + projectDetail.CategoryID + "/" + projectDetail.PathFile;
+                System.Drawing.Image image = System.Drawing.Image.FromFile(Server.MapPath(imgProject.ImageUrl));
+
+                //if (image.Height > image.Width)
+                //{
+                //    imgProject.Attributes.Add("style", "width: 50vh; height: auto; max-height:90vh;");
+                //    lbSetCol.Text = "<div class='col text-center'>";
+                //    lbCDiv.Text = "";
+                //    lbCDiv2.Text = "</div>";
+                //}
+                //else
+                //{
+                //    imgProject.Attributes.Add("style", "width: auto; height: 50vh;");
+                //    lbSetCol.Text = "</div> <div class='row padding-10'>";
+                //    lbCDiv.Text = "</div>";
+                //    lbCDiv2.Text = "";
+                //}
+
+                imgProject.Attributes.Add("style", "width: auto; height: 50vh;");
             }
             else
             {
-                imgProject.Attributes.Add("style", "width: auto; height: 50vh;");
-                lbSetCol.Text = "</div> <div class='row padding-10'>";
-                lbCDiv.Text = "</div>";
-                lbCDiv2.Text = "";
+                imgProject.Visible = false;
+                lrURL.Visible = true;
+                lrURL.Text = projectDetail.PathFile;
             }
+
+            lbSetCol.Text = "</div> <div class='row padding-10'>";
+            lbCDiv.Text = "</div>";
+            lbCDiv2.Text = "";
 
             _radioButtonCheck = -1;
             _textBoxDescition = "";
@@ -256,7 +272,5 @@ namespace AITAwards
             }
 
         }
-
-
     }
 }

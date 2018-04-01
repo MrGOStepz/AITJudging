@@ -22,6 +22,9 @@ namespace AITAwards
                 case "lbtnAddEvent":
                     Response.Redirect("AddEvent.aspx");
                     break;
+                case "lbtnManageJudge":
+                    Response.Redirect("ManageJudge.aspx");
+                    break;
                 case "lbtnUpdateEvent":
                     Response.Redirect("UpdateEvent.aspx");
                     break;
@@ -32,7 +35,7 @@ namespace AITAwards
                     Response.Redirect("UpdateCategory.aspx");
                     break;
                 case "lbtnInviteJudge":
-                    Response.Redirect("InvitationJudge.aspx");
+                    Response.Redirect("InviteJudge.aspx");
                     break;
                 default:
                     break;

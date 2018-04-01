@@ -9,10 +9,19 @@ namespace AITAwards
 {
     public partial class Rubric : System.Web.UI.Page
     {
+        public UserProfile _userProfile = new UserProfile();
+        public JudgeCategory _judgeCategory = new JudgeCategory();
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             if (AppSession.GetUserProfile() != null && AppSession.GetJudgeAndCategory() != null)
             {
+                _userProfile = new UserProfile();
+                _judgeCategory = new JudgeCategory();
+
+                _userProfile = AppSession.GetUserProfile();          
+                _judgeCategory = AppSession.GetJudgeAndCategory();
                 //if (Request.QueryString["projectid"] != null)
                 //{
                 //    int projectid = 0;
@@ -42,6 +51,9 @@ namespace AITAwards
                 //    Response.Redirect("StudentWork.aspx");
                 //}
 
+                AppSession.SetUserProfile(_userProfile);
+                AppSession.SetJudgeAndCategory(_judgeCategory);
+
                 InitializePage(AppSession.GetProjectID());
             }
             else
@@ -61,29 +73,44 @@ namespace AITAwards
 
             IJudgeDatabase judgeDatabase = new JudgeDB();
             projectDetail = judgeDatabase.GetProjectbyProjectID(projectID);
-            if (projectDetail.CategoryID == 0)
-                Response.Redirect("Index.aspx");
-            //txtName.Text = projectDetail.Name;
-            //txtDescription.Text = projectDetail.Description;
-            imgProject.ImageUrl = "Images/Projects/" + projectDetail.CategoryID + "/" + projectDetail.PathFile;
-            System.Drawing.Image image = System.Drawing.Image.FromFile(Server.MapPath(imgProject.ImageUrl));
 
-            if (image.Height > image.Width)
+            if (projectDetail.TypeFileID == 1)
             {
-                imgProject.Attributes.Add("style", "width: 50vh; height: auto; max-height:90vh;");
-                lbSetCol.Text = "<div class='col text-center'>";
-                lbCDiv.Text = "";
-                lbCDiv2.Text = "</div>";
+                if (projectDetail.CategoryID == 0)
+                    Response.Redirect("Index.aspx");
+                //txtName.Text = projectDetail.Name;
+                //txtDescription.Text = projectDetail.Description;
+                imgProject.ImageUrl = "Images/Projects/" + projectDetail.CategoryID + "/" + projectDetail.PathFile;
+                System.Drawing.Image image = System.Drawing.Image.FromFile(Server.MapPath(imgProject.ImageUrl));
+
+                //if (image.Height > image.Width)
+                //{
+                //    imgProject.Attributes.Add("style", "width: 50vh; height: auto; max-height:90vh;");
+                //    lbSetCol.Text = "<div class='col text-center'>";
+                //    lbCDiv.Text = "";
+                //    lbCDiv2.Text = "</div>";
+                //}
+                //else
+                //{
+                //    imgProject.Attributes.Add("style", "width: auto; height: 50vh;");
+                //    lbSetCol.Text = "</div> <div class='row padding-10'>";
+                //    lbCDiv.Text = "</div>";
+                //    lbCDiv2.Text = "";
+                //}
+
+                imgProject.Attributes.Add("style", "width: auto; height: 50vh;");
+
             }
             else
             {
-                imgProject.Attributes.Add("style", "width: auto; height: 50vh;");
-                lbSetCol.Text = "</div> <div class='row padding-10'>";
-                lbCDiv.Text = "</div>";
-                lbCDiv2.Text = "";
+
+                imgProject.Visible = false;
+                lrURL.Visible = true;
+                lrURL.Text = projectDetail.PathFile;
             }
-            
-                
+            lbSetCol.Text = "</div> <div class='row padding-10'>";
+            lbCDiv.Text = "</div>";
+            lbCDiv2.Text = "";
 
             lstCriteriaDetail = judgeDatabase.GetCriteriaByCategoryID(projectDetail.CategoryID);
 
@@ -128,17 +155,25 @@ namespace AITAwards
             rubricTB.Controls.Add(new LiteralControl("</tr>"));
 
             AppSession.SetRubric(rubricDetail);
+            AppSession.SetUserProfile(_userProfile);
+            AppSession.SetJudgeAndCategory(_judgeCategory);
 
         }
 
 
         protected void btnMark_Click(object sender, EventArgs e)
         {
+            AppSession.SetUserProfile(_userProfile);
+            AppSession.SetJudgeAndCategory(_judgeCategory);
+
             Response.Redirect("Marking.aspx");
         }
 
         protected void btnProject_Click(object sender, EventArgs e)
         {
+            AppSession.SetUserProfile(_userProfile);
+            AppSession.SetJudgeAndCategory(_judgeCategory);
+
             AppSession.SetListAnswer(null);
             Response.Redirect("StudentWork.aspx");
         }

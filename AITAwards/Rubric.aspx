@@ -3,7 +3,8 @@
     <div class="container">
         <div class="row padding-10">
             <div class="col text-center">
-                <asp:Image ID="imgProject" runat="server" class="rounded"/>
+                <asp:Image ID="imgProject" runat="server" class="rounded" Visible="true"/>
+                <asp:Literal ID="lrURL" runat="server" Visible="false"></asp:Literal>
             </div>
 
         <%--</div>
@@ -61,5 +62,17 @@
             <%--if Img = land add div--%>
         <asp:Label ID="lbCDiv2" runat="server" Text=""></asp:Label>
      </div>
+
+        <asp:HiddenField ID="width" runat="server" />
+<asp:HiddenField ID="height" runat="server" />
+        <script type="text/javascript">
+$(document).ready(function() {
+
+    $("#width").val() = $(window).width();
+    $("#height").val() = $(window).height();    
+
+});
+</script>
+
 
 </asp:Content>

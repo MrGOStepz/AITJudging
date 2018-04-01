@@ -22,6 +22,9 @@
     <link rel="stylesheet" href="assets/css/lib/datatable/dataTables.bootstrap.min.css">
     <link rel="stylesheet" href="assets/scss/style.css">
 
+        <link rel="stylesheet" href="Content/Site.css" type="text/css" />
+    <link rel="stylesheet" href="Content/Style.css" type="text/css" />
+
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
 </head>

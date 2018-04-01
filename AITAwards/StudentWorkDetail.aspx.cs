@@ -47,28 +47,41 @@ namespace AITAwards
             IJudgeDatabase judgeDatabase = new JudgeDB();
             projectDetail = judgeDatabase.GetProjectbyProjectID(projectID);
             double avgScore = judgeDatabase.GetTotalScoreByProjectID(projectID);
-            txtName.Text = projectDetail.Name;
-            txtDescription.Text = projectDetail.Description;
+            //txtName.Text = projectDetail.Name;
+            //txtDescription.Text = projectDetail.Description;
             txtScore.Text = avgScore.ToString("0.0");
-            imgProject.ImageUrl = "Images/Projects/" + projectDetail.CategoryID + "/" + projectDetail.PathFile;
-            System.Drawing.Image image = System.Drawing.Image.FromFile(Server.MapPath(imgProject.ImageUrl));
-
-            if (image.Height > image.Width)
+            if (projectDetail.TypeFileID == 1)
             {
-                imgProject.Attributes.Add("style", "width: 50vh; height: auto; max-height:90vh;");
-                lbSetCol.Text = "<div class='col text-center'>";
-                lbCDiv.Text = "";
-                lbCDiv2.Text = "</div>";
+                imgProject.ImageUrl = "Images/Projects/" + projectDetail.CategoryID + "/" + projectDetail.PathFile;
+                System.Drawing.Image image = System.Drawing.Image.FromFile(Server.MapPath(imgProject.ImageUrl));
+
+                //if (image.Height > image.Width)
+                //{
+                //    imgProject.Attributes.Add("style", "width: 50vh; height: auto; max-height:90vh;");
+                //    lbSetCol.Text = "<div class='col text-center'>";
+                //    lbCDiv.Text = "";
+                //    lbCDiv2.Text = "</div>";
+                //}
+                //else
+                //{
+                //    imgProject.Attributes.Add("style", "width: auto; height: 50vh;");
+                //    lbSetCol.Text = "</div> <div class='row padding-10'>";
+                //    lbCDiv.Text = "</div>";
+                //    lbCDiv2.Text = "";
+                //}
+
+                imgProject.Attributes.Add("style", "width: auto; height: 50vh;");
             }
             else
             {
-                imgProject.Attributes.Add("style", "width: auto; height: 50vh;");
-                lbSetCol.Text = "</div> <div class='row padding-10'>";
-                lbCDiv.Text = "</div>";
-                lbCDiv2.Text = "";
+                imgProject.Visible = false;
+                lrURL.Visible = true;
+                lrURL.Text = projectDetail.PathFile;
             }
 
-
+            lbSetCol.Text = "</div> <div class='row padding-10'>";
+            lbCDiv.Text = "</div>";
+            lbCDiv2.Text = "";
 
             lstCriteriaDetail = judgeDatabase.GetCriteriaByCategoryID(projectDetail.CategoryID);
 

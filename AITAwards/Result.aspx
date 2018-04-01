@@ -4,7 +4,8 @@
         <div class="row padding-10">
             <div class="col text-center">
             
-        <asp:Image ID="imgProject" runat="server" class="rounded"/>
+                        <asp:Image ID="imgProject" runat="server" class="rounded" Visible="true"/>
+                <asp:Literal ID="lrURL" runat="server" Visible="false"></asp:Literal>
     </div>
             </div>
 

@@ -4,7 +4,7 @@
 
     <style type="text/css">
 body {  
-    background-image:url("Images/AITINKT.png");
+    /*background-image:url("Images/AITINKT.png");*/
     /* Full height */
     height: 100%;
     background-position: center;

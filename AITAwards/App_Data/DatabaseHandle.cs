@@ -132,15 +132,18 @@ namespace AITAwards
                 StringBuilder stringSQL = new StringBuilder();
 
                 DatabaseOpen();
-                stringSQL.Append("SELECT user_tb.user_ID FROM ");
+                stringSQL.Append("SELECT distinct user_tb.user_ID FROM ");
                 stringSQL.Append(TABLE_USER);
                 stringSQL.Append(" LEFT JOIN ");
                 stringSQL.Append(TABLE_JUDGE_CAT);
                 stringSQL.Append(" ON user_tb.user_ID = judge_cat_tb.user_id");
-                stringSQL.Append(" WHERE judge_cat_tb.user_id IS NULL AND user_level_id = @userLevelID;");
+                //stringSQL.Append(" WHERE judge_cat_tb.user_id IS NULL AND user_level_id = @userLevelID;");
+
+                stringSQL.Append(" WHERE user_tb.user_level_id = @userLevelID AND user_tb.user_ID NOT IN(SELECT user_id FROM judge_cat_tb WHERE category_id = @categoryID);");
 
                 MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
                 cmd.Parameters.AddWithValue("@userLevelID", 2);
+                cmd.Parameters.AddWithValue("@categoryID", categoryID);
 
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())

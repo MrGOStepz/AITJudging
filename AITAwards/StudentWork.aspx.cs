@@ -8,22 +8,28 @@ using System.Web.UI.WebControls;
 namespace AITAwards
 {
     public partial class StudentWork : System.Web.UI.Page
-    { 
+    {
+        public UserProfile _userProfile = new UserProfile();
+        public JudgeCategory _judgeCategory = new JudgeCategory();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (AppSession.GetUserProfile() != null && AppSession.GetJudgeAndCategory() != null)
-            {           
-                UserProfile userProfile = new UserProfile();
-                JudgeCategory judgeCategory = new JudgeCategory();
+            {
 
-                userProfile = AppSession.GetUserProfile();
-                judgeCategory = AppSession.GetJudgeAndCategory();
-        
+                _userProfile = new UserProfile();
+                _judgeCategory = new JudgeCategory();
+
+                _userProfile = AppSession.GetUserProfile();
+                _judgeCategory = AppSession.GetJudgeAndCategory();
+
+                AppSession.SetUserProfile(_userProfile);
+                AppSession.SetJudgeAndCategory(_judgeCategory);
                 //2 = Judge
-                if (userProfile.UserLevel != 2)
+                if (_userProfile.UserLevel != 2)
                     Response.Redirect("Index.aspx");
         
-                InitializePage(userProfile, judgeCategory);
+                InitializePage(_userProfile, _judgeCategory);
             }
             else
             {
@@ -65,18 +71,23 @@ namespace AITAwards
                 }
 
                 //TODO Change Image
-                imageButton.ImageUrl = "Images/Projects/" + lstProject[i - 1].CategoryID + "/" + lstProject[i - 1].PathFile;
-
-                System.Drawing.Image image = System.Drawing.Image.FromFile(Server.MapPath(imageButton.ImageUrl));
-
-                if (image.Height > image.Width)
-                {
-                    imageButton.CssClass = "rounded image-wa";
-                }
+                if(lstProject[i - 1].TypeFileID == 1)
+                imageButton.ImageUrl = "Images/Projects/pre_" + lstProject[i - 1].CategoryID + "/" + lstProject[i - 1].PathFile;
                 else
-                {
-                    imageButton.CssClass = "rounded image-ha";
-                }
+                    imageButton.ImageUrl = "Images/Projects/pre_" + lstProject[i - 1].CategoryID + "/" + lstProject[i - 1].Name + ".jpg";
+
+                //System.Drawing.Image image = System.Drawing.Image.FromFile(Server.MapPath(imageButton.ImageUrl));
+
+                //if (image.Height > image.Width)
+                //{
+                //    imageButton.CssClass = "rounded image-wa";
+                //}
+                //else
+                //{
+                //    imageButton.CssClass = "rounded image-ha";
+                //}
+
+                imageButton.CssClass = "rounded image-ha";
 
                 imageButton.Click += ImageButton_Click;
 
@@ -100,6 +111,10 @@ namespace AITAwards
             ImageButton imageButton = sender as ImageButton;
             imageID = imageButton.ID;
             imageID = imageID.Substring(7);
+
+
+            AppSession.SetUserProfile(_userProfile);
+            AppSession.SetJudgeAndCategory(_judgeCategory);
 
             AppSession.SetProjectID(int.Parse(imageID));
             Response.Redirect("Rubric.aspx");

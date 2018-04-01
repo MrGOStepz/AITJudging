@@ -40,6 +40,15 @@ namespace AITAwards {
         protected global::System.Web.UI.WebControls.LinkButton lbtnInviteJudge;
         
         /// <summary>
+        /// lbtnManageJudge control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnManageJudge;
+        
+        /// <summary>
         /// lbtnAddEvent control.
         /// </summary>
         /// <remarks>
@@ -94,12 +103,30 @@ namespace AITAwards {
         protected global::System.Web.UI.WebControls.LinkButton lbtnUpdateRubric;
         
         /// <summary>
-        /// phControl control.
+        /// btnFilter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder phControl;
+        protected global::System.Web.UI.WebControls.Button btnFilter;
+        
+        /// <summary>
+        /// alertControl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl alertControl;
+        
+        /// <summary>
+        /// lbAlert control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbAlert;
     }
 }

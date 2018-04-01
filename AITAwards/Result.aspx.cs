@@ -9,21 +9,29 @@ namespace AITAwards
 {
     public partial class Result : System.Web.UI.Page
     {
+        public UserProfile _userProfile = new UserProfile();
+        public JudgeCategory _judgeCategory = new JudgeCategory();
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (AppSession.GetUserProfile() != null && AppSession.GetJudgeAndCategory() != null && AppSession.GetListAnswer() != null)
             {
-                UserProfile userProfile = new UserProfile();
-                JudgeCategory judgeCategory = new JudgeCategory();
+                _userProfile = new UserProfile();
+                _judgeCategory = new JudgeCategory();
+
+                _userProfile = AppSession.GetUserProfile();
+                _judgeCategory = AppSession.GetJudgeAndCategory();
+
                 List<AnswerDetail> lstAnswer = new List<AnswerDetail>();
                 lstAnswer = AppSession.GetListAnswer();
                 lstAnswer = lstAnswer.OrderBy(o => o.Question).ToList();
 
-                userProfile = AppSession.GetUserProfile();
-                judgeCategory = AppSession.GetJudgeAndCategory();
+                AppSession.SetUserProfile(_userProfile);
+                AppSession.SetJudgeAndCategory(_judgeCategory);
 
                 //2 = Judge
-                if (userProfile.UserLevel != 2)
+                if (_userProfile.UserLevel != 2)
                     Response.Redirect("Index.aspx");
 
                 InitializePage(lstAnswer, AppSession.GetProjectID());
@@ -46,8 +54,21 @@ namespace AITAwards
 
             IJudgeDatabase judgeDatabase = new JudgeDB();
             projectDetail = judgeDatabase.GetProjectbyProjectID(projectID);
-            imgProject.ImageUrl = "Images/Projects/" + projectDetail.CategoryID + "/" + projectDetail.PathFile;
+
+            if (projectDetail.TypeFileID == 1)
+            {
+                imgProject.ImageUrl = "Images/Projects/" + projectDetail.CategoryID + "/" + projectDetail.PathFile;
+
             imgProject.Attributes.Add("style", "width: auto; height: 50vh;");
+            }
+            else
+            {
+                imgProject.Visible = false;
+                lrURL.Visible = true;
+                lrURL.Text = projectDetail.PathFile;
+            }
+
+
             //txtDescription.Text = projectDetail.Description;
             //txtName.Text = projectDetail.Name;
 

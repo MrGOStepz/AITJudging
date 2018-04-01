@@ -54,18 +54,20 @@ namespace AITAwards
                 imageButton.ID = "project" + lstProject[i - 1].ProjectID;
                 double avgScore = judgeDatabase.GetTotalScoreByProjectID(lstProject[i -1].ProjectID);
                 //TODO Change Image
-                imageButton.ImageUrl = "Images/Projects/" + lstProject[i - 1].CategoryID + "/" + lstProject[i - 1].PathFile;
+                imageButton.ImageUrl = "Images/Projects/pre_" + lstProject[i - 1].CategoryID + "/" + lstProject[i - 1].PathFile;
 
-                System.Drawing.Image image = System.Drawing.Image.FromFile(Server.MapPath(imageButton.ImageUrl));
-                imageButton.CssClass = "rounded";
-                if (image.Height > image.Width)
-                {
-                    imageButton.CssClass = "rounded image-aa";
-                }
-                else
-                {
-                    imageButton.CssClass = "rounded image-aa";
-                }
+                //System.Drawing.Image image = System.Drawing.Image.FromFile(Server.MapPath(imageButton.ImageUrl));
+
+                //if (image.Height > image.Width)
+                //{
+                //    imageButton.CssClass = "rounded image-wa";
+                //}
+                //else
+                //{
+                //    imageButton.CssClass = "rounded image-ha";
+                //}
+
+                imageButton.CssClass = "rounded image-ha";
 
                 imageButton.Click += ImageButton_Click;
 

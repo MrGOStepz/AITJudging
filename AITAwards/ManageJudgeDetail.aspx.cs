@@ -75,7 +75,7 @@ namespace AITAwards
                     Response.Redirect("UpdateCategory.aspx");
                     break;
                 case "lbtnInviteJudge":
-                    Response.Redirect("InvitationJudge.aspx");
+                    Response.Redirect("InviteJudge.aspx");
                     break;
                 default:
                     break;

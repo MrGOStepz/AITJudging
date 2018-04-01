@@ -2,7 +2,8 @@
 
             <div class="col text-center">
             
-        <asp:Image ID="imgProject" runat="server" class="rounded"/>
+                        <asp:Image ID="imgProject" runat="server" class="rounded" Visible="true"/>
+                <asp:Literal ID="lrURL" runat="server" Visible="false"></asp:Literal>
     </div>
 
 <asp:Label ID="lbSetCol" runat="server" Text=""></asp:Label>
@@ -33,6 +34,9 @@
         <div class="col-md-6 offset-md-3" style="display:flex;width:100%;">
             <asp:Button ID="btnBack" runat="server" Text="Back" CssClass="btn btn-success" OnClick="btnBack_Click" style="flex:1;"/>
             <asp:Button ID="btnNext" runat="server" Text="Next" CssClass="btn btn-success" OnClick="btnNext_Click" style="flex:1;"/>
+
+<%--            <button type="button" onclick="return BackClick();"  style="flex:1;" class="btn btn-success">Back</button>
+            <button type="button" onclick="return NextClick();"  style="flex:1;" class="btn btn-success">Next</button>--%>
             </div>
     </div>
 <asp:Label ID="lbCDiv2" runat="server" Text=""></asp:Label>
