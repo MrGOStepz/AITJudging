@@ -1035,7 +1035,7 @@ namespace AITAwards
                     //projectDetail.ScoreID = (int)reader["score_id"];
                     projectDetail.PathFile = reader["path_file"].ToString();
                     projectDetail.Description = reader["description"].ToString();
-                    //projectDetail.TypeFileID = (int)reader["type_file_id"];
+                    projectDetail.TypeFileID = (int)reader["type_file_id"];
 
                 }
 

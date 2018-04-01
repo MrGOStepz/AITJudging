@@ -61,6 +61,8 @@ namespace AITAwards
 
             if (projectDetail.TypeFileID == 1)
             {
+                imgProject.Visible = true;
+                lrURL.Visible = false;
                 imgProject.ImageUrl = "Images/Projects/" + projectDetail.CategoryID + "/" + projectDetail.PathFile;
                 System.Drawing.Image image = System.Drawing.Image.FromFile(Server.MapPath(imgProject.ImageUrl));
 

@@ -57,9 +57,10 @@ namespace AITAwards
 
             if (projectDetail.TypeFileID == 1)
             {
+                imgProject.Visible = true;
+                lrURL.Visible = false;
                 imgProject.ImageUrl = "Images/Projects/" + projectDetail.CategoryID + "/" + projectDetail.PathFile;
-
-            imgProject.Attributes.Add("style", "width: auto; height: 50vh;");
+                imgProject.Attributes.Add("style", "width: auto; height: 50vh;");
             }
             else
             {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -76,6 +77,8 @@ namespace AITAwards
 
             if (projectDetail.TypeFileID == 1)
             {
+                imgProject.Visible = true;
+                lrURL.Visible = false;
                 if (projectDetail.CategoryID == 0)
                     Response.Redirect("Index.aspx");
                 //txtName.Text = projectDetail.Name;
@@ -103,7 +106,6 @@ namespace AITAwards
             }
             else
             {
-
                 imgProject.Visible = false;
                 lrURL.Visible = true;
                 lrURL.Text = projectDetail.PathFile;
@@ -178,6 +180,11 @@ namespace AITAwards
             Response.Redirect("StudentWork.aspx");
         }
 
+        [WebMethod()]
+        public static void TestClick()
+        {
+            return;
+        }
 
     }
 }

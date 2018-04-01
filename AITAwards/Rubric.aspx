@@ -1,7 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Rubric.aspx.cs" Inherits="AITAwards.Rubric" %>
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container">
+
+
+
         <div class="row padding-10">
+            <button type="button" onclick="return TestClick();">Total</button>
             <div class="col text-center">
                 <asp:Image ID="imgProject" runat="server" class="rounded" Visible="true"/>
                 <asp:Literal ID="lrURL" runat="server" Visible="false"></asp:Literal>
@@ -63,7 +67,7 @@
         <asp:Label ID="lbCDiv2" runat="server" Text=""></asp:Label>
      </div>
 
-        <asp:HiddenField ID="width" runat="server" />
+<%--        <asp:HiddenField ID="width" runat="server" />
 <asp:HiddenField ID="height" runat="server" />
         <script type="text/javascript">
 $(document).ready(function() {
@@ -72,7 +76,11 @@ $(document).ready(function() {
     $("#height").val() = $(window).height();    
 
 });
-</script>
+</script>--%>
+
+        
+
+
 
 
 </asp:Content>

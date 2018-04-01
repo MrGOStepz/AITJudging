@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Result.aspx.cs" Inherits="AITAwards.Result" %>
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+
     <div class="container">
         <div class="row padding-10">
             <div class="col text-center">
@@ -65,4 +66,6 @@
     </div>
 
         </div>
+
+
 </asp:Content>

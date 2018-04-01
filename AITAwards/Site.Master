@@ -17,6 +17,8 @@
 <body>
     <div>
     <form id="form1" runat="server">
+                                <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true">
+        </asp:ScriptManager>
         <nav class="navbar navbar-expand-lg navbar-light bg-nav-color">
            <%-- TODO Change Logo Here --%>
             <a class="navbar-brand" href="index.aspx">
@@ -42,6 +44,24 @@
 
     </form>
         </div>
+
+            <script>
+
+        function TestClick() {
+            PageMethods.TestClick(onSucceed, onError);
+        }
+
+        // On Success
+        function onSucceed(results, currentContext, methodName) {
+
+        }
+
+        // On Error
+        function onError(results, currentContext, methodName) {
+
+        }
+
+    </script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>

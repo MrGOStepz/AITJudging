@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -45,6 +46,12 @@ namespace AITAwards
             phControl.Controls.Clear();
             phControl.Controls.Add(questionControl);
 
+        }
+
+        [WebMethod()]
+        public static void TestClick()
+        {
+            return;
         }
 
     }

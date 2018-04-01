@@ -715,7 +715,7 @@
     <Content Include="vendor\jquery\jquery.min.js" />
     <Content Include="vendor\popper\popper.js" />
     <Content Include="vendor\popper\popper.min.js" />
-    <Content Include="UserControl\ViewSwitcher.ascx" />
+    <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
     <Content Include="Site.Mobile.Master" />
@@ -1046,11 +1046,11 @@
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
     <Compile Include="Interface\UserInterface.cs" />
-    <Compile Include="UserControl\ViewSwitcher.ascx.cs">
+    <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UserControl\ViewSwitcher.ascx.designer.cs">
+    <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
