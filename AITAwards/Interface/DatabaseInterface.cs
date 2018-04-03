@@ -46,7 +46,7 @@ namespace AITAwards
         int CheckJudgeCanAccessCategory(int categoryID, int userID);
         int InsertProjectScore(List<ScoreModel> scoreModel);
         int AddJudgeByCategory(List<JudgeCategory> lstJudgeCat);
-
+        int DeleteJudgeInCategory(List<JudgeCategory> lstJudgeCat);
         int AddTotalScoreProjectByJudge(int projectID, int judgeID, float score);
     }
 }

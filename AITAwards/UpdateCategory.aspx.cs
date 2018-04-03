@@ -11,6 +11,21 @@ namespace AITAwards
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (AppSession.GetUserProfile() != null)
+            {
+                UserProfile userProfile = new UserProfile();
+                userProfile = AppSession.GetUserProfile();
+
+                //1 = Admin
+                if (userProfile.UserLevel != 1)
+                    Response.Redirect("Login.aspx");
+
+            }
+            else
+            {
+                Response.Redirect("Login.aspx");
+            }
+
             if (AppSession.GetUpdateCategoryState() == "EditCategory")
             {
                 divControl.Controls.Clear();

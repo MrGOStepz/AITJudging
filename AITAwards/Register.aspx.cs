@@ -38,10 +38,6 @@ namespace AITAwards
             {
                 ShowAlert("Please fill up username", true);
             }
-            else if (txtEmail.Text == "")
-            {
-                ShowAlert("Please fill up Email", true);
-            }
             else if (txtPassword.Text == "")
             {
                 ShowAlert("Please fill up password", true);
@@ -64,7 +60,7 @@ namespace AITAwards
 
                     string password = md5.EncodePassword(txtPassword.Text);
 
-                    if (dbHandle.UpdateNewUser(txtUserName.Text, password, txtEmail.Text, userID) > 0)
+                    if (dbHandle.UpdateNewUser(txtUserName.Text, password, userID) > 0)
                     {
                         ShowAlert("Register complete!", false);
                         Response.Redirect("Index.aspx");

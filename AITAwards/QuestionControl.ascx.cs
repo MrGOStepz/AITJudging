@@ -62,6 +62,7 @@ namespace AITAwards
             if (projectDetail.TypeFileID == 1)
             {
                 imgProject.Visible = true;
+                vdoCon.Visible = false;
                 lrURL.Visible = false;
                 imgProject.ImageUrl = "Images/Projects/" + projectDetail.CategoryID + "/" + projectDetail.PathFile;
                 System.Drawing.Image image = System.Drawing.Image.FromFile(Server.MapPath(imgProject.ImageUrl));
@@ -81,11 +82,20 @@ namespace AITAwards
                 //    lbCDiv2.Text = "";
                 //}
 
-                imgProject.Attributes.Add("style", "width: auto; height: 50vh;");
+                //imgProject.Attributes.Add("style", "width: auto; height: 50vh;");
+                if (image.Height > image.Width)
+                {
+                    imgProject.Attributes.Add("style", "width: auto; height: 50vh;");
+                }
+                else
+                {
+                    imgProject.Attributes.Add("style", "width: 100%; height: auto;");
+                }
             }
             else
             {
                 imgProject.Visible = false;
+                vdoCon.Visible = true;
                 lrURL.Visible = true;
                 lrURL.Text = projectDetail.PathFile;
             }
@@ -146,21 +156,21 @@ namespace AITAwards
             for (int i = 0; i < _rubricDetail.ListCriteriaDetail[_questionNo].LevelCritieria.Count; i++)
             {
                 strB.Append("<th scope='col'>");
-                strB.Append(_rubricDetail.ListCriteriaDetail[_questionNo].LevelCritieria[i].ValueScore.ToString("0.00"));
+                strB.Append(_rubricDetail.ListCriteriaDetail[_questionNo].LevelCritieria[i].ValueScore.ToString("0.0"));
                 strB.Append("</th>");
             }
 
             lbHeader.Text = strB.ToString();
 
             rubricTB.Controls.Add(new LiteralControl("<tr>"));
-            rubricTB.Controls.Add(new LiteralControl("<th scope='row'>"));
+            rubricTB.Controls.Add(new LiteralControl("<td style='font-size:13px;'>"));
             rubricTB.Controls.Add(new LiteralControl(_rubricDetail.ListCriteriaDetail[_questionNo].Name));
-            rubricTB.Controls.Add(new LiteralControl("</th>"));
+            rubricTB.Controls.Add(new LiteralControl("</td>"));
 
 
             for (int i = 0; i < _rubricDetail.ListCriteriaDetail[_questionNo].LevelCritieria.Count; i++)
             {
-                rubricTB.Controls.Add(new LiteralControl("<td>"));
+                rubricTB.Controls.Add(new LiteralControl("<td style='font-size:11px;'>"));
                 rubricTB.Controls.Add(new LiteralControl(_rubricDetail.ListCriteriaDetail[_questionNo].LevelCritieria[i].Description));
                 rubricTB.Controls.Add(new LiteralControl("</td>"));
             }

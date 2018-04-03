@@ -15,6 +15,7 @@ namespace AITAwards
 
             if(!IsPostBack)
             {
+                //Check User Session
                 if (AppSession.GetUserProfile() != null)
                 {
                     UserProfile userProfile = new UserProfile();
@@ -29,10 +30,12 @@ namespace AITAwards
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
+
             DatabaseHandle dbHandle = new DatabaseHandle();
             UserProfile userProfile = new UserProfile();
             MD5 md5 = new MD5();
 
+            //Encode Password
             string password = md5.EncodePassword(txtPassword.Text);
 
             userProfile = dbHandle.LoginbyUserAndPassword(txtUserName.Text, password);

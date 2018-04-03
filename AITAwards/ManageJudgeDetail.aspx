@@ -6,7 +6,7 @@
 <head runat="server">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Sufee Admin - HTML5 Admin Template</title>
+    <title>AIT Admin Judging Platform</title>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -174,14 +174,14 @@
         <!-- Header-->
 
         <div class="breadcrumbs">
-            <div class="col-sm-4">
+            <div class="col-md-4">
                 <div class="page-header float-left">
                     <div class="page-title">
                         <h1>Judge Manage</h1>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-8">
+            <div class="col-md-8">
                 <div class="page-header float-right">
                     <div class="page-title">
                         <ol class="breadcrumb text-right">
@@ -216,12 +216,43 @@
                         </div>
 
                   </div>
-                <div class="row">
+
+                                <div class="row">
 
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
                             <strong class="card-title">List User</strong>
+                            <asp:Button ID="btnUpdateJudge" runat="server" Text="Approve" CssClass="btn btn-primary" OnClick="btnUpdateJudge_Click"/>
+                        </div>
+                        <div class="card-body">
+                  <table id="bootstrap-data-table1" class="table table-striped table-bordered">
+                    <thead>
+                      <tr>
+                        <th>User ID</th>
+                        <th>User Name</th>
+                        <th>Email</th>
+                        <th>Check</th>
+                      </tr>
+                    </thead>
+                      <tbody id="tbody1" runat="server">
+
+                    </tbody>
+                  </table>
+                        </div>
+                    </div>
+                </div>
+
+
+                </div>
+
+
+                <div class="row">
+
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong class="card-title">Add User</strong>
                             <asp:Button ID="btnApproveJudge" runat="server" Text="Approve" CssClass="btn btn-primary" OnClick="btnApproveJudge_Click"/>
                         </div>
                         <div class="card-body">

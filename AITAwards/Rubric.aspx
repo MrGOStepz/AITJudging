@@ -1,16 +1,21 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Rubric.aspx.cs" Inherits="AITAwards.Rubric" %>
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+
+
     <div class="container">
-
-
+        <input type="hidden" value=""
+   name="clientScreenHeight" id="clientScreenHeight" />
+<input type="hidden" value=""
+   name="clientScreenWidth" id="clientScreenWidth" />
 
         <div class="row padding-10">
-            <button type="button" onclick="return TestClick();">Total</button>
             <div class="col text-center">
                 <asp:Image ID="imgProject" runat="server" class="rounded" Visible="true"/>
+                <div class="video-container" id="vdoCon" runat="server" Visible="false">
                 <asp:Literal ID="lrURL" runat="server" Visible="false"></asp:Literal>
+                    </div>
             </div>
-
+        
         <%--</div>
 
             
@@ -37,9 +42,9 @@
 
                 </div>
                 </div>
-        <table class="table table-bordered">
+        <table class="table table-bordered" style="width:100%">
           <thead class="thead-light">
-            <tr>
+            <tr style='font-size:13px;'>
               <th scope="col">Criteria</th>
               <th scope="col">Ratings</th>
               <th scope="col">Points</th>
@@ -67,16 +72,8 @@
         <asp:Label ID="lbCDiv2" runat="server" Text=""></asp:Label>
      </div>
 
-<%--        <asp:HiddenField ID="width" runat="server" />
-<asp:HiddenField ID="height" runat="server" />
-        <script type="text/javascript">
-$(document).ready(function() {
 
-    $("#width").val() = $(window).width();
-    $("#height").val() = $(window).height();    
 
-});
-</script>--%>
 
         
 

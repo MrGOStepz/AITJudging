@@ -42,10 +42,10 @@
                             <label>User Name</label>
                             <asp:TextBox ID="txtUserName" runat="server" CssClass="form-control" placeholder="Username"></asp:TextBox>
                         </div>
-                                            <div class="form-group">
+<%--                                            <div class="form-group">
                             <label>Email</label>
                             <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" placeholder="Email" TextMode="Email"></asp:TextBox>
-                        </div>
+                        </div>--%>
                         <div class="form-group">
                             <label>Password</label>
                             <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" placeholder="Password" TextMode="Password"></asp:TextBox>

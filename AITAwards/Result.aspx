@@ -6,7 +6,9 @@
             <div class="col text-center">
             
                         <asp:Image ID="imgProject" runat="server" class="rounded" Visible="true"/>
+                   <div class="video-container" id="vdoCon" runat="server" Visible="false">
                 <asp:Literal ID="lrURL" runat="server" Visible="false"></asp:Literal>
+                    </div>
     </div>
             </div>
 
@@ -37,9 +39,9 @@
 
 
     <div class="row padding-10">
-        <table class="table table-bordered">
+        <table class="table table-bordered" style="width:100%">
           <thead class="thead-light">
-            <tr>
+            <tr style='font-size:13px;'>
               <th scope="col">Criteria</th>
               <th scope="col">Ratings</th>
               <th scope="col">Points</th>

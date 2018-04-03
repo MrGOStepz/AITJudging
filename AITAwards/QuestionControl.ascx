@@ -3,14 +3,16 @@
             <div class="col text-center">
             
                         <asp:Image ID="imgProject" runat="server" class="rounded" Visible="true"/>
+                                <div class="video-container" id="vdoCon" runat="server" Visible="false">
                 <asp:Literal ID="lrURL" runat="server" Visible="false"></asp:Literal>
+                    </div>
     </div>
 
 <asp:Label ID="lbSetCol" runat="server" Text=""></asp:Label>
 
-            <table class="table table-bordered">
+            <table class="table table-bordered" style="width:100%">
           <thead class="thead-light">
-              <tr>
+              <tr style='font-size:13px;'>
                   <asp:Label ID="lbHeader" runat="server" Text=""></asp:Label>
             </tr>
           </thead>

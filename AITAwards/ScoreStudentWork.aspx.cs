@@ -53,8 +53,11 @@ namespace AITAwards
                 imageButton = new ImageButton();
                 imageButton.ID = "project" + lstProject[i - 1].ProjectID;
                 double avgScore = judgeDatabase.GetTotalScoreByProjectID(lstProject[i -1].ProjectID);
-                //TODO Change Image
-                imageButton.ImageUrl = "Images/Projects/pre_" + lstProject[i - 1].CategoryID + "/" + lstProject[i - 1].PathFile;
+                
+                if(lstProject[i - 1].TypeFileID == 1)
+                    imageButton.ImageUrl = "Images/Projects/pre_" + lstProject[i - 1].CategoryID + "/" + lstProject[i - 1].PathFile;
+                else
+                    imageButton.ImageUrl = "Images/Projects/pre_" + lstProject[i - 1].CategoryID + "/" + lstProject[i - 1].Name + ".jpg";
 
                 //System.Drawing.Image image = System.Drawing.Image.FromFile(Server.MapPath(imageButton.ImageUrl));
 
@@ -72,7 +75,7 @@ namespace AITAwards
                 imageButton.Click += ImageButton_Click;
 
                 contentControl.Controls.Add(new LiteralControl("<div class='col text-center'>"));
-                contentControl.Controls.Add(new LiteralControl("<div class='card' style='width: 14rem;'>"));
+                contentControl.Controls.Add(new LiteralControl("<div class='card' style='width: 16rem;'>"));
                 contentControl.Controls.Add(imageButton);
                 contentControl.Controls.Add(new LiteralControl("<div class='card-body'><h5 class='card-title'>"));
                 contentControl.Controls.Add(new LiteralControl(avgScore + " / " + totalScore));

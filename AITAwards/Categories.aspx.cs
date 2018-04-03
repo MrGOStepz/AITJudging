@@ -33,7 +33,7 @@ namespace AITAwards
         {
             List<JudgeCategory> lstJudgeCategories = new List<JudgeCategory>();
             List<AITCategories> lstAITCategories = new List<AITCategories>();
-            //TODO Setting EventID
+            
             IJudgeDatabase judgeDatabase = new JudgeDB();
             lstJudgeCategories = judgeDatabase.GetListOfCategoriesByUserIDAndEventID(userProfile.UserID, 1);
 
@@ -48,7 +48,6 @@ namespace AITAwards
                 imageButton = new ImageButton();
                 imageButton.ID = "cat" + lstJudgeCategories[i - 1].CategoryID;
                 imageButton.CssClass = "rounded image-width";
-                //TODO Change Image
                 imageButton.ImageUrl = "Images/Categories/" + lstJudgeCategories[i - 1].PathImage;
                 imageButton.Click += ImageButton_Click;
 

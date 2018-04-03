@@ -57,13 +57,24 @@ namespace AITAwards
 
             if (projectDetail.TypeFileID == 1)
             {
+                vdoCon.Visible = false;
                 imgProject.Visible = true;
                 lrURL.Visible = false;
                 imgProject.ImageUrl = "Images/Projects/" + projectDetail.CategoryID + "/" + projectDetail.PathFile;
-                imgProject.Attributes.Add("style", "width: auto; height: 50vh;");
+                //imgProject.Attributes.Add("style", "width: auto; height: 50vh;");
+                System.Drawing.Image image = System.Drawing.Image.FromFile(Server.MapPath(imgProject.ImageUrl));
+                if (image.Height > image.Width)
+                {
+                    imgProject.Attributes.Add("style", "width: auto; height: 50vh;");
+                }
+                else
+                {
+                    imgProject.Attributes.Add("style", "width: 100%; height: auto;");
+                }
             }
             else
             {
+                vdoCon.Visible = true;
                 imgProject.Visible = false;
                 lrURL.Visible = true;
                 lrURL.Text = projectDetail.PathFile;
@@ -98,14 +109,14 @@ namespace AITAwards
             {
                 criterScore = 0.0f;
                 criteriaName = rubricDetail.ListCriteriaDetail[i].Name;
-                rubricTB.Controls.Add(new LiteralControl("<th scope = 'row'>" + criteriaName + "</th>"));
+                rubricTB.Controls.Add(new LiteralControl("<td style='font-size:13px;'>" + criteriaName + "</td>"));
                 rubricTB.Controls.Add(new LiteralControl("<td> <table class='table table-bordered'> <tr>"));
 
                 for (int j = 0; j < rubricDetail.ListCriteriaDetail[i].LevelCritieria.Count; j++)
                 {
                     if(lstAnswerDetail[i].Answer == j)
                     {
-                        rubricTB.Controls.Add(new LiteralControl("<td bgcolor='red'>"));
+                        rubricTB.Controls.Add(new LiteralControl("<td bgcolor='red' style='font-size:11px;'>"));
                         rubricTB.Controls.Add(new LiteralControl(rubricDetail.ListCriteriaDetail[i].LevelCritieria[j].Description));
                         rubricTB.Controls.Add(new LiteralControl("</td>"));
                         score = rubricDetail.ListCriteriaDetail[i].LevelCritieria[j].ValueScore;
@@ -113,7 +124,7 @@ namespace AITAwards
                     }
                     else
                     {
-                        rubricTB.Controls.Add(new LiteralControl("<td>"));
+                        rubricTB.Controls.Add(new LiteralControl("<td style='font-size:11px;'>"));
                         rubricTB.Controls.Add(new LiteralControl(rubricDetail.ListCriteriaDetail[i].LevelCritieria[j].Description));
                         rubricTB.Controls.Add(new LiteralControl("</td>"));
                     }

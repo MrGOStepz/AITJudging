@@ -13,6 +13,23 @@ namespace AITAwards
         {
             alertControl.Visible = false;
 
+            if (AppSession.GetUserProfile() != null)
+            {
+                UserProfile userProfile = new UserProfile();
+                userProfile = AppSession.GetUserProfile();
+
+                //1 = Admin
+                if (userProfile.UserLevel != 1)
+                    Response.Redirect("Login.aspx");
+
+            }
+            else
+            {
+                Response.Redirect("Login.aspx");
+            }
+
+
+
             if (!IsPostBack)
             {
                 if (Request.QueryString["eventID"] != null)

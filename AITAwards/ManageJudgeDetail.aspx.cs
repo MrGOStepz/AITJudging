@@ -11,10 +11,28 @@ namespace AITAwards
     public partial class ManageJudgeDetail : System.Web.UI.Page
     {
         private List<int> _lstCbID = new List<int>();
+        private List<int> _lstCbUID = new List<int>();
         private int _categoryID;
         protected void Page_Load(object sender, EventArgs e)
         {
             alertControl.Visible = false;
+
+
+            if (AppSession.GetUserProfile() != null)
+            {
+                UserProfile userProfile = new UserProfile();
+                userProfile = AppSession.GetUserProfile();
+
+                //1 = Admin
+                if (userProfile.UserLevel != 1)
+                    Response.Redirect("Login.aspx");
+
+            }
+            else
+            {
+                Response.Redirect("Login.aspx");
+            }
+
 
             if (!IsPostBack)
             {
@@ -190,9 +208,69 @@ namespace AITAwards
                 tbodyControl.Controls.Add(checkBox);
                 tbodyControl.Controls.Add(new LiteralControl("</td>"));
                 tbodyControl.Controls.Add(new LiteralControl("</tr>"));
+            }
 
+            lstUserProfile = new List<UserProfile>();
+            json = dbHandle.GetListJudgeInCat(int.Parse(ddlCategories.SelectedValue));
+            lstUserProfile = JsonConvert.DeserializeObject<List<UserProfile>>(json);
+            tbody1.Controls.Clear();
+            _lstCbUID = new List<int>();
+            for (int i = 0; i < lstUserProfile.Count; i++)
+            {
+                tbody1.Controls.Add(new LiteralControl("<tr>"));
+                tbody1.Controls.Add(new LiteralControl("<td>"));
+                tbody1.Controls.Add(new LiteralControl(lstUserProfile[i].UserID.ToString()));
+                tbody1.Controls.Add(new LiteralControl("</td>"));
+                tbody1.Controls.Add(new LiteralControl("<td>"));
+                tbody1.Controls.Add(new LiteralControl(lstUserProfile[i].UserName.ToString()));
+                tbody1.Controls.Add(new LiteralControl("</td>"));
+                tbody1.Controls.Add(new LiteralControl("<td>"));
+                tbody1.Controls.Add(new LiteralControl(lstUserProfile[i].Email.ToString()));
+                tbody1.Controls.Add(new LiteralControl("</td>"));
+                tbody1.Controls.Add(new LiteralControl("<td>"));
+                CheckBox checkBox = new CheckBox();
+                checkBox.ID = "cbu" + lstUserProfile[i].UserID;
+
+                checkBox.Checked = true;
+
+                _lstCbUID.Add(lstUserProfile[i].UserID);
+                tbody1.Controls.Add(checkBox);
+                tbody1.Controls.Add(new LiteralControl("</td>"));
+                tbody1.Controls.Add(new LiteralControl("</tr>"));
             }
         }
 
+        protected void btnUpdateJudge_Click(object sender, EventArgs e)
+        {
+            List<JudgeCategory> lstJudgeCat = new List<JudgeCategory>();
+            JudgeCategory judgeCategory = new JudgeCategory();
+            IJudgeDatabase judgeDB = new JudgeDB();
+
+            List<int> lstJudgeID = new List<int>();
+            DatabaseHandle dbHandle = new DatabaseHandle();
+            lstJudgeID = dbHandle.GetListJudgeIDInCat(int.Parse(ddlCategories.SelectedValue));
+            for (int i = 0; i < lstJudgeID.Count; i++)
+            {
+                CheckBox checkbox = (CheckBox)tbody1.FindControl("cbu" + lstJudgeID[i]);
+                if (checkbox.Checked == false)
+                {
+                    judgeCategory = new JudgeCategory();
+                    judgeCategory.CategoryID = int.Parse(ddlCategories.SelectedValue);
+                    judgeCategory.UserID = lstJudgeID[i];
+                    lstJudgeCat.Add(judgeCategory);
+                }
+            }
+
+            if (judgeDB.DeleteJudgeInCategory(lstJudgeCat) > 0)
+            {
+                ShowAlert("Update Judge Complete!", false);
+            }
+            else
+            {
+                ShowAlert("Something Error!", true);
+            }
+
+            ReloadUser(_categoryID);
+        }
     }
 }

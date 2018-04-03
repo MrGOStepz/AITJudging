@@ -52,6 +52,10 @@ namespace AITAwards
             txtScore.Text = avgScore.ToString("0.0");
             if (projectDetail.TypeFileID == 1)
             {
+                vdoCon.Visible = false;
+                imgProject.Visible = true;
+                lrURL.Visible = false;
+
                 imgProject.ImageUrl = "Images/Projects/" + projectDetail.CategoryID + "/" + projectDetail.PathFile;
                 System.Drawing.Image image = System.Drawing.Image.FromFile(Server.MapPath(imgProject.ImageUrl));
 
@@ -74,6 +78,7 @@ namespace AITAwards
             }
             else
             {
+                vdoCon.Visible = true;
                 imgProject.Visible = false;
                 lrURL.Visible = true;
                 lrURL.Text = projectDetail.PathFile;
@@ -104,12 +109,12 @@ namespace AITAwards
             {
                 criterScore = 0.0f;
                 criteriaName = rubricDetail.ListCriteriaDetail[i].Name;
-                rubricTB.Controls.Add(new LiteralControl("<th scope = 'row'>" + criteriaName + "</th>"));
+                rubricTB.Controls.Add(new LiteralControl("<th scope = 'row' style='font-size:13px;'>" + criteriaName + "</th>"));
                 rubricTB.Controls.Add(new LiteralControl("<td> <table class='table table-bordered'> <tr>"));
 
                 for (int j = 0; j < rubricDetail.ListCriteriaDetail[i].LevelCritieria.Count; j++)
                 {
-                    rubricTB.Controls.Add(new LiteralControl("<td>"));
+                    rubricTB.Controls.Add(new LiteralControl("<td style='font-size:11px;'>"));
                     rubricTB.Controls.Add(new LiteralControl(rubricDetail.ListCriteriaDetail[i].LevelCritieria[j].Description));
                     rubricTB.Controls.Add(new LiteralControl("</td>"));
 
@@ -117,7 +122,7 @@ namespace AITAwards
                         criterScore = rubricDetail.ListCriteriaDetail[i].LevelCritieria[j].ValueScore;
                 }
 
-                rubricTB.Controls.Add(new LiteralControl("</tr> </table> </td> <td>"));
+                rubricTB.Controls.Add(new LiteralControl("</tr> </table> </td> <td style='font-size:11px;'>"));
                 rubricTB.Controls.Add(new LiteralControl(criterScore.ToString("0.0")));
                 rubricTB.Controls.Add(new LiteralControl("</td> </tr>"));
 

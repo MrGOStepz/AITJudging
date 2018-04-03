@@ -2,9 +2,9 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
 
-    <div class="container">
+    <div class="container">      
         <div class="row padding-10">
-            <button type="button" onclick="return TestClick();">Total</button>
+            
 <%--            <div class="col text-center">
             
         <asp:Image ID="imgProject" runat="server" class="rounded"/>
@@ -16,19 +16,7 @@
 
         <script>
 
-        function TestClick() {
-            PageMethods.TestClick(onSucceed, onError);
-        }
 
-        // On Success
-        function onSucceed(results, currentContext, methodName) {
-
-        }
-
-        // On Error
-        function onError(results, currentContext, methodName) {
-
-        }
 
     </script>
 

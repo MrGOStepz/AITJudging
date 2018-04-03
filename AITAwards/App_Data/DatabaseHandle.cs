@@ -124,6 +124,48 @@ namespace AITAwards
             }
         }
 
+        public string GetListJudgeInCat(int categoryID)
+        {
+            try
+            {
+                List<UserProfile> lstUserProfile = new List<UserProfile>();
+                UserProfile userProfile = new UserProfile();
+                StringBuilder stringSQL = new StringBuilder();
+
+                DatabaseOpen();
+                stringSQL.Append("SELECT distinct user_tb.user_ID, user_tb.username, user_tb.email FROM ");
+                stringSQL.Append(TABLE_USER);
+                stringSQL.Append(" LEFT JOIN ");
+                stringSQL.Append(TABLE_JUDGE_CAT);
+                stringSQL.Append(" ON user_tb.user_ID = judge_cat_tb.user_id");
+                stringSQL.Append(" WHERE judge_cat_tb.category_id = @categoryID;");
+
+                MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
+                cmd.Parameters.AddWithValue("@userLevelID", 2);
+                cmd.Parameters.AddWithValue("@categoryID", categoryID);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    userProfile = new UserProfile();
+                    userProfile.UserID = (int)reader["user_ID"];
+                    userProfile.UserName = reader["username"].ToString();
+                    userProfile.Email = reader["email"].ToString();
+                    lstUserProfile.Add(userProfile);
+                }
+
+                string json = JsonConvert.SerializeObject(lstUserProfile);
+                cmd.Dispose();
+                DatabaseClose();
+
+                return json;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         public List<int> GetListJudgeID(int categoryID)
         {
             try
@@ -161,8 +203,39 @@ namespace AITAwards
             }
         }
 
+        public List<int> GetListJudgeIDInCat(int categoryID)
+        {
+            try
+            {
+                List<int> lstJudgeID = new List<int>();
+                StringBuilder stringSQL = new StringBuilder();
 
-        public int UpdateNewUser(string userName, string password, string email, int userID)
+                DatabaseOpen();
+                stringSQL.Append("SELECT user_ID FROM ");
+                stringSQL.Append(TABLE_JUDGE_CAT);
+                stringSQL.Append(" WHERE category_id = @categoryID;");
+
+                MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
+                cmd.Parameters.AddWithValue("@categoryID", categoryID);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    lstJudgeID.Add((int)reader["user_ID"]);
+                }
+                cmd.Dispose();
+                DatabaseClose();
+
+                return lstJudgeID;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+
+        public int UpdateNewUser(string userName, string password,  int userID)
         {
             try
             {
@@ -171,14 +244,13 @@ namespace AITAwards
                 DatabaseOpen();
                 stringSQL.Append("UPDATE ");
                 stringSQL.Append(TABLE_USER);
-                stringSQL.Append(" SET username = @userName, password = @password, email = @email, is_active = @isActive ");
+                stringSQL.Append(" SET username = @userName, password = @password, is_active = @isActive ");
                 stringSQL.Append("WHERE user_ID = @userID;");
 
                 MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
                 cmd.Parameters.AddWithValue("@userID", userID);
                 cmd.Parameters.AddWithValue("@userName", userName);
                 cmd.Parameters.AddWithValue("@password", password);
-                cmd.Parameters.AddWithValue("@email", email);
                 cmd.Parameters.AddWithValue("@isActive", 1);
 
                 cmd.ExecuteNonQuery();
@@ -1246,6 +1318,37 @@ namespace AITAwards
                 cmd.Parameters.AddWithValue("@score", score);
 
                 cmd.ExecuteNonQuery();
+
+                DatabaseClose();
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
+        public int DeleteJudgeInCategory(List<JudgeCategory> lstJudgeCat)
+        {
+            try
+            {
+                StringBuilder stringSQL = new StringBuilder();
+
+                DatabaseOpen();
+                for (int i = 0; i < lstJudgeCat.Count; i++)
+                {
+                    stringSQL = new StringBuilder();
+                    stringSQL.Append("DELETE FROM ");
+                    stringSQL.Append(TABLE_JUDGE_CAT);
+                    stringSQL.Append(" WHERE user_id = @judgeID AND category_id = @categoryID;");
+
+                    MySqlCommand cmd = new MySqlCommand(stringSQL.ToString(), _conn);
+                    cmd.Parameters.AddWithValue("@categoryID", lstJudgeCat[i].CategoryID);
+                    cmd.Parameters.AddWithValue("@judgeID", lstJudgeCat[i].UserID);
+
+                    cmd.ExecuteNonQuery();
+                }
+
 
                 DatabaseClose();
                 return 1;

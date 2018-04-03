@@ -139,6 +139,24 @@ namespace AITAwards {
         protected global::System.Web.UI.WebControls.Label lbAlert;
         
         /// <summary>
+        /// btnUpdateJudge control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUpdateJudge;
+        
+        /// <summary>
+        /// tbody1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tbody1;
+        
+        /// <summary>
         /// btnApproveJudge control.
         /// </summary>
         /// <remarks>

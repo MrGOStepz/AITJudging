@@ -23,34 +23,6 @@ namespace AITAwards
 
                 _userProfile = AppSession.GetUserProfile();          
                 _judgeCategory = AppSession.GetJudgeAndCategory();
-                //if (Request.QueryString["projectid"] != null)
-                //{
-                //    int projectid = 0;
-                //    try
-                //    {
-                //        projectid = int.Parse(Request.QueryString["projectid"]);
-
-                //        UserProfile userProfile = new UserProfile();
-                //        JudgeCategory judgeCategory = new JudgeCategory();
-
-                //        userProfile = AppSession.GetUserProfile();
-                //        judgeCategory = AppSession.GetJudgeAndCategory();
-
-                //        //2 = Judge
-                //        if (userProfile.UserLevel != 2)
-                //            Response.Redirect("Index.aspx");
-                //    }
-                //    catch (Exception)
-                //    {
-                //        Response.Redirect("Categories.aspx");
-                //    }
-
-                //    InitializePage(projectid);
-                //}
-                //else
-                //{
-                //    Response.Redirect("StudentWork.aspx");
-                //}
 
                 AppSession.SetUserProfile(_userProfile);
                 AppSession.SetJudgeAndCategory(_judgeCategory);
@@ -78,6 +50,7 @@ namespace AITAwards
             if (projectDetail.TypeFileID == 1)
             {
                 imgProject.Visible = true;
+                vdoCon.Visible = false;
                 lrURL.Visible = false;
                 if (projectDetail.CategoryID == 0)
                     Response.Redirect("Index.aspx");
@@ -101,12 +74,21 @@ namespace AITAwards
                 //    lbCDiv2.Text = "";
                 //}
 
-                imgProject.Attributes.Add("style", "width: auto; height: 50vh;");
+                if (image.Height > image.Width)
+                {
+                    imgProject.Attributes.Add("style", "width: auto; height: 50vh;");
+                }
+                else
+                {
+                    imgProject.Attributes.Add("style", "width: 100%; height: auto;");
+                }
+
 
             }
             else
             {
                 imgProject.Visible = false;
+                vdoCon.Visible = true;
                 lrURL.Visible = true;
                 lrURL.Text = projectDetail.PathFile;
             }
@@ -135,12 +117,12 @@ namespace AITAwards
             {
                 criterScore = 0.0f;
                 criteriaName = rubricDetail.ListCriteriaDetail[i].Name;
-                rubricTB.Controls.Add(new LiteralControl("<th scope = 'row'>" + criteriaName + "</th>"));
+                rubricTB.Controls.Add(new LiteralControl("<td style='font-size:13px;'> " + criteriaName + "</td>"));
                 rubricTB.Controls.Add(new LiteralControl("<td> <table class='table table-bordered'> <tr>"));
 
                 for (int j = 0; j < rubricDetail.ListCriteriaDetail[i].LevelCritieria.Count; j++)
-                {
-                    rubricTB.Controls.Add(new LiteralControl("<td>"));
+                { 
+                    rubricTB.Controls.Add(new LiteralControl("<td style='font-size:11px;'>"));
                     rubricTB.Controls.Add(new LiteralControl(rubricDetail.ListCriteriaDetail[i].LevelCritieria[j].Description));
                     rubricTB.Controls.Add(new LiteralControl("</td>"));
 
@@ -148,7 +130,7 @@ namespace AITAwards
                         criterScore = rubricDetail.ListCriteriaDetail[i].LevelCritieria[j].ValueScore;
                 }
 
-                rubricTB.Controls.Add(new LiteralControl("</tr> </table> </td> <td>"));
+                rubricTB.Controls.Add(new LiteralControl("</tr> </table> </td> <td style='font-size:13px;'>"));
                 rubricTB.Controls.Add(new LiteralControl(criterScore.ToString("0.0")));
                 rubricTB.Controls.Add(new LiteralControl("</td> </tr>"));
                 
@@ -178,12 +160,6 @@ namespace AITAwards
 
             AppSession.SetListAnswer(null);
             Response.Redirect("StudentWork.aspx");
-        }
-
-        [WebMethod()]
-        public static void TestClick()
-        {
-            return;
         }
 
     }

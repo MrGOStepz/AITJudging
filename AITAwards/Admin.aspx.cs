@@ -11,7 +11,19 @@ namespace AITAwards
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (AppSession.GetUserProfile() != null)
+            {
+                UserProfile userProfile = new UserProfile();
+                userProfile = AppSession.GetUserProfile();
 
+                //2 = Judge
+                if (userProfile.UserLevel != 1)
+                    Response.Redirect("Login.aspx");
+            }
+            else
+            {
+                Response.Redirect("Login.aspx");
+            }
         }
 
         protected void Menu_Click(object sender, EventArgs e)

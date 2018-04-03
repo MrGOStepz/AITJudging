@@ -27,13 +27,13 @@ namespace AITAwards
                 AppSession.SetJudgeAndCategory(_judgeCategory);
                 //2 = Judge
                 if (_userProfile.UserLevel != 2)
-                    Response.Redirect("Index.aspx");
+                    Response.Redirect("Login.aspx");
         
                 InitializePage(_userProfile, _judgeCategory);
             }
             else
             {
-                Response.Redirect("Index.aspx");
+                Response.Redirect("Login.aspx");
             }
         
         }
