@@ -28,6 +28,8 @@ namespace AITAwards
                 //2 = Judge
                 if (_userProfile.UserLevel != 2)
                     Response.Redirect("Login.aspx");
+                //if (_judgeCategory.CategoryID == 1)
+                //    Response.Redirect("BestScore.aspx");
         
                 InitializePage(_userProfile, _judgeCategory);
             }

@@ -222,8 +222,8 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">List User</strong>
-                            <asp:Button ID="btnUpdateJudge" runat="server" Text="Approve" CssClass="btn btn-primary" OnClick="btnUpdateJudge_Click"/>
+                            <strong class="card-title">List of Judge in Category &nbsp&nbsp</strong>
+                            <asp:Button ID="btnUpdateJudge" runat="server" Text="Update" CssClass="btn btn-primary" OnClick="btnUpdateJudge_Click"/>
                         </div>
                         <div class="card-body">
                   <table id="bootstrap-data-table1" class="table table-striped table-bordered">

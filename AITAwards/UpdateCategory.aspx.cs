@@ -83,7 +83,7 @@ namespace AITAwards
             {
                 ImageButton image = new ImageButton();
                 image.ID = "img" + lstAitEvent[i].EventID;
-                image.ImageUrl = "../Images/Event/" + lstAitEvent[i].PathFile;
+                image.ImageUrl = "Images/Event/" + lstAitEvent[i].PathFile;
                 image.CssClass = "image-background";
 
                 image.Click += Image_Click;

@@ -62,7 +62,7 @@ namespace AITAwards
                 try
                 {
                     string filename = String.Format("{0}_{1}", DateTime.Now.Ticks, fileUpload.FileName);
-                    fileUpload.SaveAs(Server.MapPath("../Images/Categories/") + filename);
+                    fileUpload.SaveAs(Server.MapPath("Images/Categories/") + filename);
                     aitCategories.PathFile = filename;
                 }
                 catch (Exception ex)

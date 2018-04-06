@@ -38,9 +38,9 @@
                     <a class="nav-link" href="StudentWork.aspx">Student Work</a>
                   </li>
 
-                  <li class="nav-item">
+<%--                  <li class="nav-item">
                     <a class="nav-link" href="AllCategories.aspx">Score</a>
-                  </li>
+                  </li>--%>
             </ul>
             
               <div class="form-inline my-2 my-lg-0">

@@ -87,7 +87,7 @@ namespace AITAwards
                 try
                 {
                     string filename = String.Format("{0}_{1}", DateTime.Now.Ticks, fileUpload.FileName);
-                    fileUpload.SaveAs(Server.MapPath("../Images/Event/") + filename);
+                    fileUpload.SaveAs(Server.MapPath("Images/Event/") + filename);
                     aitEvent.PathFile = filename;
                 }
                 catch (Exception ex)

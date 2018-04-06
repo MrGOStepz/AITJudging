@@ -39,7 +39,7 @@ namespace AITAwards
                     }
                     catch (Exception)
                     {
-                        Response.Redirect("../AdminJudge.aspx");
+                        Response.Redirect("Admin.aspx");
                     }
 
                     IAdminDatabase adminDB = new AdminDB();

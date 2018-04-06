@@ -138,7 +138,7 @@
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Event</h1>
+                        <h1>Add Student Work</h1>
                     </div>
                 </div>
             </div>
@@ -146,9 +146,7 @@
                 <div class="page-header float-right">
                     <div class="page-title">
                         <ol class="breadcrumb text-right">
-                            <li><%--<a href="#">Dashboard</a>--%></li>
-                            <li><%--<a href="#">Forms</a>--%></li>
-                            <li class="active"><%--Basic--%></li>
+                            <li class="active">Add Student Work</li>
                         </ol>
                     </div>
                 </div>
@@ -162,17 +160,37 @@
 
                   <div class="col-lg-12">
                       <div class="card">
-                      <div class="card-header"><strong>Create Category</strong></div>
+                      <div class="card-header"><strong>Add Student Work</strong></div>
                       <div class="card-body card-block">
-                        <div class="form-group"><label for="name" class=" form-control-label">Name</label><asp:TextBox ID="txtCategoryName" runat="server" CssClass="form-control" placeholder="Category name"></asp:TextBox></div>
-                         <div class="form-group"><label for="name" class=" form-control-label">Event &nbsp&nbsp</label><asp:DropDownList ID="ddlEvent" runat="server" CssClass="btn btn-secondary dropdown-toggle"></asp:DropDownList></div>
+                        <div class="form-group"><label for="title" class=" form-control-label">Title</label><asp:TextBox ID="txtTitle" runat="server" CssClass="form-control" placeholder="Title"></asp:TextBox></div>
+                          <div class="form-group"><label for="description" class=" form-control-label">Description</label><asp:TextBox ID="txtDescription" runat="server" CssClass="form-control" placeholder="Description"></asp:TextBox></div>
+                        
                           <div class="form-group">
-                              <label for="fileUpload" class=" form-control-label">File Upload</label>
-                                  <asp:FileUpload ID="fileUpload" runat="server" accept=".png,.jpg,.jpeg,.gif,.tif"/>
+                            <label for="event" class=" form-control-label">Event &nbsp&nbsp</label><asp:DropDownList ID="ddlEvent" runat="server" CssClass="btn btn-secondary dropdown-toggle"></asp:DropDownList>
+                            <asp:Button ID="btnSearchCategories" runat="server" Text="Search Categories" CssClass="btn btn-primary" OnClick="btnSearchCategories_Click"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="category" class=" form-control-label">Category &nbsp&nbsp</label>
+                            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="btn btn-secondary dropdown-toggle"></asp:DropDownList>                      
+                        </div>
+
+                          <div class="form-group"><label for="typefile" class=" form-control-label">Type of file</label><asp:DropDownList ID="ddlTypeID" runat="server" CssClass="btn btn-secondary dropdown-toggle"></asp:DropDownList></div>
+                          <div class="form-group" id="divURL" runat="server"><label for="name" class=" form-control-label">Url Embed (Only Type of File is URL)</label><asp:TextBox ID="txtURL" runat="server" CssClass="form-control" placeholder="Url embed"></asp:TextBox></div>
+                          
+                          <div class="form-group" id="divFileUpload" runat="server">
+
+                              <label for="fileUpload" class=" form-control-label">File Upload (Only Type of File is Image) (should < 5 MB.)</label>
+                                  <asp:FileUpload ID="fileUpload" runat="server" accept=".png,.jpg,.jpeg,.gif"/>
                           </div>
 
-                        <asp:Button ID="btnAddCategory" runat="server" Text="Add Category" CssClass="btn btn-primary btn-lg btn-block" OnClick="btnAddCategory_Click"/>
-                                <div class="alert alert-success" role="alert" runat="server" id="alertControl" visible="false">
+                          <div class="form-group" id="divFileUploadPreview" runat="server">
+                              <label for="preview" class=" form-control-label">Image Preview (should < 500 KB.)</label>
+                                  <asp:FileUpload ID="fileUpload1" runat="server" accept=".png,.jpg,.jpeg,.gif"/>
+                          </div>
+
+                        <asp:Button ID="btnAddProject" runat="server" Text="Add Project" CssClass="btn btn-primary btn-lg btn-block" OnClick="btnAddProject_Click"/>
+                        
+                          <div class="alert alert-success" role="alert" runat="server" id="alertControl" visible="false">
                               <asp:Label ID="lbAlert" runat="server" Text=""></asp:Label>
                             </div>
 
@@ -181,6 +199,7 @@
                   </div>
 
                 </div>
+
             </div>
 
             </div><!-- .animated -->

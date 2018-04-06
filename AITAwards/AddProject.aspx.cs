@@ -13,78 +13,58 @@ namespace AITAwards
         {
             alertControl.Visible = false;
 
-            if (AppSession.GetUserProfile() != null)
-            {
-                UserProfile userProfile = new UserProfile();
-                userProfile = AppSession.GetUserProfile();
+            //if (AppSession.GetUserProfile() != null)
+            //{
+            //    UserProfile userProfile = new UserProfile();
+            //    userProfile = AppSession.GetUserProfile();
 
-                //2 = Judge
-                if (userProfile.UserLevel != 1)
-                    Response.Redirect("Login.aspx");
-            }
-            else
-            {
-                Response.Redirect("Login.aspx");
-            }
+            //    //2 = Judge
+            //    if (userProfile.UserLevel != 1)
+            //        Response.Redirect("Login.aspx");
+            //}
+            //else
+            //{
+            //    Response.Redirect("Login.aspx");
+            //}
 
             if (!IsPostBack)
             {
-                IAdminDatabase adminDB = new AdminDB();
-
-                List<AITEvent> aitEvent = new List<AITEvent>();
-                aitEvent = adminDB.GetListEvent();
-
-                ddlEvent.Items.Clear();
-                for (int i = 0; i < aitEvent.Count; i++)
-                {
-                    ddlEvent.Items.Insert(i, new ListItem(aitEvent[i].Name, aitEvent[i].EventID.ToString()));
-                }
+                InitializePage();
             }
         }
 
-        protected void btnAddCategory_Click(object sender, EventArgs e)
+        private void InitializePage()
         {
-            if (txtCategoryName.Text == "")
-            {
-                alertControl.Visible = true;
-                ShowAlert("Please fill up the event name!", true);
-                return;
-            }
-
-            AITCategories aitCategories = new AITCategories();
-
-            aitCategories.Name = txtCategoryName.Text;
-            aitCategories.EventID = int.Parse(ddlEvent.SelectedValue);
-
-
-            if (fileUpload.HasFile)
-            {
-                try
-                {
-                    string filename = String.Format("{0}_{1}", DateTime.Now.Ticks, fileUpload.FileName);
-                    fileUpload.SaveAs(Server.MapPath("../Images/Categories/") + filename);
-                    aitCategories.PathFile = filename;
-                }
-                catch (Exception ex)
-                {
-                    ShowAlert("Upload status: The file could not be uploaded. The following error occured: " + ex.Message, true);
-                    return;
-                }
-            }
-            else
-            {
-                aitCategories.PathFile = "CategoryImage.png";
-            }
-
             IAdminDatabase adminDB = new AdminDB();
-            if (adminDB.AddCategory(aitCategories) > 0)
+
+            List<AITEvent> aitEvent = new List<AITEvent>();
+            List<AITCategories> lstAitCategories = new List<AITCategories>();
+            List<TypeFileDetail> lstTypeFile = new List<TypeFileDetail>();
+
+            aitEvent = adminDB.GetListEvent();
+            lstTypeFile = adminDB.GetTypeFileDetail();
+
+            ddlEvent.Items.Clear();
+            ddlCategory.Items.Clear();
+            ddlTypeID.Items.Clear();
+
+            for (int i = 0; i < lstTypeFile.Count; i++)
             {
-                ShowAlert("Add Category Complete!", false);
-                txtCategoryName.Text = "";
+                ddlTypeID.Items.Insert(i, new ListItem(lstTypeFile[i].TypeFileName, lstTypeFile[i].TypeFileID.ToString()));
             }
-            else
+
+
+            for (int i = 0; i < aitEvent.Count; i++)
             {
-                ShowAlert("Something wrong!", true);
+                ddlEvent.Items.Insert(i, new ListItem(aitEvent[i].Name, aitEvent[i].EventID.ToString()));
+            }
+
+            lstAitCategories = new List<AITCategories>();
+            lstAitCategories = adminDB.GetListCategoryByEventID(int.Parse(ddlEvent.SelectedValue));
+
+            for (int i = 0; i < lstAitCategories.Count; i++)
+            {
+                ddlCategory.Items.Insert(i, new ListItem(lstAitCategories[i].Name, lstAitCategories[i].CategoryID.ToString()));
             }
         }
 
@@ -130,5 +110,115 @@ namespace AITAwards
                     break;
             }
         }
+
+        protected void btnSearchCategories_Click(object sender, EventArgs e)
+        {
+            IAdminDatabase adminDB = new AdminDB();
+
+            List<AITCategories> lstAitCategories = new List<AITCategories>();
+            lstAitCategories = adminDB.GetListCategoryByEventID(int.Parse(ddlEvent.SelectedValue));
+
+            ddlCategory.Items.Clear();
+            for (int i = 0; i < lstAitCategories.Count; i++)
+            {
+                ddlCategory.Items.Insert(i, new ListItem(lstAitCategories[i].Name, lstAitCategories[i].CategoryID.ToString()));
+            }
+        }
+
+        protected void btnAddProject_Click(object sender, EventArgs e)
+        {
+            ProjectDetail projectDetail = new ProjectDetail();
+
+            if (txtTitle.Text == "")
+            {
+                alertControl.Visible = true;
+                ShowAlert("Please fill up the title name!", true);
+                return;
+            }
+
+            //AITCategories aitCategories = new AITCategories();
+
+            projectDetail.Name = txtTitle.Text;
+            projectDetail.Description = txtDescription.Text;
+            projectDetail.CategoryID = int.Parse(ddlCategory.SelectedValue);
+
+            string projectFilename;
+            string preProjectFilename;
+
+            if (ddlTypeID.SelectedValue == "1")
+            {
+                if (fileUpload.HasFile)
+                {
+                    try
+                    {
+                        projectFilename = String.Format("{0}_{1}", DateTime.Now.Ticks, fileUpload.FileName);
+
+                        string subPath = "Images/Projects/" + int.Parse(ddlCategory.SelectedValue);
+                        bool exists = System.IO.Directory.Exists(Server.MapPath(subPath));
+                        if (!exists)
+                            System.IO.Directory.CreateDirectory(Server.MapPath(subPath));
+
+                        fileUpload.SaveAs(Server.MapPath("Images/Projects/" + int.Parse(ddlCategory.SelectedValue) + "/" + projectFilename));
+                        projectDetail.PathFile = projectFilename;
+                        projectDetail.TypeFileID = 1;
+                    }
+                    catch (Exception ex)
+                    {
+                        ShowAlert("Upload status: The file could not be uploaded. The following error occured: " + ex.Message, true);
+                        return;
+                    }
+                }
+                else
+                {
+                    projectDetail.PathFile = "ProjectImage.png";
+                }
+            }
+            else if (ddlTypeID.SelectedValue == "2")
+            {
+                projectDetail.TypeFileID = 2;
+                projectDetail.PathFile = txtURL.Text;
+            }
+
+            //Preview Image
+            if (fileUpload1.HasFile)
+            {
+                try
+                {
+                    preProjectFilename = String.Format("{0}_{1}", DateTime.Now.Ticks, fileUpload.FileName);
+
+                    string subPath = "Images/Projects/pre_" + int.Parse(ddlCategory.SelectedValue);
+                    bool exists = System.IO.Directory.Exists(Server.MapPath(subPath));
+                    if (!exists)
+                        System.IO.Directory.CreateDirectory(Server.MapPath(subPath));
+
+                    fileUpload1.SaveAs(Server.MapPath("Images/Projects/pre_" + int.Parse(ddlCategory.SelectedValue) + "/" + preProjectFilename));
+                    projectDetail.PreImage = preProjectFilename;
+                }
+                catch (Exception ex)
+                {
+                    ShowAlert("Upload status: The file could not be uploaded. The following error occured: " + ex.Message, true);
+                    return;
+                }
+            }
+            else
+            {
+                projectDetail.PreImage = "ProjectImage.png";
+            }
+
+            IAdminDatabase adminDB = new AdminDB();
+            if (adminDB.AddProject(projectDetail) > 0)
+            {
+                ShowAlert("Add Category Complete!", false);
+                txtTitle.Text = "";
+                txtDescription.Text = "";
+                txtURL.Text = "";
+            }
+            else
+            {
+                ShowAlert("Something wrong!", true);
+            }
+        }
+
+
     }
 }

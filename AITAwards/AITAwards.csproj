@@ -156,6 +156,12 @@
     <Content Include="AddProject.aspx" />
     <Content Include="AddCategory.aspx" />
     <Content Include="AddEvent.aspx" />
+    <Content Include="AddRubric.aspx" />
+    <Content Include="BestScore.aspx" />
+    <Content Include="BestScoreCategory.aspx" />
+    <Content Include="DeleteProject.aspx" />
+    <Content Include="ScoreArtistDetail.aspx" />
+    <Content Include="ScoreArtistStudentWork.aspx" />
     <Content Include="SessionGone.aspx" />
     <Content Include="UpdateCategory.aspx" />
     <Content Include="UpdateEvent.aspx" />
@@ -172,6 +178,8 @@
     <Content Include="Images\Projects\ProjectImageP.png" />
     <Content Include="ScoreStudentWork.aspx" />
     <Content Include="StudentWorkDetail.aspx" />
+    <Content Include="UpdateProject.aspx" />
+    <Content Include="UpdateProjectDetail.aspx" />
     <Content Include="UserControl\UpdateCategoryDetailControl.ascx" />
     <Content Include="UserControl\BreadCrumbControl.ascx" />
     <Content Include="Images\admin.jpg" />
@@ -749,7 +757,37 @@
     <Compile Include="AddEvent.aspx.designer.cs">
       <DependentUpon>AddEvent.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AddRubric.aspx.cs">
+      <DependentUpon>AddRubric.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddRubric.aspx.designer.cs">
+      <DependentUpon>AddRubric.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AddRubricDetail.cs" />
+    <Compile Include="App_Data\AdminDatabase.cs" />
+    <Compile Include="BestScore.aspx.cs">
+      <DependentUpon>BestScore.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BestScore.aspx.designer.cs">
+      <DependentUpon>BestScore.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BestScoreCategory.aspx.cs">
+      <DependentUpon>BestScoreCategory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BestScoreCategory.aspx.designer.cs">
+      <DependentUpon>BestScoreCategory.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Class\YouTubeScriptGenerator.cs" />
+    <Compile Include="DeleteProject.aspx.cs">
+      <DependentUpon>DeleteProject.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DeleteProject.aspx.designer.cs">
+      <DependentUpon>DeleteProject.aspx</DependentUpon>
+    </Compile>
     <Compile Include="InviteJudge.aspx.cs">
       <DependentUpon>InviteJudge.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -757,6 +795,7 @@
     <Compile Include="InviteJudge.aspx.designer.cs">
       <DependentUpon>InviteJudge.aspx</DependentUpon>
     </Compile>
+    <Compile Include="App_Data\JudgeDatabase.cs" />
     <Compile Include="ManageJudge.aspx.cs">
       <DependentUpon>ManageJudge.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -788,6 +827,20 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="ScoreArtistDetail.aspx.cs">
+      <DependentUpon>ScoreArtistDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ScoreArtistDetail.aspx.designer.cs">
+      <DependentUpon>ScoreArtistDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ScoreArtistStudentWork.aspx.cs">
+      <DependentUpon>ScoreArtistStudentWork.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ScoreArtistStudentWork.aspx.designer.cs">
+      <DependentUpon>ScoreArtistStudentWork.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SessionGone.aspx.cs">
       <DependentUpon>SessionGone.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -796,6 +849,7 @@
       <DependentUpon>SessionGone.aspx</DependentUpon>
     </Compile>
     <Compile Include="Switch.Device.cs" />
+    <Compile Include="TypeFileDetail.cs" />
     <Compile Include="UpdateCategory.aspx.cs">
       <DependentUpon>UpdateCategory.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -837,6 +891,20 @@
     </Compile>
     <Compile Include="StudentWorkDetail.aspx.designer.cs">
       <DependentUpon>StudentWorkDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateProject.aspx.cs">
+      <DependentUpon>UpdateProject.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UpdateProject.aspx.designer.cs">
+      <DependentUpon>UpdateProject.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateProjectDetail.aspx.cs">
+      <DependentUpon>UpdateProjectDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UpdateProjectDetail.aspx.designer.cs">
+      <DependentUpon>UpdateProjectDetail.aspx</DependentUpon>
     </Compile>
     <Compile Include="UserControl\UpdateCategoryDetailControl.ascx.cs">
       <DependentUpon>UpdateCategoryDetailControl.ascx</DependentUpon>

@@ -24,8 +24,18 @@ namespace AITAwards
         int UpdateCriteria(CriteriaDetail criteriaDetail);
         int UpdateLevelCriteria(List<LevelCriteria> lstLevelCriteria);
 
+        int AddProject(ProjectDetail projecDetail);
+        int UpdateProject(ProjectDetail porjectDetail);
+        int DeleteProject(int projectID);
+        ProjectDetail GetProjectDetailByID(int projectID);
+
+        List<TypeFileDetail> GetTypeFileDetail();
+
         List<CriteriaDetail> GetCriteriaDetailByCategoryID(int categoryID);
         List<LevelCriteria> GetLevelCriteriaByCriteriaDetail(int criteriaID);
+        string GetListOfProject();
+
+        int AddRubric(RubricDetail rubricDetail);
     }
 
     interface IJudgeDatabase
@@ -36,8 +46,9 @@ namespace AITAwards
 
         List<LevelCriteria> GetListOfLevelCriteriaByCriteriaID(int criteriaID);
         List<CriteriaDetail> GetCriteriaByCategoryID(int categoryID);
-
+        List<ProjectDetail> GetListOfProjectBySupCategory(int categoryID);
         List<int> GetListProjectDoneByJudgeIDAndCategoryID(int judgeID, int categoryID);
+        List<int> GetListProjectDoneByJudgeIDAndSubCategoryID(int judgeID, int categoryID);
 
         float GetTotalScoreByCategoryID(List<int> lstCriteria);
         double GetTotalScoreByProjectID(int Project);
@@ -48,5 +59,7 @@ namespace AITAwards
         int AddJudgeByCategory(List<JudgeCategory> lstJudgeCat);
         int DeleteJudgeInCategory(List<JudgeCategory> lstJudgeCat);
         int AddTotalScoreProjectByJudge(int projectID, int judgeID, float score);
+
+
     }
 }

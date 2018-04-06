@@ -58,7 +58,14 @@ namespace AITAwards
             imageID = imageButton.ID;
             imageID = imageID.Substring(3);
 
-            Response.Redirect("ScoreStudentWork.aspx?categoryID="+ imageID);
+            if (imageID == "1")
+            {
+                Response.Redirect("ScoreArtistStudentWork.aspx");
+            }
+            else
+            {
+                Response.Redirect("ScoreStudentWork.aspx?categoryID=" + imageID);
+            }
         }
 
     }

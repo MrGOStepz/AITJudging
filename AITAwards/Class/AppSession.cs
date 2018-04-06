@@ -7,6 +7,23 @@ namespace AITAwards
 {
     public static class AppSession
     {
+        public static void SetAddRubricDetail(AddRubricDetail addRubricDetail)
+        {
+            HttpContext.Current.Session["AddRubricDetail"] = addRubricDetail;
+        }
+
+        public static AddRubricDetail GetAddRubricDetail()
+        {
+            if (HttpContext.Current.Session["AddRubricDetail"] == null)
+            {
+                return null;
+            }
+            else
+            {
+                return (AddRubricDetail)HttpContext.Current.Session["AddRubricDetail"];
+            }
+        }
+
         public static void SetTotalScore(float totalScore)
         {
             HttpContext.Current.Session["TotalScore"] = totalScore;
